@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import './layouts/_nav.css';
+@import './layouts/_footer.css';
+
+@import './pages/_login.css';
+@import './pages/_edit.css';
+
+@import './components/_input.css';
+@import './components/_button.css';
+@import './components/_flash-message.css';
+
+
+:root {
+  --blue-950: oklch(10% 0.02 250);
+  --blue-900: oklch(12% 0.03 250);
+  --blue-800: oklch(18% 0.04 250);
+  --blue-700: oklch(24% 0.045 250);
+  /* --blue-700: oklch(25% 0.06 250); */
+  --blue-600: oklch(35% 0.08 250);
+  --blue-500: oklch(45% 0.10 250);
+  --blue-400: oklch(60% 0.12 250);
+  --blue-300: oklch(75% 0.10 250);
+  --blue-200: oklch(88% 0.06 250);
+  --blue-100: oklch(95% 0.02 250);
+
+  /* --color-grayblue-300: oklch(85% 0.05 250); */
+  --color-grayblue-800: oklch(30% 0.05 250);
+  --color-grayblue-300: oklch(85% 0.03 250);
+  --color-grayblue-400: oklch(80% 0.03 250);
+
+  --color-grayblue-200: oklch(90% 0.03 250);
+  --color-grayblue-100: oklch(95% 0.015 250);
+  --color-grayblue-50: oklch(97% 0.01 250);
+  --color-grayblue-25: oklch(98.5% 0.005 250);
+
+  --focus-glow: oklch(95% 0.015 250);
+  /* --focus-glow: oklch(95% 0.2 250 / 40%); */
+  /* --focus-border: oklch(60% 0.1 250); */
+
+  --color-light-gray: oklch(80% 0 0); 
+  --light: oklch(100% 0 0);
+  --dark: oklch(20% 0 0);
+
+  --space-xxxs: 0.25rem;
+  --space-xxs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem; 
+  --space-md: 1.5rem; 
+  --space-lg: 2.5rem;
+  --space-xl: 5rem;
+  --space-xxl: 7.5rem;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-circle: 50%;
+
+  --font-xxs: 0.25rem;
+  --font-xs: 0.5rem;
+  --font-sm: 0.75rem;
+  --font-md: 1rem;
+  --font-lg: 1.5rem;
+  --font-xl: 2.5rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  line-height: 1.6;
+  font-size: var(--font-base);
+}
+
+.container{
+  max-width: 1200px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+a{
+  text-decoration: none;
+  color: var(--dark);
+  font-weight: 500;
+  transition: 0.4s;
+
+  &:hover{
+    color: var(--color-light-gray);
+  }
+}
+
+ul li{
+  list-style: none;
+}
+
+main{
+  padding-top: var(--space-md);
+}

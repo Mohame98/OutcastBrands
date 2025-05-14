@@ -1,0 +1,107 @@
+input{
+  padding: var(--space-sm);
+  border-radius: 8px;
+  border: 1px solid var(--color-grayblue-400);
+  
+  &:hover{
+    background-color: var(--color-grayblue-25);
+  }
+}
+
+input:focus {
+  outline: none;
+  /* border-color: var(--color-grayblue-400); */
+  box-shadow: 0 0 0 4px var(--focus-glow);
+}
+
+input::placeholder {
+  color: var(--blue-950);
+  opacity: 1;
+}
+
+#profile-image{
+  display: none;
+}
+
+.media-preview{
+  height: 200px;
+  border-radius: var(--radius-md);
+  background-position: center;     
+  background-size: contain;        
+  background-repeat: no-repeat;  
+  transition: background-image 0.6s ease;
+}
+
+.media-input {
+  border: 1px dashed var(--color-grayblue-300);
+  /* padding-top: var(--space-sm); */
+  border-radius: var(--radius-md);
+  min-height: 200px;
+  position: relative;
+  cursor: pointer;
+  transition: 0.4s ease-in-out;
+
+  .media-label {
+    cursor: pointer;
+    background-color: var(--color-grayblue-25);
+    border: 1px solid var(--color-grayblue-100);
+    font-size: var(--font-sm);
+    border-radius: var(--radius-md);
+    width: fit-content;
+    padding: 7px 9px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    transition: background-color 0.3s ease;
+
+    &:hover{
+      background-color: var(--color-grayblue-100);
+    }
+  }
+
+  .upload-info{
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-xxs);
+    font-size: var(--font-sm);
+  }
+}
+
+.media-input.dragging {
+  box-shadow: 0 0 0 4px var(--focus-glow);
+}
+
+.media-input.has-image{
+  .upload-info{
+    display: none;
+  }
+
+  .media-label{
+    left: auto;
+    right: 10px;
+    top: 60px;
+  }
+
+  .media-label > span{
+    display: none;
+  }
+}
+
+.clear-media-btn {
+  background-color: transparent;
+  font-size: var(--font-sm);
+  color: var(--light);
+  padding: 8px 11px;
+  border-radius: var(--radius-md);
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  transition: 0.4s;
+
+  &:hover{
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+}
