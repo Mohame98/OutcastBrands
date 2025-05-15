@@ -33,7 +33,7 @@
 			<nav class="desktop-nav" aria-label="Desktop navigation right">
 				@guest
 				<ul>
-					<li><x-nav-links href="{{ route('signin') }}" :active="request()->is('signin')"><i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In</x-nav-links></li>
+					<li><x-nav-links href="{{ route('login') }}" :active="request()->is('login')"><i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In</x-nav-links></li>
 				</ul>
 				@endguest
 				@if(auth()->check() && auth()->user()->hasVerifiedEmail())

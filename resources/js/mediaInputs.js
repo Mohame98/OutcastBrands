@@ -48,12 +48,12 @@ export function handleMedia(){
 
     const allowedTypes = ['image/png', 'image/jpeg'];
     if (!allowedTypes.includes(file.type)) {
-      handleError('Only PNG and JPG images are allowed.');
+      handleError('Only PNG and JPG images are allowed.', 'profile_image');
       return;
     }
 
     if (file.size > 1048576){
-      handleError('File is too large. Choose image under 1KB.');
+      handleError('File is too large. Choose image under 1KB.', 'profile_image');
       return;
     } 
     
@@ -69,8 +69,8 @@ export function handleMedia(){
   }
 }
 
-function handleError(message){
-  const errorEl = document.querySelector('.error-profile_image');
+function handleError(message, field){
+  const errorEl = document.querySelector(`.error-${field}`);
   if (errorEl) {
     errorEl.textContent = `${message}`;
     errorEl.style.display = 'block';

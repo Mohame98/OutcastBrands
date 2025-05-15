@@ -84,7 +84,7 @@
             aria-controls="username-modal" 
             aria-expanded="false">
             <span>
-              <span>Username : 
+              <span class="current-username">Username : 
                 {{ auth()->user()->username }}
               </span>
               <span>Change your username</span>
@@ -92,23 +92,31 @@
             <i class="fa-solid fa-chevron-right"></i>
           </button>
           <dialog id="username-modal" class="username-modal">
-					  <form action="{{ route('username.change') }}" method="POST" class="action-form">
+					  <form action="{{ route('username.change') }}" method="POST" class="user action-form" data-action="change-username">
               @csrf
               @method('PATCH')
               <fieldset>
                 <header>
                   <legend><h1>Change Username</h1></legend>
+                  <i class="fa-solid fa-xmark close-modal"></i>
                 </header>
+                <p>Choose a unique username that represents you.</p>
                 <div>
-                  <label for="username">username</label>
-                  <input type="text" name="username" id="username" aria-label="Enter your new username"
-                  value="{{ old('username', auth()->user()->username) }}" required>
                   <x-form-error name='username'></x-form-error>
+                  <label for="username">New Username</label>
+                  <input type="text" name="username" id="change-username" aria-label="Enter your new username"
+                  value="{{ old('username', auth()->user()->username) }}" maxlength="90" required>
+                  <small id="charCount"></small>
                 </div>
-          
-                <button class="btn main-button" type="submit">
-                  Update username
-                </button>
+              
+                <div class="btn-container">
+                  <button type="button" class="btn cancel close-modal">
+                    Cancel
+                  </button>
+                  <button class="btn update" type="submit">
+                    Update
+                  </button>
+                </div>
               </fieldset>
             </form> 
 				  </dialog>
@@ -133,11 +141,13 @@
               <fieldset>
                 <header>
                   <legend><h1>Change Password</h1></legend>
+                  <i class="fa-solid fa-xmark close-modal"></i>
                 </header>
+                <p>Updating your password. Use at least 8 characters for safety.</p>
                 <div>
-                  <label for="current_password">Current Password</label>
-                  <input type="password" name="current_password" id="current_password"  aria-label="Enter your current password">
                   <x-form-error name="current_password" />
+                  <label for="current_password">Current Password</label>
+                  <input type="password" name="current_password" id="current_password" aria-label="Enter your current password">
                 </div>
 
                 <div>
@@ -151,9 +161,14 @@
                   <input type="password" name="password_confirmation" id="password_confirmation" aria-label="Enter password confirmation" >
                 </div>
 
-                <button class="btn main-button" type="submit">
-                  Update Password
-                </button>
+                <div class="btn-container">
+                  <button type="button" class="btn cancel close-modal">
+                    Cancel
+                  </button>
+                  <button class="btn update" type="submit">
+                    Update
+                  </button>
+                </div>
               </fieldset>
             </form>
 				  </dialog>
@@ -172,17 +187,29 @@
             <i class="fa-solid fa-chevron-right"></i>
           </button>
           <dialog id="password-modal" class="password-modal">
-            <form action="{{ route('account.delete') }}" method="POST">
+            <form action="{{ route('account.delete') }}" method="POST" class="action-form">
               @csrf
               @method('DELETE')
               <fieldset>
                 <header>
                   <legend><h1>Confirm Account Deletion</h1></legend>
+                  <i class="fa-solid fa-xmark close-modal"></i>
                 </header>
-                <p>Are you sure you want to delete your account? This action cannot be undone.</p>
-    
-                <button class="btn main-button" type="submit">Yes, Delete My Account</button>
-                <a href="{{ url('/') }}" class="btn">Cancel</a>
+                
+                <div>
+                  <x-form-error name="delete_current_password" />
+                  <label for="delete_current_password">Confirm your password to delete your account:</label>
+                  <input type="password" name="delete_current_password" id="delete_current_password" required>
+                </div>
+                
+                <div class="btn-container">
+                  <button type="button" class="btn cancel close-modal">
+                    Cancel
+                  </button>
+                  <button class="btn update" type="submit">
+                    Update
+                  </button>
+                </div>
               </fieldset>
             </form> 
           </dialog>

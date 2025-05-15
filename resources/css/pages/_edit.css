@@ -95,6 +95,7 @@
         .btn-container{
           display: flex;
           justify-content: flex-end;
+          flex-direction: row;
           gap: var(--space-xs);
         }
       }
@@ -102,6 +103,25 @@
 
     .profile-image-modal{
       width: 450px;
+    }
+
+    .username-modal{
+      fieldset > div:nth-of-type(1){
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-xs);
+      }
+
+      #charCount{
+        margin-left: auto;
+      }
+    }
+
+    .password-modal{
+      div{
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
 }

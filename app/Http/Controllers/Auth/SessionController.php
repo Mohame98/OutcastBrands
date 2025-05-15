@@ -11,6 +11,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 use App\Models\User;
 
 class SessionController extends Controller
@@ -24,9 +25,17 @@ class SessionController extends Controller
   public function storeSignup(Request $request)
   {
     $validated = $request->validate([
-      'username' => 'required|string|max:255',
+      'username' => 'required|string|max:90',
       'email' => 'required|string|email|max:255|unique:users',
-      'password' => 'required|string|confirmed|min:2',
+      'password' => [
+      'required',
+      'confirmed',
+      Password::min(8)
+        ->mixedCase()
+        ->letters()
+        ->numbers()
+        ->symbols(),
+      ],
     ]);
 
     $user = User::create([
@@ -37,7 +46,7 @@ class SessionController extends Controller
 
     event(new Registered($user));
     Auth::login($user);
-    return redirect('/signin');
+    return redirect('/signin')->with('flash_message', 'Please sign in');
   }
 
   // signin
@@ -59,7 +68,7 @@ class SessionController extends Controller
       ]);
     }
     $request->session()->regenerate();
-    return redirect('/');
+    return redirect('/')->with('flash_message', 'You have successfully signed in!');
   }
 
   public function edit()
@@ -107,7 +116,13 @@ class SessionController extends Controller
   {
     $user = Auth::user();
     $validatedData = $request->validate([
-      'username' => 'nullable|string|max:255',
+      'username' => [
+        'nullable',
+        'string',
+        'max:90',
+        'regex:/^[a-zA-Z0-9._-]+$/',
+        'unique:users,username,' . $user->id,
+      ],
     ]);
 
     if (isset($validatedData['username'])) {
@@ -115,6 +130,13 @@ class SessionController extends Controller
     }
 
     $user->save();
+     if ($request->expectsJson()) {
+      return response()->json([
+        'success' => true,
+        'message' => 'Username changed successfully.',
+        'username' => $user->username,
+      ]);
+    }
     return redirect('account/edit')->with('success', 'username changed successfully.');
   }
 
@@ -122,13 +144,21 @@ class SessionController extends Controller
   {
     $user = Auth::user();
     $validatedData = $request->validate([
-      'current_password' => 'required|string',
-      'password' => 'required|string|confirmed|',
+      'current_password' => ['required', 'string'],
+      'password' => [
+      'required',
+      'confirmed',
+      Password::min(8)
+        ->mixedCase()
+        ->letters()
+        ->numbers()
+        ->symbols(),
+      ],
     ]);
 
     if (!Hash::check($validatedData['current_password'], $user->password)) {
       return response()->json([
-        'status' => 'error',
+        'success' => false,
         'message' => 'The current password is incorrect.',
       ], 422);
     }
@@ -139,22 +169,26 @@ class SessionController extends Controller
     }
 
     return response()->json([
-      'status' => 'success',
+      'success' => true,
       'message' => 'Password updated successfully.',
     ]);
   }
 
   // delete account
-  public function deleteAccountConfirmation()
-  {
-    return view('authentication.delete-confirmation');
-  }
-
   public function deleteAccount(Request $request)
   {
+    $request->validate([
+      'current_password' => ['required', 'current_password'],
+    ]);
+
     $user = Auth::user();
     $user->delete();
-    return redirect('/');
+
+    Auth::logout();
+    return response()->json([
+      'success' => true,
+      'message' => 'Your account has been deleted.',
+    ]);
   }
 
   // logout

@@ -1,8 +1,11 @@
-<div class="message" data-action="flash-message">
-  <div class="flash-message">
-    <p class="flash-text"></p>
-    <i class="fa-solid fa-xmark"></i>
+@if(session('flash_message'))
+<section class="flash-message" data-action="flash-message" role="alert" aria-live="assertive">
+  <div>
+    <i class="fa-solid fa-info"></i>
+    <p class="flash-text">{{ session('flash_message') }}</p>
   </div>
-</div>
+  <i class="fa-solid fa-xmark"></i>
+</section>
+@endif
 
 

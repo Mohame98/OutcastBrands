@@ -1,7 +1,7 @@
 <x-main-layout>
   <section class="signin">
     <div class="container">
-      <form method="POST" action="{{ route('signin') }}">
+      <form method="POST" action="{{ route('login') }}">
         @csrf
         <fieldset>
           <header>
@@ -10,7 +10,7 @@
       
           <div>
             <label for="email">Email</label>
-            <input type="email" name="email" id="email" :value="old('email')" autocomplete="on" placeholder="Enter Email" aria-label="Enter email">
+            <input type="email" name="email" id="email" value="{{ old('email') }}" autocomplete="on" placeholder="Enter Email" aria-label="Enter email">
             <x-form-error name='email'></x-form-error>
           </div>
 

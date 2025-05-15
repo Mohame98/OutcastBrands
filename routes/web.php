@@ -49,7 +49,7 @@ Route::middleware('guest')->group(function () {
 
   Route::get('/signin', 
   [SessionController::class, 'signinView'])
-    ->name('signin');
+    ->name('login');
 
   Route::post('/signin', 
   [SessionController::class, 'checkSignin']);

@@ -12,7 +12,7 @@
       
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" name="email" id="email" :value="old('email')" placeholder="Enter email" aria-label="Enter email" required>
+            <input type="email" name="email" id="email" value="{{ old('email') }}" placeholder="Enter email" aria-label="Enter email" required>
             <x-form-error name='email'></x-form-error>
           </div>
 
@@ -20,7 +20,7 @@
         </fieldset>
       </form>
       <div class="signin-link">
-        <a href="{{ route('signin') }}">Back to SignIn</a>
+        <a href="{{ route('login') }}">Back to SignIn</a>
       </div>
     </div>
   </section> 
