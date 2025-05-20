@@ -12,6 +12,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\RateLimiter;
 use App\Models\User;
 
 class SessionController extends Controller
@@ -46,7 +47,6 @@ class SessionController extends Controller
 
     event(new Registered($user));
     Auth::login($user);
-    return redirect('/signin')->with('flash_message', 'Please sign in');
   }
 
   // signin
@@ -57,18 +57,34 @@ class SessionController extends Controller
 
   public function checkSignin(Request $request)
   {
+    $email = (string) $request->input('email');
+    $throttleKey = strtolower($email) . '|' . $request->ip();
+
+    if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
+      throw ValidationException::withMessages([
+        'email' => __('Too many login attempts. Please try again in :seconds seconds.', [
+          'seconds' => RateLimiter::availableIn($throttleKey),
+        ]),
+      ]);
+    }
+
     $attributes = $request->validate([
       'email' => ['required', 'email'],
       'password' => ['required'],
     ]);
 
     if (!Auth::attempt($attributes)) {
+      RateLimiter::hit($throttleKey);
       throw ValidationException::withMessages([
         'email' => 'Invalid email or password',
       ]);
     }
+
+    RateLimiter::clear($throttleKey);
     $request->session()->regenerate();
-    return redirect('/')->with('flash_message', 'You have successfully signed in!');
+
+    session()->flash('flash_message', 'Hello, ' . e(auth()->user()->username) . '!');
+    return redirect()->intended('/');
   }
 
   public function edit()
@@ -97,17 +113,19 @@ class SessionController extends Controller
         Storage::disk('public')->delete($user->profile_image);
       }
       $user->profile_image = null;
+      $user->save();
       return response()->json([
         'success' => true,
         'message' => 'Profile image removed.',
         'profile_image_url' => null,
+        'email_initial' => strtoupper(substr($user->email, 0, 1)),
       ]);
     }
 
     $user->save();
     return response()->json([
       'success' => true,
-      'message' => 'Profile image changed successfully.',
+      'message' => 'Profile image has been updated.',
       'profile_image_url' => asset('storage/' . $user->profile_image),
     ]);
   }
@@ -133,11 +151,11 @@ class SessionController extends Controller
      if ($request->expectsJson()) {
       return response()->json([
         'success' => true,
-        'message' => 'Username changed successfully.',
+        'message' => 'Username has been updated.',
         'username' => $user->username,
       ]);
     }
-    return redirect('account/edit')->with('success', 'username changed successfully.');
+    return redirect('account/edit')->with('success', 'Username has been updated.');
   }
 
   public function changePassword(Request $request)
@@ -159,7 +177,9 @@ class SessionController extends Controller
     if (!Hash::check($validatedData['current_password'], $user->password)) {
       return response()->json([
         'success' => false,
-        'message' => 'The current password is incorrect.',
+        'message' => [
+          'current_password' => 'The current password is incorrect.'
+        ]
       ], 422);
     }
 
@@ -170,7 +190,7 @@ class SessionController extends Controller
 
     return response()->json([
       'success' => true,
-      'message' => 'Password updated successfully.',
+      'message' => 'Password updated.',
     ]);
   }
 
@@ -178,7 +198,7 @@ class SessionController extends Controller
   public function deleteAccount(Request $request)
   {
     $request->validate([
-      'current_password' => ['required', 'current_password'],
+      'confirm_deletion' => ['required', 'current_password'],
     ]);
 
     $user = Auth::user();

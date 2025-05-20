@@ -1,0 +1,16 @@
+.home-page{
+
+  header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    span{
+      display: flex;
+      gap: var(--space-xs);
+      align-items: center;
+      font-weight: 500;
+      font-size: var(--font-md);
+    }
+  }
+}

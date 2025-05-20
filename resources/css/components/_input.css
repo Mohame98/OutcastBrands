@@ -1,5 +1,6 @@
-input{
-  padding: var(--space-sm);
+input,
+textarea{
+  padding: var(--space-xs);
   border-radius: 8px;
   border: 1px solid var(--color-grayblue-400);
   
@@ -8,7 +9,8 @@ input{
   }
 }
 
-input:focus {
+input:focus,
+textarea:focus {
   outline: none;
   /* border-color: var(--color-grayblue-400); */
   box-shadow: 0 0 0 4px var(--focus-glow);
@@ -19,12 +21,14 @@ input::placeholder {
   opacity: 1;
 }
 
-#profile-image{
+#profile-image,
+#brand-image{
   display: none;
 }
 
 .media-preview{
   height: 200px;
+  max-width: 400px;
   border-radius: var(--radius-md);
   background-position: center;     
   background-size: contain;        
@@ -32,11 +36,58 @@ input::placeholder {
   transition: background-image 0.6s ease;
 }
 
+.media-preview.brand{
+  position: relative;
+
+  .brand-image{
+    height: 200px;
+    max-width: 300px;
+    margin: 0 auto;
+    background-position: center;     
+    background-size: contain;        
+    background-repeat: no-repeat;  
+    transition: background-image 0.6s ease;
+  }
+
+  .slick-arrow{
+    background-image: url(/resources/img/chevron-white.png);
+    background-position: center;
+    background-size: 30%;
+    background-repeat: no-repeat;
+    z-index: 10;
+    bottom: 10px;
+    position: absolute;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    font-size: 0;
+    transition: 0.4s;
+  }
+
+  .slick-next,
+  .slick-prev{
+    top: 118%;
+  }
+
+  .slick-prev {
+    left: 0;
+    transform: rotateY(-180deg);
+  }
+
+  .slick-next {
+    left: 50px;
+  }
+}
+
 .media-input {
   border: 1px dashed var(--color-grayblue-300);
   /* padding-top: var(--space-sm); */
   border-radius: var(--radius-md);
   min-height: 200px;
+  max-width: auto;
   position: relative;
   cursor: pointer;
   transition: 0.4s ease-in-out;
@@ -104,4 +155,15 @@ input::placeholder {
   &:hover{
     background-color: rgba(0, 0, 0, 0.7);
   }
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-xs);
+}
+
+.error-message{
+  color: red;
+  font-size: var(--space-xs);
 }

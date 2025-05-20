@@ -27,17 +27,19 @@
           </div>
 
           <div class="row">
-            <div> 
+            <div class="password-field"> 
               <label for="password">Password</label>
-              <input type="password" name="password" id="pass" autocomplete="on"
-                  placeholder="Enter password" aria-label="Enter password">
+              <input type="password" name="password" id="pass"
+                  placeholder="Enter password" aria-label="Enter password" class="password-input">
+              @include('components.toggle-password')
               <x-form-error name='password'></x-form-error>
             </div>
           
-            <div> 
+            <div class="password-field"> 
               <label for="password">Confirm Password</label>
-              <input type="password" name="password_confirmation" id="c-pass" autocomplete="on"
-                  placeholder="Re-enter password" aria-label="Confirm password">
+              <input type="password" name="password_confirmation" id="c-pass"
+                  placeholder="Re-enter password" aria-label="Confirm password" class="password-input">
+              @include('components.toggle-password')
               <x-form-error name='password_confirmation'></x-form-error>
             </div>
           </div> 

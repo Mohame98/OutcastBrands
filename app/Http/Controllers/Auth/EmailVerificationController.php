@@ -19,13 +19,13 @@ class EmailVerificationController extends Controller
 	public function sendVerificationNotification(Request $request)
 	{
 		$request->user()->sendEmailVerificationNotification();
-		return back()->with('message', 'Verification link sent!');
+		return back()->with('flash_message', 'Verification link sent!');
 	}
 
 	public function verify(EmailVerificationRequest $request)
 	{
 		$request->fulfill();
-		return redirect('/');
+		return redirect('/')->with('flash_message', 'Your account has been verified!');
 	}
 }
 

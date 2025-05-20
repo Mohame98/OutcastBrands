@@ -4,7 +4,7 @@
   $closed = !$open;
 @endphp
 <a 
-  class="{{ $active ? $open : $closed }}"
+  class="link {{ $active ? $open : $closed }} "
   aria-current="{{ $active ? 'page' : 'false' }}"
   {{ $attributes }}
   >

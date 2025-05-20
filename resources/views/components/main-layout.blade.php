@@ -7,6 +7,9 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css"
+    integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 	@vite(['resources/css/app.css', 'resources/js/app.js'])
 	<title>{{ $title ?? config('app.name', 'Laravel') }}</title>
 </head>
@@ -18,6 +21,26 @@
 	{{ $slot }}
 	</main>
 	@include('layouts.footer')
-</body>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+		integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+		crossorigin="anonymous" referrerpolicy="no-referrer">
+	</script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"
+		integrity="sha512-eP8DK17a+MOcKHXC5Yrqzd8WI5WKh6F1TIk5QZ/8Lbv+8ssblcz7oGC8ZmQ/ZSAPa7ZmsCU4e/hcovqR8jfJqA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer">
+	</script>
+
+	<script>
+		$(document).ready(function () {
+			$(".media-preview.brand").slick({
+				fade: true,
+				infinite: false,
+				slidesToShow: 1,
+				slidesToScroll: 1,
+			});
+		});
+	</script>
+</body>
 </html>

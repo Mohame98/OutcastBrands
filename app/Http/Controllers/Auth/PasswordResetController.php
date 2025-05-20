@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Validation\Rules\Password as PasswordRule;
+
 
 class PasswordResetController extends Controller
 {
@@ -24,9 +26,14 @@ class PasswordResetController extends Controller
       $request->only('email')
     );
 
-    return $status === Password::RESET_LINK_SENT
-      ? back()->with(['status' => __($status)])
-      : back()->withErrors(['email' => __($status)]);
+    if ($status === Password::RESET_LINK_SENT) {
+      session()->flash('flash_message', __($status));
+      return back();
+    }
+
+    return back()->withErrors([
+      'email' => __($status),
+    ]);
   }
 
   public function showResetForm($token)
@@ -40,7 +47,14 @@ class PasswordResetController extends Controller
     $request->validate([
       'token' => 'required',
       'email' => 'required|email',
-      'password' => 'required|min:2|confirmed',
+      'password' => [
+      'required',
+      PasswordRule::min(8)
+        ->mixedCase()
+        ->letters()
+        ->numbers()
+        ->symbols(),
+      ],
     ]);
 
     $status = Password::reset(
@@ -54,8 +68,13 @@ class PasswordResetController extends Controller
       }
     );
 
-    return $status === Password::PASSWORD_RESET
-      ? redirect()->route('signin')->with('status', __($status))
-      : back()->withErrors(['email' => [__($status)]]);
+    if ($status === Password::PASSWORD_RESET) {
+      session()->flash('flash_message', __($status));
+      return redirect()->route('login');
+    }
+
+    return back()->withErrors([
+      'email' => __($status),
+    ]);
   }
 }

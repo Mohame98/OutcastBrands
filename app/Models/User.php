@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use App\Models\Brand;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -19,10 +20,29 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var list<string>
      */
     protected $fillable = [
-        'username',
-        'email',
-        'password',
+      'username',
+      'email',
+      'password',
+      'profile_image',
+      'bio',
+      'instagram',
+      'user_location',
     ];
+
+    public function brands()
+    {
+      return $this->hasMany(Brand::class);
+    }
+
+    public function votedBrands() 
+    {
+      return $this->belongsToMany(Brand::class, 'brand_votes')->withPivot('vote')->withTimestamps();
+    }
+
+    public function savedBrands() 
+    {
+      return $this->belongsToMany(Brand::class, 'brand_saves')->withTimestamps();
+    }
 
     /**
      * The attributes that should be hidden for serialization.

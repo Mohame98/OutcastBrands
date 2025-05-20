@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\SessionController;
+use App\Http\Controllers\Brands\BrandsController;
+use App\Http\Controllers\SearchController;
+
+
 
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -13,9 +17,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\User;
 
-Route::get('/', function () {
-  return view('pages/home');
-});
+Route::get('/', [BrandsController::class, 'index'])->name('home');
+
+Route::get('/search', 
+  [SearchController::class, 'searchView'])
+    ->name('search');
 
 Route::get('/profile', function () {
   return view('pages/profile');
@@ -102,3 +108,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
   [SessionController::class, 'deleteAccount'])
     ->name('account.delete');
 });
+
+Route::post('/brands/step-1', [BrandsController::class, 'storeBrand1']);
+Route::post('/brands/step-2', [BrandsController::class, 'storeBrand2']);
+Route::post('/brands/complete', [BrandsController::class, 'completeStoreBrand3'])->name('final.step');
+
+Route::post('/brands/{brand}/vote', [BrandsController::class, 'vote'])->name('brands.vote');
+Route::post('/brands/{brand}/save', [BrandsController::class, 'toggleSave'])->name('brands.save');

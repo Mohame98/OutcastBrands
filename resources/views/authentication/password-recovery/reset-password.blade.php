@@ -17,19 +17,21 @@
             <x-form-error name='email'></x-form-error>
           </div>
 
-          <div class="form-group">
+          <div class="password-field">
             <label for="password">New Password</label>
-            <input type="password" name="password" id="password" placeholder="Enter new password" aria-label="Enter new password" required>
+            <input type="password" name="password" id="password" placeholder="Enter new password" aria-label="Enter new password"  class="password-input" required>
+            @include('components.toggle-password')
             <x-form-error name='password'></x-form-error>
           </div>
 
-          <div class="form-group">
+          <div class="password-field">
             <label for="password_confirmation">New Password confirmation</label>
-            <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Enter new password confirmation" aria-label="Enter new password confirmation" required>
+            <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Enter new password confirmation" aria-label="Enter new password confirmation"  class="password-input" required>
+            @include('components.toggle-password')
             <x-form-error name='password_confirmation'></x-form-error>
           </div>
 
-          <button class="main-button" type="submit">Reset Password</button>
+          <button class="btn main-button" type="submit">Reset Password</button>
         </fieldset>
       </form>
     </div>

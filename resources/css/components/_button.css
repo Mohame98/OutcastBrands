@@ -2,6 +2,7 @@
   cursor: pointer;
   transition: 0.4s;
   border: none;
+  background-color: transparent;
 }
 
 .cancel,
@@ -49,7 +50,6 @@
   align-items: center;
 
   width: 50%;
-  background-color: transparent;
   margin: 0 auto;
   border: 1px solid var(--color-grayblue-100);
 
@@ -57,6 +57,8 @@
   padding-right: var(--space-md);
   border-radius: var(--radius-sm);
 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
   span{
     display: flex;
     flex-direction: column;
@@ -76,9 +78,58 @@
   &:hover{
     background-color: var(--color-grayblue-50);
   }
+
+  @media (max-width: 800px) {
+    width: 100%; 
+  }
 }
 
-.error{
-  color: red;
-  font-size: var(--space-xs);
+.logout-btn{
+  text-decoration: none;
+  color: var(--dark);
+  font-weight: 500;
+  transition: 0.4s;
+
+  &:hover{
+    color: var(--color-light-gray);
+  }
+}
+
+.main-nav{
+  .add-brand-btn{
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-weight: 600;
+    color: var(--blue-600);
+    border-bottom: 1px solid var(--blue-600);
+    padding-bottom: 5px;
+
+    &:hover{
+      border-bottom: 1px solid transparent;
+      color: var(--blue-500);
+    }
+  }
+}
+
+.password-field{
+  position: relative;
+ 
+  .toggle-password{
+    position: absolute;
+    right: 16px;
+    top: 43px;
+
+    &:hover {
+      .hover-caption {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.delete-account-modal{
+  .toggle-password{
+    top: 51px;
+  }
 }

@@ -14,9 +14,10 @@
             <x-form-error name='email'></x-form-error>
           </div>
 
-          <div>
+          <div class="password-field">
             <label for="password">Password</label>
-            <input type="password" name="password" id="pass" autocomplete="on" placeholder="Enter password" aria-label="Enter password">
+            <input type="password" name="password" id="pass" placeholder="Enter password" aria-label="Enter password" class="password-input" required>
+            @include('components.toggle-password')
             <x-form-error name='password'></x-form-error>
           </div>
     

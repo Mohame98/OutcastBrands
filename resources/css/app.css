@@ -4,11 +4,16 @@
 
 @import './pages/_login.css';
 @import './pages/_edit.css';
+@import './pages/_home.css';
 
 @import './components/_input.css';
 @import './components/_button.css';
 @import './components/_flash-message.css';
+@import './components/_profile-image.css';
+@import './components/_modals.css';
+@import './components/_brand-card.css';
 
+@import './utilities/_hover-captions.css';
 
 :root {
   --blue-950: oklch(10% 0.02 250);
@@ -57,7 +62,7 @@
 
   --font-xxs: 0.25rem;
   --font-xs: 0.5rem;
-  --font-sm: 0.75rem;
+  --font-sm: 0.85rem;
   --font-md: 1rem;
   --font-lg: 1.5rem;
   --font-xl: 2.5rem;

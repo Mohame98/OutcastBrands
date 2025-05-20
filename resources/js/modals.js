@@ -1,4 +1,4 @@
-export function handleModals() {
+function handleModals() {
   const allModalBtns = document.querySelectorAll('.modal-btn');
   allModalBtns.forEach((btn) => {
     btn.addEventListener('click', function (event) {
@@ -31,3 +31,7 @@ export function handleModals() {
     });
   });
 }
+
+export {
+  handleModals,
+};
