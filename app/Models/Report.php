@@ -6,9 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Report extends Model
 {
-    protected $fillable = [
-    'reporter_id',
+  protected $fillable = [
+    'reportable_type',
+    'reportable_id',
+    'user_id', 
     'reason',
-    'description',
-];
+    'report_description',
+  ];
+
+  public function reportable()
+  {
+    return $this->morphTo();
+  }
 }

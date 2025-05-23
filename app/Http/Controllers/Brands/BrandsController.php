@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Brands;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 use App\Models\BrandImage;
@@ -49,7 +50,10 @@ class BrandsController extends Controller
 
     if ($validated) {
       session(['step1' => $validated]);
-      return response()->json(['success' => true]);
+      return response()->json([
+        'success' => true,
+        'multi_step' => true,
+      ]);
     } else {
       return response()->json(['errors' => $validated->errors()], 422);
     }
@@ -70,18 +74,28 @@ class BrandsController extends Controller
 
     if ($validated) {
       session(['step2' => ['photos' => $paths]]);
-      return response()->json(['success' => true]);
+      return response()->json([
+        'success' => true,
+        'multi_step' => true,
+      ]);
     } else {
       return response()->json(['errors' => $validated->errors()], 422);
     }
   }
 
-  public function completeStoreBrand3(Request $request)
+  public function storeBrand3(Request $request)
   {
     $validated = $request->validate([
       'categories' => 'required|array|min:1|max:3',
       'categories.*' => 'string|in:Footwear,Accessories,Outerwear,Casual,Formal,Activewear,Streetwear,Minimalist,Vintage,Preppy,Seasonal,Luxury,Sustainable',
     ]);
+
+     if (empty($validated['categories'])) {
+      return response()->json([
+        'message' => 'Please select at least one category.',
+        'errors' => ['categories' => ['The categories field is required.']]
+      ], 422);
+    }
 
     $step1 = session('step1');
     $step2 = session('step2');
@@ -116,6 +130,7 @@ class BrandsController extends Controller
     return response()->json([
       'success' => true,
       'message' => 'Brand posted!',
+      'multi_step' => true,
     ]);
   } 
 
@@ -144,27 +159,36 @@ class BrandsController extends Controller
     }
 
     return response()->json([
-      'message' => 'Vote recorded',
+      'message' => 'Vote has been recorded',
       'vote' => $voteValue,
       'total_votes' => $brand->total_votes
     ]);
   }
 
-  public function toggleSave(Brand $brand)
+ public function toggleSave(Brand $brand)
   {
     $userId = auth()->id();
     $exists = $brand->savers()->where('user_id', $userId)->exists();
-    $totalSaves = $brand->savers()->count();
 
     if ($exists) {
       $brand->savers()->detach($userId);
+      $message = 'Unsaved successfully.';
     } else {
       $brand->savers()->attach($userId);
+      $message = 'Saved successfully.';
     }
 
     return response()->json([
       'saved' => !$exists,
-      'total_saves' => $totalSaves,
+      'total_saves' => $brand->savers()->count(),
+      'message' => $message,
+    ]);
+  }
+
+  public function showBrand(Brand $brand)
+  {
+    return view('brands.show-brand', [
+      'brand' => $brand,
     ]);
   }
 }

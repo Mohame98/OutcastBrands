@@ -1,11 +1,21 @@
 .featured-brand{
-  height: 55vh;
+  height: 65vh;
   padding-bottom: var(--space-lg);
+  padding-top: var(--space-lg);
 
-  header{
+  .featured-brand-header{
     display: flex;
     justify-content: unset;
-    gap: var(--space-sm);
+    gap: var(--space-xs);
+    align-items: center;
+    margin-bottom: var(--space-xs);
+
+    span{
+      border: 1px solid var(--color-grayblue-300);
+      border-radius: var(--radius-md);
+      padding: var(--space-xxxs) var(--space-xs);
+      background-color: var(--color-grayblue-100);
+    }
   }
 
   .brand-container{
@@ -13,21 +23,18 @@
     gap: 0px;
     height: 100%;
     border: 1px solid var(--color-grayblue-300);
-    border-radius: var(--radius-lg) var(--radius-lg);
+    border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 0;
 
     .left-brand-featured-image{
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-
       border-radius: var(--radius-lg) 0;
-
-      width: 30%;
-      
+      width: 35%;
     }
-
+     
     .brand-content{
-      width: 70%;
+      width: 65%;
       padding: var(--space-md);
 
       .brand-content-container{
@@ -38,12 +45,17 @@
 
         .top-content{
 
+          .user-menu-container{
+            display: flex;
+            justify-content: space-between;
+          }
+
           .brand-author{
             display: flex;
             gap: var(--space-xxxs);
             align-items: center;
 
-            .brand-author-profile-image{
+            .brand-author-profile.image{
               height: 40px;
               width: 40px;
               background-size: cover;
@@ -52,11 +64,142 @@
               border-radius: var(--radius-circle);
             }
 
+            .brand-author-profile.letter{
+              background-color: lightcoral;
+              font-weight: 600;
+
+              height: 30px;
+              width: 30px;
+
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              color: white;
+              text-transform: uppercase;
+              border-radius: var(--radius-circle);
+            }
+
             .brand-author-username{
               font-size: var(--font-sm);
               font-weight: 600;
             }
           }
+
+          .brand-text-content{
+            text-align: center;
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xxs);
+
+            .sub-title{
+              color: var(--blue-600);
+            }
+          }
+        }
+
+        .bottom-content{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .voting{
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            /* padding: var(--space-xs) var(--space-sm); */
+            background-color: rgba(120, 120, 120, 0.1);
+            border-radius: var(--radius-lg);
+
+            .upvote,
+            .downvote{
+              padding: 0.72rem var(--space-xs);
+              border-radius: var(--radius-circle);
+              position: relative;
+
+              .hover-caption{
+                top: 140%;
+              }
+
+              &:hover{
+                background-color: rgba(120, 120, 120, 0.2);
+
+                .hover-caption{
+                  opacity: 1;
+                }
+              }
+            }
+
+            .upvote{
+              &:hover{
+                color: var(--blue-600);
+              }
+            }
+
+            .downvote{
+              &:hover{
+                color: red;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.popular-brands-top-layer{
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+
+  .popular-brands-header{
+    text-align: center;
+    margin-bottom: var(--space-sm);
+  }
+
+  .popular-brands{
+  
+    .popular-brand-container{
+      padding: var(--font-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--color-grayblue-300);
+      border-radius: var(--radius-sm);
+      
+      .popular-brand-title{
+        margin: 0 auto;
+        text-align: center;
+
+        h3{
+          font-size: var(--font-md);
+        }
+
+        p{
+          font-size: var(--font-sm);
+        }
+      }
+
+      .popular-brand-featured-image{
+        height: 55px;
+        width: 55px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: var(--radius-sm);
+      }
+
+      .vote-form{
+        button{
+          display: flex;
+          align-items: center;
+          gap: var(--space-xs);
+          background-color: var(--color-grayblue-100);
+          padding: var(--space-xxs) var(--space-xs);
+          border-radius: var(--radius-sm);
         }
       }
     }

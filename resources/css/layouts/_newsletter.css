@@ -1,0 +1,123 @@
+.newsletter,
+.newsletter-subscription-page{
+  padding: var(--space-lg) 0;
+
+  h2{
+    font-size: var(--font-lg);
+    max-width: 40rem;
+    margin: 0 auto;
+  }
+  
+  .container{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    border-radius: var(--radius-md);
+
+    padding: var(--space-xxl) var(--space-lg);
+    background-color: var(--blue-500);
+    text-align: center;
+  }
+
+  form{
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    display: flex;
+
+    input{
+      background-color: var(--text-light);
+      border: none;
+      border-radius: var(--radius-md) 0 0 var(--radius-md);
+      padding: var(--space-md);
+      width: 100%;
+      color: var(--text-dark);
+      transition: 0.4s;
+    }
+
+    input:focus {
+      outline: none;
+      border: none;
+    }
+
+    input::placeholder {
+      color: var(--text-dark);
+      font-size: var(--font-sm);
+      opacity: 0.7;
+    }
+
+    button{
+      border: none;
+      font-size: var(--font-base);
+      padding: var(--space-md);
+      background-color: var(--blue-800);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      color: var(--text-light);
+      cursor: pointer;
+      font-weight: 700;
+      transition: 0.4s;
+
+      &:hover{
+        background-color: var(--blue-700);
+      }
+    }
+  }
+}
+
+/* newsletter subscription page */
+.newsletter-subscription-page{
+  background-color: var(--blue-500);
+  padding: var(--space-lg) 0;
+
+  h2{
+    font-size: var(--font-xl);
+    max-width: 60rem;
+  }
+
+  p{
+    font-size: var(--font-md);
+    max-width: 55rem;
+    margin: 0 auto;
+  }
+
+  .container{
+    background-color: transparent;
+  }
+}
+
+@media (max-width: 800px) {
+  .newsletter-subscription-page{
+    padding: var(--space-md);
+    
+    p{
+      font-size: var(--font-md);
+      max-width: 55rem;
+      margin: 0 auto;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .newsletter,
+  .newsletter-subscription-page{
+    h2{
+      font-size: var(--font-lg);
+      max-width: 100%;
+    }
+  
+    p{
+      font-size: var(--font-base);
+      max-width: 100%;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .newsletter,
+  .newsletter-subscription-page{
+    h2{
+      font-size: var(--font-md);
+      max-width: 100%;
+    }
+  }
+}

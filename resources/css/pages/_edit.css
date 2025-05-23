@@ -48,7 +48,10 @@
       }
     }
 
-    .delete-account-modal{
+    .delete-account-modal,
+    .edit-bio-modal,
+    .add-instagram-modal,
+    .edit-location-modal{
       input{
         width: 100%;
       }

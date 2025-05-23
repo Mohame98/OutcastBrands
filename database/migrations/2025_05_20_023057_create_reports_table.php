@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->morphs('reportable');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
 
             $table->enum('reason', [
                 'Sexual content',
@@ -28,7 +29,7 @@ return new class extends Migration
                 'Captions issue'
             ]);
 
-            $table->text('description')->nullable();
+            $table->text('report_description')->nullable();
             $table->timestamps();
         });
     }

@@ -1,0 +1,78 @@
+.context-menu-container{
+  position: relative;
+  transform: translate(10px, -11px);
+  background-color: rgba(120, 120, 120, 0.1);
+  height: fit-content;
+  padding: 6px 11px;
+  border-radius: var(--radius-circle);
+  transition: 0.4s;
+
+  &:hover{
+    background-color: rgba(120, 120, 120, 0.2);
+  }
+
+  summary {
+    list-style: none;
+    cursor: pointer;
+    transition: 0.4s;
+  }
+
+  .context-menu{
+    position: absolute;
+    top: 105%;
+    right: 0%;
+    background-color: var(--light);
+    padding: var(--space-xs);
+    border: 1px solid var(--color-grayblue-100);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 150px;
+
+    .context-item{
+      .save-btn,
+      .report-btn{
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        gap: var(--radius-md);
+        padding: var(--space-xxs) var(--space-xs);
+        width: 100%;
+        transition: 0.4s;
+
+        &:hover{
+          color: var(--color-light-gray);
+        }
+      }
+    }
+
+    .report{
+      width: 425px;
+
+      fieldset {
+        display: none;
+        position: absolute;
+        transition: opacity 0.4s ease;
+        width: 100%;
+
+        .report-list{
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-xxs);
+
+          
+        }
+
+        .form-step{
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+        }
+      }
+
+      fieldset.active {
+        display: flex;
+        position: relative;
+      }
+    }
+  }
+}

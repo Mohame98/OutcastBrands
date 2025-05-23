@@ -1,6 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap'); */
+
+/* @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap'); */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
 @import './layouts/_nav.css';
 @import './layouts/_footer.css';
+@import './layouts/_newsletter.css';
 
 @import './pages/_login.css';
 @import './pages/_edit.css';
@@ -12,6 +18,7 @@
 @import './components/_profile-image.css';
 @import './components/_modals.css';
 @import './components/_brand-card.css';
+@import './components/_context-menu.css';
 
 @import './utilities/_hover-captions.css';
 
@@ -72,12 +79,16 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Manrope", sans-serif;
+  letter-spacing: 0.01em;
+  /* font-family: "Merriweather", serif; */
+  /* font-family: "Inter", sans-serif; */
+  /* font-family: "Montserrat", sans-serif; */
 }
 
 body {
   line-height: 1.6;
-  font-size: var(--font-base);
+  font-size: var(--font-md);
 }
 
 .container{
@@ -103,6 +114,28 @@ a{
 
 ul li{
   list-style: none;
+}
+
+@layer layout{
+  details .context-menu,
+  details .dropdown-menu{
+    opacity: 0;
+    transition-property: overlay, display, transform, opacity;
+    transition-duration: 0.4s;
+    transition-behavior: allow-discrete; 
+  }
+
+  details[open] .context-menu,
+  details[open] .dropdown-menu{
+    opacity: 1;
+  }
+}
+
+@starting-style{
+  details[open] .context-menu,
+  details[open] .dropdown-menu{
+    opacity: 0;
+  }
 }
 
 main{

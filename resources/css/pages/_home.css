@@ -1,6 +1,6 @@
 .home-page{
 
-  header{
+  .home-page-header{
     display: flex;
     justify-content: space-between;
     align-items: center;

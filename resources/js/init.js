@@ -19,6 +19,8 @@ import {
   createNode,
   setupPasswordToggles,
   handleSpecificError,
+  selectOnlyThreeCategories,
+  trimAllFields,
   closeModal,
   closeDetails,
 } from './helpers.js';
@@ -31,6 +33,8 @@ export function init() {
   handleSpecificError();
   updateUserValidation();
   handleMultipleMediaUpload();
+  selectOnlyThreeCategories();
   closeDetails();
+  trimAllFields();
   main();
 }

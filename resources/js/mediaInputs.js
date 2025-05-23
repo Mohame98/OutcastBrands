@@ -96,8 +96,8 @@ function handleMultipleMediaUpload() {
       const numOfFiles = proposedFiles.length;
       const numberContainer = document.querySelector('.files-digit');
       
-      if (numOfFiles > maxFiles) {
-        handleSpecificError(`You can only upload up to ${maxFiles} images.`, 'brand_image');
+      if (numOfFiles > 4) {
+        handleSpecificError(`You can only upload up to 4 images.`, 'brand_image');
         return;
       }
 
@@ -135,14 +135,8 @@ function handleMultipleMediaUpload() {
       const numberContainer = document.querySelector('.files-digit');
       const numOfFiles = proposedFiles.length;
 
-      if (numOfFiles > maxFiles) {
-        handleSpecificError(`You can only upload up to ${maxFiles} images.`, 'brand_image');
-        return;
-      }
-
-      console.log(numOfFiles)
-      if (numOfFiles === 0) {
-        handleSpecificError(`The Image field is required`, 'brand_image');
+      if (numOfFiles > 4) {
+        handleSpecificError(`You can only upload up to 4 images.`, 'brand_image');
         return;
       }
 

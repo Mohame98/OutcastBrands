@@ -29,18 +29,17 @@ async function handleRequest(actionUrl, options, form) {
     const response = await fetch(actionUrl, options);
     const result = await response.json();
 
-
     if (!response.ok) {
-      if (response.status === 422 && result.errors) {
+      if (response.status === 422) {
         handleGeneralErrors(result, form);
-        console.log(result)
-
+      } else if (response.status === 403) {
+        window.location.href = '/email/verify';
       } else {
         console.error('Unexpected error:', result);
       }
       return;
     }
-    
+
     // called twice handles removing error messages if success
     handleGeneralErrors(result, form);
     handleResponse(result, form, actionUrl);
@@ -57,32 +56,27 @@ function main() {
   });
 }
 
-export {
-  main,
-};
-
-function multiStepFormAction(event, form){
+function multiStepFormAction(event, form) {
   const button = event.submitter || event.target.closest('button');
   const step = button?.dataset?.step;
+  const baseUrl = form.dataset.formBase;
+
+  // if (!baseUrl) {
+  //   console.error('Missing data-form-base on form');
+  //   return;
+  // }
 
   let actionUrl;
   if (step) {
-    switch (step) {
-      case '1':
-        actionUrl = '/brands/step-1';
-        break;
-      case '2':
-        actionUrl = '/brands/step-2';
-        break;
-      case '3':
-        actionUrl = '/brands/complete';
-        break;
-      default:
-        console.error('Invalid step');
-        return;
-    }
+    actionUrl = `${baseUrl}/step-${step}`;
   } else {
     actionUrl = form.action;
   }
+
   return actionUrl;
 }
+
+
+export {
+  main,
+};

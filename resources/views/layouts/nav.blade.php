@@ -10,53 +10,65 @@
 					aria-controls="add-brand-modal" 
 					aria-expanded="false">
 					<i class="fa-solid fa-plus"></i>
-					Add a Brand
+					Submit a Brand
 				</button>
 				<dialog id="add-brand-modal" class="add-brand-modal">
-					<form action="" method="POST" class="action-form" data-action="add-brand" enctype="multipart/form-data">
+					<form action="" method="POST" class="action-form" data-action="add-brand" enctype="multipart/form-data" data-form-base="/add-brands" data-total-steps="3">
 						@csrf
-						<fieldset class="active">
+						<fieldset class="multi-field active">
 							<header>
 								<legend><h1>Brand Info</h1></legend>
-								<i class="fa-solid fa-xmark close-modal"></i>
+								@include('components.close-modal')
 							</header>
 							<p>Enter brand details below.</p>
 
-							<div class="form-step">
-								<label for="title">Brand Title</label>
-								<input type="text" id="title" name="title">
+							<div class="form-group">
+								<label for="title" class="title">
+									<span>Brand Title</span>
+									<input type="text" id="title" name="title">
+								</label>
 								<x-form-error name="title" />
 							</div>
 
-							<div class="form-step">
-								<label for="sub_title">Sub Title</label>
-								<input type="text" id="sub_title" name="sub_title">
+							<div class="form-group">
+								<label for="sub_title" class="sub_title">
+									<span>Sub Title</span>
+									<input type="text" id="sub_title" name="sub_title">
+								</label>
 								<x-form-error name="sub_title" />
 							</div>
 
-							<div class="form-step">
-								<label for="website">Website Link</label>
-								<input type="url" id="website" name="website">
+							<div class="form-group">
+								<label for="website" class="website">
+									<span>Website Link</span>
+									<input type="url" id="website" name="website">
+								</label>
 								<x-form-error name="website" />
 							</div>
 
 							<div class="row">
-								<div class="form-step">
-									<label for="location">Location</label>
-									<input type="text" id="location" name="location">
+								<div class="form-group">
+									<label for="location" class="location">
+										<span>Location</span>
+										<input type="text" id="location" name="location">
+									</label>
 									<x-form-error name="location" />
 								</div>
 								
-								<div class="form-step">
-									<label for="launch_date">Launch Date</label>
-									<input type="date" id="launch_date" name="launch_date">
+								<div class="form-group">
+									<label for="launch_date" class="launch_date">
+										<span>Launch Date</span>
+										<input type="date" id="launch_date" name="launch_date">
+									</label>
 									<x-form-error name="launch_date" />
 								</div>
 							</div>
 
-							<div class="form-step">
-								<label for="description">Description</label>
-								<textarea id="description" name="description" rows="4"></textarea>
+							<div class="form-group">
+								<label for="description" class="description">
+									Description
+									<textarea id="description" name="description" rows="4"></textarea>
+								</label>
 								<x-form-error name="description" />
 							</div>
 
@@ -65,29 +77,32 @@
 							</div>
 						</fieldset>
 
-						<fieldset class="brand-image-field">
+						<fieldset class="multi-field brand-image-field">
 							<header>
 								<legend><h1>Upload Images</h1></legend>
+								@include('components.close-modal')
 							</header>
 							<p>Submit at most 4 photos of your brand/product.</p>
-							<p>The first image will be the featured image</p>
+							<p>The first image will be your featured image</p>
 
-							<label for="brand-image">
-								<div class="media-input brand">
-									<label for="brand-image" class="media-label" tabindex="0">
-                    <span>Drag or upload</span> <i class="fa-solid fa-cloud-arrow-up"></i>
-                  </label>
-									<input type="file" accept="image/*" data-multiple="true" data-max-files="4" data-max-size="1242880" name="photos[]" multiple id="brand-image" aria-label="Drag and Drop or upload media">
-									<div class="media-preview brand"></div>
-									<div class="upload-info">
-										<p>Formats: JPG, PNG</p>
-										<P>Max Size: 5MB</P>
+							<div class="multiple-photos">
+								<label for="brand-image">
+									<div class="media-input brand">
+										<label for="brand-image" class="media-label" tabindex="0">
+											<span>Drag or upload</span> <i class="fa-solid fa-cloud-arrow-up"></i>
+										</label>
+										<input type="file" accept="image/*" data-selector="multiple-photos" data-multiple="true" data-max-files="4" name="photos[]" multiple id="brand-image" aria-label="Drag and Drop or upload media">
+										<div class="media-preview brand"></div>
+										<div class="upload-info">
+											<p>Formats: JPG, PNG</p>
+											<P>Max Size: 5MB</P>
+										</div>
+										<button class="clear-media-btn brand" style="display: none;">
+											<i class="fa-solid fa-trash-can"></i>
+										</button>
 									</div>
-									<button class="clear-media-btn brand" style="display: none;">
-										<i class="fa-solid fa-trash-can"></i>
-									</button>
-								</div>
-							</label>
+								</label>
+							</div>
 							<x-form-error name='brand_image'></x-form-error>
 							<p class="number-files"><span class="files-digit">0</span>/4</p>
 							
@@ -97,9 +112,10 @@
 							</div>
 						</fieldset>
 
-						<fieldset>
+						<fieldset class="multi-field">
 							<header>
 								<legend><h1>Select Category</h1></legend>
+								@include('components.close-modal')
 							</header>
 							<p>Choose up to 3 categories for your brand.</p>
 							@php
@@ -109,42 +125,24 @@
 								'Seasonal', 'Luxury', 'Sustainable'
 							];
 							@endphp
-							<div class="category-list" data-limit="3">
+							<div class="category-list multiple-categories" data-limit="3">
 								@foreach ($categories as $category)
-								<label class="category-button">
-									<input
-										type="checkbox"
-										name="categories[]"
-										value="{{ $category }}"
-										class="category-checkbox"
-      						>
-									<span>{{ $category }}</span>
-								</label>
+								<div class="form-group">
+									<label class="category-button" for="checkbox-{{ $category }}">
+										<input
+											type="checkbox"
+											name="categories[]"
+											value="{{ $category }}"
+											class="category-checkbox"
+											id="checkbox-{{ $category }}"
+											data-selector="multiple-categories"
+										>
+										<span>{{ $category }}</span>
+									</label>
+								</div>
 								@endforeach
 							</div>
 
-							<script>
-								  document.addEventListener('DOMContentLoaded', () => {
-										const container = document.querySelector('.category-list');
-										const checkboxes = container.querySelectorAll('.category-checkbox');
-										const maxAllowed = parseInt(container.dataset.limit || 3);
-
-										checkboxes.forEach(checkbox => {
-											checkbox.addEventListener('change', () => {
-												const checkedCount = container.querySelectorAll('.category-checkbox:checked').length;
-
-												if (checkedCount >= maxAllowed) {
-													checkboxes.forEach(cb => {
-														if (!cb.checked) cb.disabled = true;
-													});
-												} else {
-													checkboxes.forEach(cb => cb.disabled = false);
-												}
-											});
-										});
-									});
-							</script>
-							
 							<div class="btn-container">
 								{{-- <button class="btn cancel" type="button" id="prevBtn2">Back</button> --}}
 								<button class="btn update final" type="submit" data-step="3">Submit</button>
@@ -159,7 +157,7 @@
 		<div class="right-side-navigation">
 			<div class="search-container">
 				<x-nav-links href="{{ route('search') }}" :active="request()->is('search')">
-					<i class="fa-solid fa-magnifying-glass"></i>Search...
+					<i class="fa-solid fa-magnifying-glass"></i>
 				</x-nav-links>
 			</div>
 			<nav class="desktop-nav" aria-label="Desktop navigation right">
@@ -171,7 +169,7 @@
 				@auth
 				<details>
 					<summary>
-					@include('components.profile-image')
+						@include('components.profile-image')
 					</summary>
 					<div class="dropdown-menu">
 						<div class="profile item">

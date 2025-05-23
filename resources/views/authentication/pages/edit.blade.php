@@ -36,8 +36,10 @@
               <fieldset>
                 <header>
                   <legend><h1>Profile Image</h1></legend>
-                  <i class="fa-solid fa-xmark close-modal"></i>
+                  @include('components.close-modal')
                 </header>
+
+                <p>No image input will result in removing your profile image</p>
                 
                 <label for="profile-image">
                   <div class="media-input">
@@ -86,20 +88,69 @@
             <i class="fa-solid fa-chevron-right"></i>
           </button>
           <dialog id="edit-bio-modal" class="edit-bio-modal">
-            <form action="{{ route('account.delete') }}" method="POST" class="action-form" data-submission="true">
+            <form action="{{ route('bio.change') }}" method="POST" class="action-form" data-submission="true" data-action="change-bio">
               @csrf
-              @method('DELETE')
+              @method('PATCH')
               <fieldset>
                 <header>
-                  <legend><h1>Confirm Account Deletion</h1></legend>
-                  <i class="fa-solid fa-xmark close-modal"></i>
+                  <legend><h1>Change your bio</h1></legend>
+                  @include('components.close-modal')
+                </header>
+
+                <p>A few words go a long way. What do you want people to remember about you?</p>
+              
+                <div class="form-group">
+                  <label for="bio">
+                    <span>Change Bio</span>
+                    <textarea 
+                      name="bio" id="bio" aria-label="Change your profile's biography" rows="4" maxlength="200">
+                      {{ old('bio', auth()->user()->bio) }}
+                    </textarea>
+                  </label>  
+                  <x-form-error name="bio" />
+                </div>
+                
+                <div class="btn-container">
+                  <button type="button" class="btn cancel close-modal">
+                    Cancel
+                  </button>
+                  <button class="btn update" type="submit">
+                    Update
+                  </button>
+                </div>
+              </fieldset>
+            </form> 
+          </dialog>
+        </div>
+
+        <div class="modal-wrapper">
+          <button 
+            class="btn edit-account-btn modal-btn"
+            aria-haspopup="Add your instagram link" 
+            aria-controls="add-instagram-modal" 
+            aria-expanded="false">
+            <span>
+              <span>Instagram</span>
+              <span>Show off your instagram</span>
+            </span>
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+          <dialog id="add-instagram-modal" class="add-instagram-modal">
+            <form action="{{ route('instagram.change') }}" method="POST" class="action-form" data-submission="true" data-action="change-instagram">
+              @csrf
+              @method('PATCH')
+              <fieldset>
+                <header>
+                  <legend><h1>Instagram</h1></legend>
+                  @include('components.close-modal')
                 </header>
                 
-                <div class="password-field">
-                  <label for="confirm_deletion">Confirm your password to delete your account:</label>
-                  <input type="password" name="confirm_deletion" id="confirm_deletion" aria-label="Confirm account deletion" class="password-input" required>
-                  @include('components.toggle-password')
-                  <x-form-error name="confirm_deletion" />
+                <div class="form-group">
+                  <label for="instagram" class="instagram">
+                    <span>Add your instagram link</span>
+                    <input type="text" name="instagram" id="instagram" aria-label="update your profiles instagram link" value="{{ old('instagram', auth()->user()->instagram) }}" required>
+                  </label>               
+                  <x-form-error name="instagram" />
                 </div>
                 
                 <div class="btn-container">
@@ -123,25 +174,26 @@
             aria-expanded="false">
             <span>
               <span>Location</span>
-              <span>Where are you from?</span>
+              <span>Where are you located?</span>
             </span>
             <i class="fa-solid fa-chevron-right"></i>
           </button>
           <dialog id="edit-location-modal" class="edit-location-modal">
-            <form action="" method="POST" class="action-form" data-submission="true">
+            <form action="{{ route('location.change') }}" method="POST" class="action-form" data-submission="true" data-action="change-location">
               @csrf
-              @method('DELETE')
+              @method('PATCH')
               <fieldset>
                 <header>
                   <legend><h1>Add your location</h1></legend>
-                  <i class="fa-solid fa-xmark close-modal"></i>
+                  @include('components.close-modal')
                 </header>
                 
-                <div class="password-field">
-                  <label for="confirm_deletion">Confirm your password to delete your account:</label>
-                  <input type="password" name="confirm_deletion" id="confirm_deletion" aria-label="Confirm account deletion" class="password-input" required>
-                  @include('components.toggle-password')
-                  <x-form-error name="confirm_deletion" />
+                <div class="form-group">
+                  <label for="confirm_deletion">
+                    <span>Represent your city</span>
+                    <input type="text" name="user_location" id="user_location" aria-label="change your profile's location" value="{{ old('user_location', auth()->user()->user_location) }}" required>
+                  </label>
+                  <x-form-error name="user_location" />
                 </div>
                 
                 <div class="btn-container">
@@ -178,14 +230,15 @@
               <fieldset>
                 <header>
                   <legend><h1>Change Username</h1></legend>
-                  <i class="fa-solid fa-xmark close-modal"></i>
+                  @include('components.close-modal')
                 </header>
                 <p>Choose a unique username that represents you.</p>
 
-                <div>
-                  <label for="change-username">New Username</label>
-                  <input type="text" name="username" id="change-username" aria-label="Enter your new username"
-                  value="{{ old('username', auth()->user()->username) }}" maxlength="90" required>
+                <div class="form-group">
+                  <label for="change-username">
+                    <span>New Username</span>
+                    <input type="text" name="username" id="change-username" aria-label="Enter your new username" value="{{ old('username', auth()->user()->username) }}" maxlength="90">
+                  </label>
                   <x-form-error name='username' />
                   <small id="charCount"></small>
                 </div>
@@ -222,26 +275,32 @@
               <fieldset>
                 <header>
                   <legend><h1>Change Password</h1></legend>
-                  <i class="fa-solid fa-xmark close-modal"></i>
+                  @include('components.close-modal')
                 </header>
                 <p>Updating your password. Use at least 8 characters for safety.</p>
-                <div class="password-field"> 
-                  <label for="current_password">Current Password</label>
-                  <input type="password" class="password-input" name="current_password" id="current_password" aria-label="Enter your current password">
+                <div class="password-field form-group"> 
+                  <label for="current_password">
+                    <span>Current Password</span>
+                    <input type="password" class="password-input" name="current_password" id="current_password" aria-label="Enter your current password">
+                  </label>
                   @include('components.toggle-password')
                   <x-form-error name="current_password" />
                 </div>
 
-                <div class="password-field"> 
-                  <label for="password">New Password</label>
-                  <input type="password" class="password-input" name="password" id="password" aria-label="Enter new password">
+                <div class="password-field form-group"> 
+                  <label for="password">
+                    <span>New Password</span>
+                    <input type="password" class="password-input" name="password" id="password" aria-label="Enter new password">
+                  </label>
                   @include('components.toggle-password')
                   <x-form-error name="password" />
                 </div>
 
-                <div class="password-field"> 
-                  <label for="password_confirmation">Confirm New Password</label>
-                  <input type="password" class="password-input" name="password_confirmation" id="password_confirmation" aria-label="Enter password confirmation" >
+                <div class="password-field form-group"> 
+                  <label for="password_confirmation">
+                    <span>Confirm New Password</span>
+                    <input type="password" class="password-input" name="password_confirmation" id="password_confirmation" aria-label="Enter password confirmation" >
+                  </label>
                   @include('components.toggle-password')
                   <x-form-error name="password_confirmation" />
                 </div>
@@ -278,12 +337,14 @@
               <fieldset>
                 <header>
                   <legend><h1>Confirm Account Deletion</h1></legend>
-                  <i class="fa-solid fa-xmark close-modal"></i>
+                  @include('components.close-modal')
                 </header>
                 
-                <div class="password-field">
-                  <label for="confirm_deletion">Confirm your password to delete your account:</label>
-                  <input type="password" name="confirm_deletion" id="confirm_deletion" aria-label="Confirm account deletion" class="password-input" required>
+                <div class="password-field form-group">
+                  <label for="confirm_deletion">
+                    <span>Confirm your password to delete your account:</span>
+                    <input type="password" name="confirm_deletion" id="confirm_deletion" aria-label="Confirm account deletion" class="password-input" required>
+                  </label>
                   @include('components.toggle-password')
                   <x-form-error name="confirm_deletion" />
                 </div>

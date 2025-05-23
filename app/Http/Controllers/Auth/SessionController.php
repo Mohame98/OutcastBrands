@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
 use App\Models\User;
 
 class SessionController extends Controller
@@ -47,6 +48,9 @@ class SessionController extends Controller
 
     event(new Registered($user));
     Auth::login($user);
+
+    session()->flash('flash_message', 'Please verify your account');
+    return redirect('/');
   }
 
   // signin
@@ -135,7 +139,7 @@ class SessionController extends Controller
     $user = Auth::user();
     $validatedData = $request->validate([
       'username' => [
-        'nullable',
+        'required',
         'string',
         'max:90',
         'regex:/^[a-zA-Z0-9._-]+$/',
@@ -148,7 +152,7 @@ class SessionController extends Controller
     }
 
     $user->save();
-     if ($request->expectsJson()) {
+    if ($request->expectsJson()) {
       return response()->json([
         'success' => true,
         'message' => 'Username has been updated.',
@@ -156,6 +160,91 @@ class SessionController extends Controller
       ]);
     }
     return redirect('account/edit')->with('success', 'Username has been updated.');
+  }
+
+  public function changeBio(Request $request)
+  {
+    $user = Auth::user();
+    $validatedData = $request->validate([
+      'bio' => [
+        'required',
+        'string',
+        'max:200',
+      ],
+    ]);
+
+    if (isset($validatedData['bio'])) {
+      $user->bio = $validatedData['bio'];
+    }
+
+    $user->save();
+    if ($request->expectsJson()) {
+      return response()->json([
+        'success' => true,
+        'message' => 'Bio has been updated.',
+        'bio' => $user->bio,
+      ]);
+    }
+    return redirect('account/edit')->with('success', 'Bio has been updated.');
+  }
+
+  public function changeLocation(Request $request)
+  {
+    $user = Auth::user();
+    $validatedData = $request->validate([
+      'user_location' => [
+        'required',
+        'string',
+        'max:90',
+      ],
+    ]);
+
+    if (isset($validatedData['user_location'])) {
+      $user->user_location = $validatedData['user_location'];
+    }
+
+    $user->save();
+    if ($request->expectsJson()) {
+      return response()->json([
+        'success' => true,
+        'message' => 'Location has been updated.',
+        'user_location' => $user->user_location,
+      ]);
+    }
+    return redirect('account/edit')->with('success', 'user_location has been updated.');
+  }
+
+  public function changeInstagram(Request $request)
+  {
+    $user = Auth::user();
+
+    if ($request->filled('instagram') && !Str::startsWith($request->input('instagram'), ['http://', 'https://'])) {
+      $request->merge([
+        'instagram' => 'https://' . ltrim($request->input('instagram'), '/'),
+      ]);
+    }
+
+    $validatedData = $request->validate([
+      'instagram' => [
+        'required',
+        'url',
+        'regex:/^https?:\/\/(www\.)?instagram\.com\/[a-zA-Z0-9._]+\/?$/',
+      ],
+    ]);
+
+    if (isset($validatedData['instagram'])) {
+      $user->instagram = $validatedData['instagram'];
+    }
+
+    $user->save();
+    if ($request->expectsJson()) {
+      return response()->json([
+        'success' => true,
+        'message' => 'instagram has been updated.',
+        'instagram' => $user->instagram,
+      ]);
+    }
+    return redirect('account/edit')->with('success', 'instagram has been updated.');
   }
 
   public function changePassword(Request $request)

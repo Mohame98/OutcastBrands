@@ -50,12 +50,45 @@ function closeModal(result, form){
   }
 }
 
-function closeDetails(){
+function selectOnlyThreeCategories() {
+  const container = document.querySelector('.category-list');
+  if (!container) return;
+  const checkboxes = container.querySelectorAll('.category-checkbox');
+  const maxAllowed = parseInt(container.dataset.limit || 3);
+
+  function updateCheckboxStates() {
+    const checkedCount = container.querySelectorAll('.category-checkbox:checked').length;
+    if (checkedCount >= maxAllowed) {
+      checkboxes.forEach(cb => {
+        if (!cb.checked) cb.disabled = true;
+      });
+    } else {
+      checkboxes.forEach(cb => cb.disabled = false);
+    }
+  }
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', updateCheckboxStates);
+  });
+  updateCheckboxStates();
+}
+
+function closeDetails() {
   document.addEventListener('click', function(event) {
     document.querySelectorAll('details[open]').forEach((dropdown) => {
-      if (!dropdown.contains(event.target)) {
+      const isOutsideClick = !dropdown.contains(event.target);
+      const isCloseTrigger = event.target.closest('[data-close-details]');
+      if (isOutsideClick || isCloseTrigger) {
         dropdown.removeAttribute('open');
       }
+    });
+  });
+}
+
+function trimAllFields(){
+  const forms = document.querySelectorAll('form');
+  forms.forEach(form => {
+    form.querySelectorAll('input, textarea').forEach(el => {
+      el.value = el.value.trim();
     });
   });
 }
@@ -64,6 +97,8 @@ export {
   createNode,
   setupPasswordToggles,
   handleSpecificError,
+  selectOnlyThreeCategories,
   closeModal,
   closeDetails,
+  trimAllFields,
 };

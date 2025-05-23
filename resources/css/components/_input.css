@@ -16,6 +16,10 @@ textarea:focus {
   box-shadow: 0 0 0 4px var(--focus-glow);
 }
 
+textarea{
+  resize: vertical;
+}
+
 input::placeholder {
   color: var(--blue-950);
   opacity: 1;
@@ -82,7 +86,15 @@ input::placeholder {
   }
 }
 
-.media-input {
+.media-input.brand{
+  .media-label{
+    &:hover{
+      background-color: var(--color-grayblue-100);
+    }
+  }
+}
+
+.media-input{
   border: 1px dashed var(--color-grayblue-300);
   /* padding-top: var(--space-sm); */
   border-radius: var(--radius-md);
@@ -161,6 +173,26 @@ input::placeholder {
   display: flex;
   flex-direction: row;
   gap: var(--space-xs);
+}
+
+.form-group{
+  width: 100%;
+
+  label{
+    display: flex;
+    flex-direction: column; 
+    gap: var(--space-xxxs);
+  }
+}
+
+.report-list{
+  .form-group{
+    label{
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-xxxs);
+    }
+  }
 }
 
 .error-message{

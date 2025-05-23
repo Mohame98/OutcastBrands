@@ -36,13 +36,14 @@
 
       .dropdown-menu{
         position: absolute;
-        top: 110%;
+        top: 105%;
         background-color: var(--light);
         padding: var(--space-xs);
         border: 1px solid var(--color-grayblue-100);
         border-radius: var(--radius-sm);
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         width: 100%;
+        z-index: 10;
       }
       
       .dropdown-menu .item a,

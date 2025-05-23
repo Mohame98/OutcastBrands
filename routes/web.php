@@ -6,8 +6,7 @@ use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\Brands\BrandsController;
 use App\Http\Controllers\SearchController;
-
-
+use App\Http\Controllers\ReportController;
 
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -22,6 +21,10 @@ Route::get('/', [BrandsController::class, 'index'])->name('home');
 Route::get('/search', 
   [SearchController::class, 'searchView'])
     ->name('search');
+
+Route::get('/brands/{brand}', 
+  [BrandsController::class, 'showBrand'])
+    ->name('brand.show');
 
 Route::get('/profile', function () {
   return view('pages/profile');
@@ -81,6 +84,15 @@ Route::middleware('auth')->group(function () {
   Route::post('/logout', 
   [SessionController::class, 'logOut'])
     ->name('logout');
+
+  // user interactions
+  Route::post('/brands/{brand}/vote',
+  [BrandsController::class, 'vote'])
+    ->name('brands.vote');
+
+  Route::post('/brands/{brand}/save', 
+  [BrandsController::class, 'toggleSave'])
+    ->name('brands.save');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -100,6 +112,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
   [SessionController::class, 'changePassword'])
     ->name('password.change');
 
+  Route::patch('/account/change-bio', 
+  [SessionController::class, 'changeBio'])
+    ->name('bio.change');
+
+  Route::patch('/account/change-location', 
+  [SessionController::class, 'changeLocation'])
+    ->name('location.change');
+
+  Route::patch('/account/change-instagram', 
+  [SessionController::class, 'changeInstagram'])
+    ->name('instagram.change');
+
   // delete account
   Route::get('/account/delete-confirmation', 
   [SessionController::class, 'deleteAccountConfirmation']);       
@@ -107,11 +131,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::delete('/account/delete', 
   [SessionController::class, 'deleteAccount'])
     ->name('account.delete');
+
+  Route::post('/add-brands/step-1', 
+  [BrandsController::class, 'storeBrand1']);
+
+  Route::post('/add-brands/step-2', 
+  [BrandsController::class, 'storeBrand2']);
+
+  Route::post('/add-brands/step-3', 
+  [BrandsController::class, 'storeBrand3']);
+
+  Route::post('/report-brand/step-1', 
+  [ReportController::class, 'storeReportStep1']);
+
+  Route::post('/report-brand/step-2', 
+  [ReportController::class, 'storeReportStep2']);
 });
-
-Route::post('/brands/step-1', [BrandsController::class, 'storeBrand1']);
-Route::post('/brands/step-2', [BrandsController::class, 'storeBrand2']);
-Route::post('/brands/complete', [BrandsController::class, 'completeStoreBrand3'])->name('final.step');
-
-Route::post('/brands/{brand}/vote', [BrandsController::class, 'vote'])->name('brands.vote');
-Route::post('/brands/{brand}/save', [BrandsController::class, 'toggleSave'])->name('brands.save');

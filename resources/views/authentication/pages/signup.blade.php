@@ -46,7 +46,7 @@
           <button class="btn main-button" type="submit">Create account</button>
         </fieldset>
       </form>
-      <p>Already have an account?<a href="{{ route('login') }}">Sign In</a></p>
+      <p>Already have an account?<a href="{{ route('login') }}"> Sign In</a></p>
     </div>
   </section>
 </x-main-layout>
