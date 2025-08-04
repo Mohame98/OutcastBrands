@@ -24,7 +24,7 @@
   .brand-container{
     display: flex;
     gap: 0px;
-    height: 410px;
+    height: 425px;
     border: 1px solid var(--dark-quaternary-bg);
     border-radius: var(--radius-lg);
     background-color: var(--dark-secondary-bg);
