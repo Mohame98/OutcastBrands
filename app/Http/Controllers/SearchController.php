@@ -57,19 +57,19 @@ class SearchController extends Controller
 
       switch ($filter) {
         case 'past-week':
-          $query->where('launch_date', '>=', $now->subWeek());
+          $query->where('created_at', '>=', $now->subWeek());
           break;
 
         case 'past-month':
-          $query->where('launch_date', '>=', $now->subMonth());
+          $query->where('created_at', '>=', $now->subMonth());
           break;
 
         case 'past-3-months':
-          $query->where('launch_date', '>=', $now->subMonths(3));
+          $query->where('created_at', '>=', $now->subMonths(3));
           break;
 
         case 'past-year':
-          $query->where('launch_date', '>=', $now->subYear());
+          $query->where('created_at', '>=', $now->subYear());
           break;
         case 'all':
 
