@@ -3,6 +3,21 @@
   transition: 0.4s;
   border: none;
   background-color: transparent;
+  color: var(--dark-text-primary);
+}
+
+.white-btn{
+  background-color: var(--light);
+  color: var(--dark-text-opposite); 
+  font-size: var(--font-sm);
+  padding: var(--space-xxs);
+  outline: none;
+  font-weight: 600;
+  transition: 0.4s;
+
+  &:hover{
+    opacity: 0.8;
+  }
 }
 
 .cancel,
@@ -10,7 +25,7 @@
   padding: var(--space-xs);
   border-radius: var(--radius-lg);
   font-weight: 600;
-  color: var(--light);
+  color: var(--dark-text-primary);
   width: fit-content;
   transition: 0.4s;
 
@@ -28,13 +43,15 @@
 }
 
 .update{
-  background-color: var(--blue-800);
+  background-color: var(--dark-text-primary);
+  color: var(--dark-text-opposite);
 }
 
 .main-button{
   margin-top: var(--space-xxs);
   width: 100%;
-  background-color: var(--blue-800);
+  border: 1px solid var(--dark-accent-blue-hover);
+  background-color: var(--dark-accent-blue);
   color: var(--light);
   padding: var(--space-sm);
   border-radius: var(--radius-sm);
@@ -49,13 +66,16 @@
   justify-content: space-between;
   align-items: center;
 
-  width: 50%;
+  width: 100%;
   margin: 0 auto;
-  border: 1px solid var(--color-grayblue-100);
+  /* border: 1px solid var(--color-grayblue-100); */
 
   padding: var(--space-xs);
   padding-right: var(--space-md);
   border-radius: var(--radius-sm);
+
+  background-color: var(--dark-secondary-bg);
+  color: var(--dark-text-primary);
 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     
@@ -71,12 +91,13 @@
     }
 
     span:nth-of-type(2){
-      color: var(--blue-600);
+      color: var(--dark-accent-blue);
     }
   }
 
   &:hover{
-    background-color: var(--color-grayblue-50);
+    /* background-color: var(--color-grayblue-50); */
+    background-color: var(--dark-hover-gray);
   }
 
   @media (max-width: 800px) {
@@ -89,22 +110,21 @@
   color: var(--dark);
   font-weight: 500;
   transition: 0.4s;
-
-  &:hover{
-    color: var(--color-light-gray);
-  }
 }
 
 .main-nav{
   .add-brand-btn{
     display: flex;
     align-items: center;
-    gap: var(--space-xs);
+    gap: var(--space-xxs);
     font-weight: 600;
-    color: var(--blue-600);
+    color: var(--dark-text-primary);
+    background-color: var(--dark-secondary-bg);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-md);
 
     &:hover{
-      color: var(--blue-500);
+      background-color: var(--dark-hover-gray);
     }
   }
 }
@@ -130,36 +150,52 @@
 }
 
 dialog{
-  fieldset{
+  .x-btn{
+    height: 35px;
+    width: 35px;
+    border-radius: var(--radius-circle);
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    color: var(--dark-text-primary);
+    cursor: pointer;
+    font-size: var(--space-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 
-    .x-btn{
-      height: 25px;
-      width: 25px;
-      border-radius: var(--radius-circle);
-      background-color: rgba(0, 0, 0, 0.5);
-      color: var(--light);
-      cursor: pointer;
-      font-size: var(--space-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
+    &:hover{
+      background-color: var(--dark-hover-gray);
 
-      &:hover{
-        background-color: rgba(0, 0, 0, 0.6);
-
-        .hover-caption {
-          opacity: 1;
-        }
+      .hover-caption {
+        opacity: 1;
       }
     }
-
-    .btn-container{
-      display: flex;
-      justify-content: flex-end;
-      flex-direction: row;
-      gap: var(--space-xxs);
-      margin-top: var(--space-sm);
-    }
   }
+
+  .btn-container{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    gap: var(--space-xxs);
+    margin-top: var(--space-sm);
+  }
+}
+
+.view-all-brands-btn{
+  width: fit-content;
+  border-radius: var(--radius-md);
+  margin: 0 auto;
+  margin-top: var(--space-md);
+}
+
+.edit-profile-btn{
+  border-radius: var(--radius-sm);
+}
+
+.view-profile-btn{
+  border-radius: var(--radius-sm);
+}
+
+.category-filter-btn{
+  border-radius: var(--radius-sm);
 }

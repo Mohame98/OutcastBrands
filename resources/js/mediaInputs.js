@@ -1,7 +1,7 @@
-import { handleSpecificError, createNode } from "./helpers";
+import { handleSpecificError, clearSpecificError, createNode } from "./helpers";
 
 function handleMedia(){
-  const fileInputs = document.querySelectorAll('#id_media, #profile-image');
+  const fileInputs = document.querySelectorAll('#id_media, #profile_image');
   fileInputs.forEach(fileInput => {
     const container = fileInput.closest('.media-input');
     const imageInfo = document.querySelector('.upload-info')
@@ -35,6 +35,7 @@ function handleMedia(){
     if (clearBtn) {
       clearBtn.addEventListener('click', e => {
         e.preventDefault();
+        clearSpecificError("profile_image");
         preview.style.backgroundImage = '';
         container.classList.remove('has-image');
         fileInput.value = '';
@@ -47,23 +48,22 @@ function handleMedia(){
     e.preventDefault();
     const file = e.target.files?.[0] || e.dataTransfer?.files[0];
     if (!file || !file.type.startsWith('image')) return;
-    const errorMessage = document.querySelector('.error-profile_image');
     const submitBtn = document.querySelector('.profile-image-modal .update')
 
     const allowedTypes = ['image/png', 'image/jpeg'];
     if (!allowedTypes.includes(file.type)) {
-      handleSpecificError('Only PNG and JPG images are allowed.', 'profile_image');
+      handleSpecificError('JPG and PNG images only.', 'profile_image');
       submitBtn.disabled = true;
       return;
     }
 
     if (file.size > 1048576){
-      handleSpecificError('File is too large. Choose image under 1KB.', 'profile_image');
+      handleSpecificError('File is too large. Choose image under 1MB.', 'profile_image');
       submitBtn.disabled = true;
       return;
     } 
 
-    errorMessage.style.display = 'none';
+    clearSpecificError("profile_image");
     submitBtn.disabled = false;
     
     preview.innerHTML = '';
@@ -78,36 +78,47 @@ function handleMedia(){
   }
 }
 
+// create a mb tracker aswell
 function handleMultipleMediaUpload() {
+  const allowedTypes = ['image/png', 'image/jpeg'];
   const fileInputs = document.querySelectorAll('.media-input input[type="file"][data-multiple="true"]');
   fileInputs.forEach(fileInput => {
     const container = fileInput.closest('.media-input.brand');
     const preview = container.querySelector('.media-preview.brand');
     const clearBtn = container.querySelector('.clear-media-btn.brand');
     const maxFiles = parseInt(fileInput.dataset.maxFiles || "4");
-    const maxTotalSize = parseInt(fileInput.dataset.maxSize || "5242880"); // 5MB
+    const maxTotalSize = parseInt(fileInput.dataset.maxSize || "4194304");
 
     let imageFiles = [];
 
     fileInput.addEventListener('change', e => {
-      const newFiles = Array.from(e.target.files).filter(f => f.type.startsWith('image/'));
+      const allFiles = Array.from(e.target.files);
+      const newFiles = allFiles.filter(f => allowedTypes.includes(f.type));
       const proposedFiles = [...imageFiles, ...newFiles];
       const totalSize = proposedFiles.reduce((sum, f) => sum + f.size, 0);
       const numOfFiles = proposedFiles.length;
       const numberContainer = document.querySelector('.files-digit');
+
+      console.log(numOfFiles)
       
-      if (numOfFiles > 4) {
-        handleSpecificError(`You can only upload up to 4 images.`, 'brand_image');
+      if (numOfFiles > maxFiles) {
+        handleSpecificError(`You can only upload up to 4 images.`, 'photos');
         return;
       }
 
       if (totalSize > maxTotalSize) {
-        handleSpecificError(`File size cannot exceed 5mb.`, 'brand_image');
+        handleSpecificError(`Total size cannot exceed 4mb.`, 'photos');
         return;
       }
 
-      document.querySelector('.error-brand_image').textContent = '';
+      if (newFiles.length !== allFiles.length) {
+        handleSpecificError('Only JPG and PNG images are allowed.', 'photos');
+        return;
+      }
+
+      clearSpecificError("photos");
       numberContainer.textContent = numOfFiles
+
       imageFiles = proposedFiles;
       const dt = new DataTransfer();
       imageFiles.forEach(file => dt.items.add(file));
@@ -129,24 +140,29 @@ function handleMultipleMediaUpload() {
       e.preventDefault();
       container.classList.remove('dragging');
 
-      const newFiles = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+      const allFiles = Array.from(e.dataTransfer.files);
+      const newFiles = allFiles.filter(f => allowedTypes.includes(f.type));
       const proposedFiles = [...imageFiles, ...newFiles];
       const totalSize = proposedFiles.reduce((sum, f) => sum + f.size, 0);
       const numberContainer = document.querySelector('.files-digit');
       const numOfFiles = proposedFiles.length;
 
-      if (numOfFiles > 4) {
-        handleSpecificError(`You can only upload up to 4 images.`, 'brand_image');
+      if (numOfFiles > maxFiles) {
+        handleSpecificError(`You can only upload up to 4 images.`, 'photos');
         return;
       }
 
-      if (totalSize > 5242880) {
-        console.log(totalSize, maxTotalSize)
-        handleSpecificError(`Total size cannot exceed 5mb.`, 'brand_image');
+      if (totalSize > maxTotalSize) {
+        handleSpecificError(`Total size cannot exceed 4mb.`, 'photos');
         return;
       }
 
-      document.querySelector('.error-brand_image').textContent = '';
+      if (newFiles.length !== allFiles.length) {
+        handleSpecificError('Only JPG and PNG images are allowed.', 'photos');
+        return;
+      }
+
+      clearSpecificError("photos");
       numberContainer.textContent = numOfFiles
       imageFiles = proposedFiles;
       const dt = new DataTransfer();
@@ -157,13 +173,12 @@ function handleMultipleMediaUpload() {
 
     if (clearBtn) {
       const numberContainer = document.querySelector('.files-digit');
-      const errorMessage = document.querySelector('.error-brand_image');
       clearBtn.addEventListener('click', e => {
         e.preventDefault();
         imageFiles = [];
         handleSlickInit();
         fileInput.value = '';
-        errorMessage.style.display = 'none';
+        clearSpecificError("photos");
         numberContainer.textContent = 0;
         container.classList.remove('has-image');
         clearBtn.style.display = 'none';

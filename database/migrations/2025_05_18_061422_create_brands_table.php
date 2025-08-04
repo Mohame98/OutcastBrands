@@ -20,6 +20,8 @@ return new class extends Migration
         $table->string('website')->nullable();
         $table->date('launch_date')->nullable();
         $table->text('description')->nullable();
+
+        $table->unsignedInteger('comments_count')->default(0);
         $table->timestamps();
       });
     }
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('brands');
+      Schema::dropIfExists('brands');
     }
 };

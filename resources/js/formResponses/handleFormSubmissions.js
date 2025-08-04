@@ -1,4 +1,8 @@
-import { handleResponse, handleGeneralErrors } from "./handleResponses";
+import { 
+  handleResponse, 
+  handleGeneralErrors, 
+  showFlashMessage, 
+} from "./handleResponses";
 
 async function handleFormSubmissions(event) {
   event.preventDefault();
@@ -30,12 +34,18 @@ async function handleRequest(actionUrl, options, form) {
     const result = await response.json();
 
     if (!response.ok) {
-      if (response.status === 422) {
-        handleGeneralErrors(result, form);
-      } else if (response.status === 403) {
-        window.location.href = '/email/verify';
-      } else {
-        console.error('Unexpected error:', result);
+      switch (response.status) {
+        case 401:
+          window.location.href = '/signin';
+          break;
+        case 422:
+          handleGeneralErrors(result, form);
+          break;
+        case 403:
+          window.location.href = '/email/verify';
+          break;
+        default:
+          console.error('Unexpected error:', result);
       }
       return;
     }

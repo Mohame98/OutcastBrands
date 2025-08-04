@@ -8,12 +8,15 @@ use Illuminate\Http\Request;
 use App\Models\Brand;
 use App\Models\BrandImage;
 use App\Models\Category;
+use App\Models\BrandView;
 use Illuminate\Support\Facades\DB;
 
 class BrandsController extends Controller
 {
-  public function index()
+  public function index(Brand $brand)
   {
+    $view_count = $brand->views()->count();
+
     $topBrands = Brand::with([
       'featuredImage' => function ($query) {
         $query->select('id', 'brand_id', 'image_path');
@@ -25,7 +28,7 @@ class BrandsController extends Controller
       'savers'
     ])
     ->orderByDesc('total_votes')
-    ->take(5)
+    ->take(7)
     ->get();
 
     $featuredBrand = $topBrands->first();
@@ -34,6 +37,7 @@ class BrandsController extends Controller
     return view('pages.home', [
       'featuredBrand' => $featuredBrand,
       'otherBrands'   => $otherBrands,
+      'view_count'    => $view_count,
     ]);
   }
 
@@ -45,7 +49,6 @@ class BrandsController extends Controller
       'location' => 'required|string|max:255',
       'website' => 'nullable|url|max:255',
       'launch_date' => 'nullable|date',
-      'description' => 'nullable|string',
     ]);
 
     if ($validated) {
@@ -58,13 +61,44 @@ class BrandsController extends Controller
       return response()->json(['errors' => $validated->errors()], 422);
     }
   }
-
+// missing data
   public function storeBrand2(Request $request)
+{
+    $validated = $request->validate([
+        'description' => 'nullable|string',
+    ]);
+
+    if ($validated) {
+        session(['step2' => $validated]);
+
+        return response()->json([
+            'success' => true,
+            'multi_step' => true,
+        ]);
+    } else {
+        return response()->json(['errors' => $validated->errors()], 422);
+    }
+}
+
+  public function storeBrand3(Request $request)
   {
     $validated = $request->validate([
       'photos' => 'required|array|min:1|max:4',
-      'photos.*' => 'image|mimes:jpg,png|max:2000',
+      'photos.*' => 'image|mimes:jpg,png|max:4000',
     ]);
+
+    $maxTotalSize = 4 * 1024 * 1024;
+    $totalSize = 0;
+
+    foreach ($request->file('photos') as $photo) {
+      $totalSize += $photo->getSize();
+    }
+
+     if ($totalSize > $maxTotalSize) {
+      return response()->json([
+        'errors' => ['photos' => ['Total size of all files must not exceed 4MB.']]
+      ], 422);
+    }
 
     $paths = [];
     foreach ($request->file('photos') as $photo) {
@@ -72,25 +106,24 @@ class BrandsController extends Controller
       $paths[] = $photo->storeAs('temp/brands', $filename, 'public');
     }
 
-    if ($validated) {
-      session(['step2' => ['photos' => $paths]]);
+
+      session(['step3' => ['photos' => $paths]]);
+
       return response()->json([
         'success' => true,
         'multi_step' => true,
       ]);
-    } else {
-      return response()->json(['errors' => $validated->errors()], 422);
-    }
+    
   }
 
-  public function storeBrand3(Request $request)
+  public function storeBrand4(Request $request)
   {
     $validated = $request->validate([
       'categories' => 'required|array|min:1|max:3',
       'categories.*' => 'string|in:Footwear,Accessories,Outerwear,Casual,Formal,Activewear,Streetwear,Minimalist,Vintage,Preppy,Seasonal,Luxury,Sustainable',
     ]);
 
-     if (empty($validated['categories'])) {
+    if (empty($validated['categories'])) {
       return response()->json([
         'message' => 'Please select at least one category.',
         'errors' => ['categories' => ['The categories field is required.']]
@@ -99,8 +132,9 @@ class BrandsController extends Controller
 
     $step1 = session('step1');
     $step2 = session('step2');
+    $step3 = session('step3');
 
-    if (!$step1 || !$step2) {
+    if (!$step1 || !$step2 || !$step3) {
       return response()->json(['error' => 'Missing data from previous steps.'], 422);
     }
 
@@ -111,14 +145,13 @@ class BrandsController extends Controller
       'location' => $step1['location'],
       'website' => $step1['website'],
       'launch_date' => $step1['launch_date'],
-      'description' => $step1['description'],
+      'description' => $step2['description'],
     ]);
 
     $categoryIds = Category::whereIn('name', $validated['categories'])->pluck('id');
     $brand->categories()->sync($categoryIds);
 
-    // Store images
-    foreach ($step2['photos'] as $index => $path) {
+    foreach ($step3['photos'] as $index => $path) {
       BrandImage::create([
         'brand_id' => $brand->id,
         'image_path' => $path,
@@ -126,7 +159,7 @@ class BrandsController extends Controller
       ]);
     }
 
-    session()->forget(['step1', 'step2']);
+    session()->forget(['step1', 'step2', 'step3']);
     return response()->json([
       'success' => true,
       'message' => 'Brand posted!',
@@ -145,21 +178,32 @@ class BrandsController extends Controller
     $existingVote = $brand->voters()->where('user_id', $user->id)->first();
 
     if ($existingVote) {
-      if ($existingVote->pivot->vote === $voteValue) {
+      if ((int) $existingVote->pivot->vote === $voteValue) {
         $brand->voters()->detach($user->id);
+
         return response()->json([
           'message' => 'Vote removed',
+          'action' => 'removed',
           'vote' => 0,
           'total_votes' => $brand->total_votes
         ]);
       }
+
       $brand->voters()->updateExistingPivot($user->id, ['vote' => $voteValue]);
-    } else {
-      $brand->voters()->attach($user->id, ['vote' => $voteValue]);
+
+      return response()->json([
+        'message' => 'Vote updated',
+        'action' => $voteValue === 1 ? 'upvoted' : 'downvoted',
+        'vote' => $voteValue,
+        'total_votes' => $brand->total_votes
+      ]);
     }
 
+    $brand->voters()->attach($user->id, ['vote' => $voteValue]);
+
     return response()->json([
-      'message' => 'Vote has been recorded',
+      'message' => 'Vote recorded',
+      'action' => $voteValue === 1 ? 'upvoted' : 'downvoted',
       'vote' => $voteValue,
       'total_votes' => $brand->total_votes
     ]);
@@ -172,10 +216,10 @@ class BrandsController extends Controller
 
     if ($exists) {
       $brand->savers()->detach($userId);
-      $message = 'Unsaved successfully.';
+      $message = 'Unsaved';
     } else {
       $brand->savers()->attach($userId);
-      $message = 'Saved successfully.';
+      $message = 'Saved';
     }
 
     return response()->json([
@@ -187,8 +231,28 @@ class BrandsController extends Controller
 
   public function showBrand(Brand $brand)
   {
+    BrandView::create([
+      'brand_id' => $brand->id,
+      'ip' => request()->ip(),
+      'user_agent' => request()->userAgent(),
+      'referrer' => request()->headers->get('referer'),
+    ]);
+
+    $brand->loadCount(['views', 'voters', 'savers'])
+      ->load(['categories', 'images']);
+
+    $relatedBrands = Brand::where('user_id', $brand->user_id)
+    ->where('id', '!=', $brand->id)
+    ->inRandomOrder()
+    ->take(3)
+    ->get();
+
     return view('brands.show-brand', [
       'brand' => $brand,
+      'view_count' => $brand->views_count,
+      'vote_count' => $brand->voters_count,
+      'save_count' => $brand->savers_count,
+      'relatedBrands' => $relatedBrands,
     ]);
   }
 }

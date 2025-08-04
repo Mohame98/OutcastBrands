@@ -13,4 +13,8 @@
       font-size: var(--font-md);
     }
   }
+
+  .popular-brands-top-layer{
+    margin-top: var(--space-lg);
+  }
 }

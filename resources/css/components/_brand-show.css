@@ -1,0 +1,232 @@
+.show-brand{
+
+  .main-header{
+    display: flex;
+    gap: var(--space-xxs);
+    position: relative;
+
+    .brand-author{
+      .brand-author-profile{
+        height: 45px;
+        width: 45px;
+      }
+    }
+
+    .wrapper{
+      display: flex;
+
+      .title{
+        position: absolute;
+        left: 47%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+
+  .wrapper-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .brand-image-slider{
+      width: 93%;
+
+      .slick-next,
+      .slick-prev{
+        top: calc(100% + -75px);
+      }
+
+      .slick-prev{
+        left: 17px;
+        transform: rotateY(-180deg);
+      }
+
+      .slick-next {
+        left: 61px;
+      }
+    }
+
+    .brand-images{
+      aspect-ratio: 21 / 13;
+      width: 100%;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: var(--radius-md);
+      margin: var(--space-md) 0;
+      margin-right: 55px;
+      background-color: var(--dark-secondary-bg);
+      backdrop-filter: blur(10px); 
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--dark-hover-gray);
+      transition: 0.4s ease-in-out;
+
+      &:hover{
+        background-color: var(--dark-tertiary-bg);
+      }
+    }
+
+    .social-interactions.brand-detail{
+      width: 7%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: var(--space-sm);
+
+      .comments.item{
+        position: relative;
+
+        .main-comment-count-container{
+          position: absolute;
+          top: -15px;
+          left: 20px;
+          font-size: var(--font-xs);
+          height: 20px;
+          width: 20px;
+          background-color: var(--dark-accent-blue);
+          border-radius: var(--radius-circle);
+
+          span{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+
+      .social-item{
+        height: 40px;
+        width: 40px;
+        border-radius: var(--radius-sm);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid var(--dark-hover-gray);
+        background-color: var(--dark-secondary-bg);
+        list-style: none;
+
+        &:hover{
+          background-color: var(--dark-tertiary-bg);
+        }
+      }
+
+      .main-brand-report{
+        .report{
+          button{
+            .btn-text{
+              display: none;
+            }
+          }
+        }
+      }
+
+      .brand-data-details{
+        .brand-details-modal{
+          padding: var(--space-md);
+
+          header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+
+          .brand-essential-dates{
+            margin: var(--space-sm) 0;
+            color: var(--dark-text-secondary);
+          }
+
+          .data-flex{
+            display: flex;
+            gap: var(--space-lg);
+            margin: var(--space-sm) 0;
+
+            p{
+              color: var(--dark-text-secondary);
+            }
+          }
+
+          .brand-site{
+            color: var(--dark-accent-blue-hover);
+            text-decoration: underline;
+          }
+
+          .categories{
+            margin-top: var(--space-md);
+
+            .category-list{
+              margin-top: var(--space-sm);
+              display: flex;
+              flex-wrap: wrap;
+              flex-direction: unset;
+              gap: 0.5rem;
+            }
+
+            .category-link{
+              border-radius: var(--radius-sm);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .content-container{
+    max-width: 865px;
+    margin: 0 auto;
+
+    .brand-sub-title-container{
+      .wrapper{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: var(--space-lg);
+      }
+    }
+
+    .description{
+      ol{
+        li[data-list="bullet"]{
+          list-style-type: disc; 
+        }  
+      }
+    }
+
+    .profile-promotion{
+      text-align: center;
+      margin-top: var(--space-xl);
+
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+
+      .bio{
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .brand-author{
+        margin: 0 auto;
+
+        .brand-author-profile{
+          height: 60px;
+          width: 60px;
+        }
+      }
+    }
+  }
+
+  .more-from-user{
+    margin-top: var(--space-xl);
+
+    .related-brands{
+
+      .popular-brands-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: var(--space-md);
+      }
+    }
+  }
+}

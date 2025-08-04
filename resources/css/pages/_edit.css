@@ -1,10 +1,53 @@
 .edit-account{
+  padding-top: var(--space-lg);
+
   .container{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: var(--space-md);
+  }
+
+  .account-settings-flex{
+    display: flex;
+    width: 100%;
+    gap: var(--space-xl);
+
+    .settings{
+      width: 30%;
+    }
+
+    .settings-links{
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+
+      .link{
+        padding: var(--space-xxs) var(--space-sm); 
+        border-radius: var(--radius-md);
+      }
+
+      [aria-current="page"] {
+        background-color: var(--light);
+        color: var(--dark-text-opposite);
+
+        &:hover{
+          opacity: 0.7;
+        }
+      }
+
+      [aria-current="false"] {
+        &:hover{
+          background-color: var(--dark-secondary-bg);
+          color: var(--dark-text-primary);
+        }
+      }
+    }
+
+    .acc-container{
+      width: 70%;
+    }
   }
 
   .edit-account-container{

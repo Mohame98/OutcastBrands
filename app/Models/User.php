@@ -44,6 +44,16 @@ class User extends Authenticatable implements MustVerifyEmail
       return $this->belongsToMany(Brand::class, 'brand_saves')->withTimestamps();
     }
 
+    public function comments()
+    {
+      return $this->hasMany(Comment::class);
+    }
+
+    public function likedComments()
+    {
+      return $this->hasMany(CommentLike::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

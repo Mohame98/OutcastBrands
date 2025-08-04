@@ -3,12 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\BrandImage;
 use App\Models\Category;
+use App\Models\BrandView;
+use App\Models\Comment;
 use App\Models\User;
 
 class Brand extends Model
 {
+  use HasFactory;
   protected $fillable = [
     'title', 'sub_title', 'location', 'website', 'launch_date', 'description',
   ];
@@ -47,4 +51,15 @@ class Brand extends Model
   {
     return $this->belongsToMany(User::class, 'brand_saves')->withTimestamps();
   }
+
+  public function views()
+  {
+    return $this->hasMany(BrandView::class);
+  }
+
+  public function comments()
+  {
+    return $this->hasMany(Comment::class);
+  }
+
 }

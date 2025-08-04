@@ -36,11 +36,30 @@ function createNode(type, text, parentNode, className, id, href, attributes = {}
 }
 
 function handleSpecificError(message, field){
-  const errorEl = document.querySelector(`.error-${field}`);
+  const errorEl = document.querySelector(`#error-${field}`);
   if (errorEl) {
     errorEl.textContent = `${message}`;
     errorEl.style.display = 'block';
+    errorEl.style.color = 'red';
+    errorEl.style.fontSize = '0.75rem';
   }
+}
+
+// function clearSpecificError(field) {
+//   const errorEl = document.querySelector(`#error-${field}`);
+//   if (errorEl) {
+//     errorEl.textContent = '';
+//     errorEl.style.display = 'none';
+//   }
+// }
+
+function clearSpecificError(field) {
+  const errorElements = document.querySelectorAll(`#error-${field}`);
+  if (!errorElements) return;
+  errorElements.forEach(el => {
+    el.textContent = '';
+    el.style.display = 'none';
+  });
 }
 
 function closeModal(result, form){
@@ -84,14 +103,43 @@ function closeDetails() {
   });
 }
 
-function trimAllFields(){
-  const forms = document.querySelectorAll('form');
-  forms.forEach(form => {
-    form.querySelectorAll('input, textarea').forEach(el => {
-      el.value = el.value.trim();
+function moveBackSteps(form) {
+  const fieldsets = form.querySelectorAll('.multi-field');
+  const current = form.querySelector('.multi-field.active');
+
+  if (!current) {
+    console.warn('No active fieldset found.');
+    return;
+  }
+
+  const currentIndex = Array.from(fieldsets).indexOf(current);
+  if (currentIndex > 0) {
+    fieldsets[currentIndex].classList.remove('active');
+    fieldsets[currentIndex - 1].classList.add('active');
+  }
+}
+
+function backButtons() {
+  document.querySelectorAll('[data-back-button]').forEach(button => {
+    button.addEventListener('click', (e) => {
+      const form = e.target.closest('form');
+      if (!form) return;
+      moveBackSteps(form);
     });
   });
 }
+
+
+// function trimAllFields(){
+//   const forms = document.querySelectorAll('form');
+  
+//   forms.forEach(form => {
+//     form.querySelectorAll('input, textarea').forEach(el => {
+//       if (!el) return;
+//       el.value = el.value.trim();
+//     });
+//   });
+// }
 
 export {
   createNode,
@@ -100,5 +148,7 @@ export {
   selectOnlyThreeCategories,
   closeModal,
   closeDetails,
-  trimAllFields,
+  backButtons,
+  clearSpecificError,
+  // trimAllFields,
 };

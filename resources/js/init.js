@@ -16,16 +16,27 @@ import {
 } from './formResponses/handleFormSubmissions.js'
 
 import {
+  handleAllPopovers
+} from './popovers.js'
+
+import {
+  initBrandImgSlider,
+  initBrandMediaPreview,
+} from './sliders.js'
+
+import {
   createNode,
   setupPasswordToggles,
   handleSpecificError,
   selectOnlyThreeCategories,
-  trimAllFields,
+  // trimAllFields,
   closeModal,
+  backButtons,
   closeDetails,
 } from './helpers.js';
 
 export function init() {
+  backButtons();
   handleModals();
   setupPasswordToggles();
   handleMedia();
@@ -34,7 +45,10 @@ export function init() {
   updateUserValidation();
   handleMultipleMediaUpload();
   selectOnlyThreeCategories();
+  handleAllPopovers(),
+  initBrandImgSlider(),
+  initBrandMediaPreview(),
   closeDetails();
-  trimAllFields();
+  // trimAllFields();
   main();
 }

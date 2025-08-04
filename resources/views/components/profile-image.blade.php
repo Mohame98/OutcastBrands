@@ -7,5 +7,6 @@
     {{ strtoupper(substr(auth()->user()->email, 0, 1)) }}
   </span>
   @endif
-  <span>{{ auth()->user()->email }}</span>
+  <span class="user-email">{{ auth()->user()->email }}</span>
 </span>
+ 

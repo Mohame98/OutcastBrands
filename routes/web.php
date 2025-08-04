@@ -7,6 +7,9 @@ use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\Brands\BrandsController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactController;
 
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -16,15 +19,64 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\User;
 
-Route::get('/', [BrandsController::class, 'index'])->name('home');
+Route::get('/phpinfo', function () {
+  phpinfo();
+});
+
+Route::get('/', 
+[BrandsController::class, 'index'])
+  ->name('home');
+
+Route::post('/comments/{comment}/like', 
+[CommentController::class, 'likeComments'])
+  ->name('comments.like');
+
+Route::put('/comments/{comment}/edit', 
+[CommentController::class, 'editComment'])
+->name('comments.edit');
+
+Route::delete('/comments/{comment}/delete', 
+[CommentController::class, 'deleteComment'])
+  ->name('comments.delete');
+
+Route::get('/api/profile/{user}/brands', 
+[UserProfileController::class, 'brandProfileApi']);
+
+Route::get('api/saved-brands/profile', 
+[UserProfileController::class, 'savedBrandsApi']);
+
+Route::post('api/brands/{brand}/comments', 
+[CommentController::class, 'addComment']);
+
+Route::get('api/brands/{brand}/comments', 
+[CommentController::class, 'getCommentsApi']);
+
+Route::get('api/brands/search', 
+[SearchController::class, 'searchApi']);
+
+Route::post('/brands/{brand}/comments', 
+[CommentController::class, 'addComment'])
+  ->name('comment.add');
+
+// Route::get('/brands/{brand}/comments', 
+// [CommentController::class, 'getComments'])
+//   ->name('comments.show');
 
 Route::get('/search', 
-  [SearchController::class, 'searchView'])
-    ->name('search');
+[SearchController::class, 'searchView'])
+  ->name('search');
 
 Route::get('/brands/{brand}', 
-  [BrandsController::class, 'showBrand'])
-    ->name('brand.show');
+[BrandsController::class, 'showBrand'])
+  ->name('brand.show');
+
+Route::get('/profile/{user}', 
+[UserProfileController::class, 'userProfile'])
+  ->name('profile.show');
+
+Route::post('/profile/{user}', 
+[ContactController::class, 'send'])
+  ->name('contact.send');
 
 Route::get('/profile', function () {
   return view('pages/profile');
@@ -98,7 +150,12 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
   // edit account
   Route::get('/account/edit', 
-  [SessionController::class, 'edit']);
+  [SessionController::class, 'edit'])
+    ->name('account.edit');
+
+  Route::get('/account/profile', 
+  [SessionController::class, 'profile'])
+    ->name('account.profile'); 
 
   Route::patch('/account/change-profile-image', 
   [SessionController::class, 'changeProfileImage'])
@@ -141,9 +198,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::post('/add-brands/step-3', 
   [BrandsController::class, 'storeBrand3']);
 
-  Route::post('/report-brand/step-1', 
+  Route::post('/add-brands/step-4', 
+  [BrandsController::class, 'storeBrand4']);
+
+  Route::post('/report/step-1', 
   [ReportController::class, 'storeReportStep1']);
 
-  Route::post('/report-brand/step-2', 
+  Route::post('/report/step-2', 
   [ReportController::class, 'storeReportStep2']);
+
+  Route::get('/saved-brands/profile', 
+  [UserProfileController::class, 'savedBrands'])
+    ->name('profile.saved-brands');
 });

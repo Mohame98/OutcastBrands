@@ -96,6 +96,11 @@ class SessionController extends Controller
     return view("authentication.pages.edit");
   }
 
+   public function profile()
+  {
+    return view("authentication.pages.profile");
+  }
+
   // edit account
   public function changeProfileImage(Request $request)
   {
@@ -228,7 +233,6 @@ class SessionController extends Controller
       'instagram' => [
         'required',
         'url',
-        'regex:/^https?:\/\/(www\.)?instagram\.com\/[a-zA-Z0-9._]+\/?$/',
       ],
     ]);
 

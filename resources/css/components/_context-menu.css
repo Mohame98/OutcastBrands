@@ -1,77 +1,75 @@
 .context-menu-container{
-  position: relative;
-  transform: translate(10px, -11px);
-  background-color: rgba(120, 120, 120, 0.1);
-  height: fit-content;
-  padding: 6px 11px;
-  border-radius: var(--radius-circle);
-  transition: 0.4s;
+  anchor-scope: --anchor-context-menu;
 
-  &:hover{
-    background-color: rgba(120, 120, 120, 0.2);
-  }
-
-  summary {
-    list-style: none;
-    cursor: pointer;
+  .context-menu-btn{
+    height: 30px;
+    width: 30px;
+    border-radius: var(--radius-circle);
+    color: var(--light);
     transition: 0.4s;
+    anchor-name: --anchor-context-menu;
+    
+    &:hover{
+      background-color: var(--dark-tertiary-bg);
+    }
   }
 
   .context-menu{
-    position: absolute;
-    top: 105%;
-    right: 0%;
-    background-color: var(--light);
-    padding: var(--space-xs);
-    border: 1px solid var(--color-grayblue-100);
+    position: fixed;
+    position-anchor: --anchor-context-menu;
+    top: calc(anchor(bottom) + 10px);
+    left: anchor(-200%);
+    margin: 0;
+
+    background-color: var(--dark-tertiary-bg);
+    
+
+    padding: var(--space-xxxs);
+    /* border: none; */
+    border: 1px solid var(--dark-quaternary-bg);
+    /* border: 1px solid var(--color-grayblue-100); */
     border-radius: var(--radius-sm);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 150px;
+    box-shadow: 0 7px 12px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+
+
+    display: none;
+    opacity: 0;
+    transition: 
+      translate 0.5s,
+      display   0.5s,
+      opacity   0.5s;
+    transition-behavior: allow-discrete;
+
+    &:popover-open{
+      display: block;
+      opacity: 1;
+      translate: 0 0;
+
+      @starting-style{
+        opacity: 0;
+        translate: 0 -30px;
+      }
+    }
+
+    .btn{
+      &:hover{
+        background-color: var(--dark-hover-dark-gray);
+      }
+    }
 
     .context-item{
+      list-style: none;
+
       .save-btn,
       .report-btn{
         display: flex;
         align-items: center;
         gap: var(--space-xs);
-        gap: var(--radius-md);
         padding: var(--space-xxs) var(--space-xs);
+        border-radius: var(--radius-sm);
         width: 100%;
         transition: 0.4s;
-
-        &:hover{
-          color: var(--color-light-gray);
-        }
-      }
-    }
-
-    .report{
-      width: 425px;
-
-      fieldset {
-        display: none;
-        position: absolute;
-        transition: opacity 0.4s ease;
-        width: 100%;
-
-        .report-list{
-          display: flex;
-          flex-direction: column;
-          gap: var(--space-xxs);
-
-          
-        }
-
-        .form-step{
-          display: flex;
-          flex-direction: column;
-          width: 100%;
-        }
-      }
-
-      fieldset.active {
-        display: flex;
-        position: relative;
       }
     }
   }

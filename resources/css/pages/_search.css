@@ -1,0 +1,19 @@
+.search-page{
+
+  .filter-btns{
+    margin-top: var(--space-md);
+  }
+
+  .category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: unset;
+    gap: 0.5rem;
+    margin-top: var(--space-md);
+  }
+
+  .category-filter-modal{
+    width: 500px;
+  }
+
+}
