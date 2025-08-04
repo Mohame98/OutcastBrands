@@ -12,6 +12,7 @@
 
   form{
     width: 450px;
+    margin-top: 50px;
 
     fieldset {
       border: none;

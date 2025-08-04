@@ -211,7 +211,7 @@
 
   .grid{
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(265px, 2fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 2fr));
     gap: var(--space-lg) var(--space-md);
   }
 

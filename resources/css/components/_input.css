@@ -1,6 +1,7 @@
 input,
 textarea{
-  padding: var(--space-xs);
+  padding: var(--space-sm);
+  font-size: var(--font-sm);
   border-radius: 8px;
   border: 1px solid var(--dark-quaternary-bg);
   background-color: var(--dark-tertiary-bg);

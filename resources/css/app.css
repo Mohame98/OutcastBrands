@@ -115,6 +115,10 @@
   /* font-family: "Montserrat", sans-serif; */
 }
 
+html{
+  font-size: 18px;
+}
+
 body {
   line-height: 1.6;
   font-size: var(--font-md);
@@ -123,7 +127,7 @@ body {
 }
 
 .container{
-  max-width: 1000px;
+  max-width: 1200px;
   width: 90%;
   margin: 0 auto;
 }
