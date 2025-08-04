@@ -33,7 +33,7 @@
 
       .slick-next,
       .slick-prev{
-        top: calc(100% + -75px);
+        top: calc(100% + -85px);
       }
 
       .slick-prev{
@@ -172,7 +172,7 @@
   }
 
   .content-container{
-    max-width: 865px;
+    max-width: 1020px;
     margin: 0 auto;
 
     .brand-sub-title-container{

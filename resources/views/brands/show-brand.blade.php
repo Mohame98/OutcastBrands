@@ -137,7 +137,7 @@ $vote = $brand->voters->firstWhere('id', auth()->id())?->pivot->vote ?? null;
           <div class="brand-author">
             <a href="{{ route('profile.show', $brand->user) }}">
               @if($brand->user->profile_image)
-                <div class="brand-author-profile image" style="background-image: url('{{ asset($brand->user->profile_image) }}')"></div>
+                <div class="brand-author-profile image" style="background-image: url('{{ asset('storage/app/public/' . $brand->user->profile_image) }}')"></div>
               @else
                 <div class="brand-author-profile letter">
                   {{ strtoupper(substr($brand->user->email, 0, 1)) }}
