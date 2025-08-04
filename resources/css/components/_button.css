@@ -4,6 +4,7 @@
   border: none;
   background-color: transparent;
   color: var(--dark-text-primary);
+  font-size: var(--font-sm);
 }
 
 .white-btn{
@@ -135,7 +136,7 @@
   .toggle-password{
     position: absolute;
     right: 16px;
-    top: 53px;
+    top: 48px;
 
     .hover-caption{
       top: -20px;
