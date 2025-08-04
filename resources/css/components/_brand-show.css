@@ -96,8 +96,8 @@
       }
 
       .social-item{
-        height: 40px;
-        width: 40px;
+        height: 45px;
+        width: 45px;
         border-radius: var(--radius-sm);
         display: flex;
         justify-content: center;

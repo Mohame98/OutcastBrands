@@ -97,7 +97,7 @@
 								@include('components.close-modal')
 							</header>
 							<p>Submit at most 4 images of your brand/product.</p>
-							<p>The first image will be your featured image</p>
+							<p class="featured-noti">The first image will be the featured image.</p>
 
 							<div class="multiple-photos">
 								<label for="brand-image">

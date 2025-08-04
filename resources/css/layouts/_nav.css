@@ -64,7 +64,7 @@
         display: flex;
         gap: var(--space-xxs);
         align-items: center;
-        padding: var(--space-xs);
+        padding: 11px;
         border-radius: var(--radius-md);
       }
     }
@@ -97,8 +97,12 @@
       margin-left: auto;
     }
 
+    .featured-noti{
+      color: var(--dark-accent-blue);
+    }
+
     .multi-field.description{
-      max-width: 550px;
+      max-width: 600px;
     }
 
     fieldset {

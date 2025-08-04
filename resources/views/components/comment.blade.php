@@ -92,18 +92,24 @@
                         <form method="POST" action="{{ route('comments.edit', $comment) }}" class="edit-comment-form action-form" data-action="edit-comment">
                             <fieldset class="edit-comment-field" id="edit-comment-field">
                                 <header class="modal-headers">
-                                    <h1>Edit Comment</h1>
+                                    <h1>Edit or Update Comment</h1>
                                     @include('components.close-modal')
                                 </header>
 
                                 @csrf
                                 @method('PUT')
                                  <div class="form-group">
-                                    <label for="message">
-                                    <span>Edit Comment *</span>
-                                    <textarea name="comment_text" id="commentText-{{ $comment->id }}" required>{{ old('comment_text', $comment->comment_text) }}</textarea>
+                                    <label for="commentText-{{ $comment->id }}">
+                                        <span>Edit Comment</span>
+                                        <textarea 
+                                            name="comment_text" 
+                                            id="commentText-{{ $comment->id }}" 
+                                            required
+                                        >
+                                            {{ old('comment_text', $comment->comment_text) }}
+                                        </textarea>
                                     </label>
-                                    <x-form-error name="message" />
+                                    <x-form-error name="comment_text" />
                                 </div>
                                 <div class="btn-container">
                                     <button type="button" class="btn cancel close-modal">
@@ -118,10 +124,11 @@
 
                 <div class="modal-wrapper">
                     <button 
-                    class="btn delete-comment-btn modal-btn"
-                    aria-haspopup="show get in touch form" 
-                    aria-controls="delete-comment-modal" 
-                    aria-expanded="false">
+                        class="btn delete-comment-btn modal-btn"
+                        aria-haspopup="show get in touch form" 
+                        aria-controls="delete-comment-modal" 
+                        aria-expanded="false"
+                    >
                         Delete
                     </button>
                     <dialog id="delete-comment-modal" class="delete-comment-modal">
@@ -135,6 +142,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <P>Are you sure you want to delete this comment?</P>
+                                <p>{{ $comment }}</p>
                                 <div class="btn-container">
                                     <button type="button" class="btn cancel close-modal">
                                         Cancel

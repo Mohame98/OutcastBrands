@@ -51,7 +51,7 @@
   position: absolute;
   position-anchor: --anchor-profile-menu;
   top: calc(anchor(bottom) + 8px);
-  left: anchor(8%);
+  left: anchor(0%);
   margin: 0;
   
   background-color: var(--dark-secondary-bg);

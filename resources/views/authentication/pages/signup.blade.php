@@ -28,7 +28,7 @@
 
           <div class="row">
             <div class="password-field"> 
-              <label for="password">Password</label>
+              <label for="pass">Password</label>
               <input type="password" name="password" id="pass"
                   placeholder="Enter password" aria-label="Enter password" class="password-input">
               @include('components.toggle-password')
@@ -36,7 +36,7 @@
             </div>
           
             <div class="password-field"> 
-              <label for="password">Confirm Password</label>
+              <label for="c-pass">Confirm Password</label>
               <input type="password" name="password_confirmation" id="c-pass"
                   placeholder="Re-enter password" aria-label="Confirm password" class="password-input">
               @include('components.toggle-password')
