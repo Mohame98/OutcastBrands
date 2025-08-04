@@ -54,7 +54,7 @@
         display: flex;
         gap: var(--space-xxs);
         align-items: center;
-        padding: var(--space-xs);
+        padding: 11px;
         border-radius: var(--radius-md);
       }
     }
