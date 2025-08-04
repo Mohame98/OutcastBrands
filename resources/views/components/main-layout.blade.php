@@ -90,18 +90,6 @@ function updateQuery() {
     }
 }
 
-// function initializePageFromURL() {
-//     const urlParams = new URLSearchParams(window.location.search);
-//     currentPage = parseInt(urlParams.get("page")) || 1;
-
-//     for (const [key, value] of urlParams.entries()) {
-//         filters.set(key, value);
-//     }
-
-//     const queryString = filters.toString();
-//     fetchBrandCards(queryString, currentPage);
-// }
-
 function handleFilterButtons() {
     filterButtons.forEach((button) => {
         button.addEventListener("click", (e) => {
@@ -295,96 +283,6 @@ function updateButtonStates() {
     searchState();
 }
 
-// let currentPage = 1; 
-// const brandsPerPage = 1;
-
-// // rename function
-// // keeps re appending the same page on query
-// async function fetchBrandCards(queryString, page) {
-//     try {
-// 				const userProfilePage = document.querySelector("#user-profile");
-// 				const savedBrandsPage = document.querySelector("#user-saved-brands");
-               
-
-// 				let response;
-
-//         const paginatedQuery = `${queryString}&page=${page}&limit=${brandsPerPage}`;
-
-// 		if (userProfilePage) {
-//             const userId = userProfilePage.dataset.userId;
-//             response = await fetch(`/api/profile/${userId}/brands?${paginatedQuery}`);
-//         } else if (savedBrandsPage) {
-//             response = await fetch(`/api/saved-brands/profile?${paginatedQuery}`);
-//         } else {
-//             return;
-//         }
-
-// 		if (!response || !response.ok) throw new Error("Failed to fetch brand cards");
-
-//         const data = await response.json();
-//         renderBrandCards(data.html_cards.join(""));
-//         handleLoadMoreButton(data.has_more_brands, queryString);
-//         updateActiveFilters();
-
-//         console.log(currentPage, brandsPerPage)
-//     } catch (error) {
-//         console.error("Error fetching brand cards:", error);
-//         // createNode("p", "Sorry, something went wrong. Please try again later.", document.querySelector("#brands-container"));
-//     }
-// }
-
-// function renderBrandCards(cardsHtml) {
-//     const container = document.querySelector("#brands-container");
-
-//     // Clear existing cards when applying new filters or search
-//     // container.innerHTML = '';
-
-//     // Parse and append new cards
-//     const parser = new DOMParser();
-//     const doc = parser.parseFromString(cardsHtml, 'text/html');
-//     const cards = doc.body.children;
-
-//     // Add fade-in effect
-//     Array.from(cards).forEach(el => {
-//         el.classList.add('fade-in');
-//         container.appendChild(el);
-
-//         // Remove fade-in class after animation
-//         el.addEventListener('animationend', () => {
-//             el.classList.remove('fade-in');
-//         });
-//     });
-// }
-
-// function handleLoadMoreButton(hasMoreBrands, queryString) {
-//     const loadMoreBtn = document.querySelector(".load-more");
-
-//     if (hasMoreBrands) {
-//         loadMoreBtn.style.display = 'inline-block';  // Show the button
-//     } else {
-//         loadMoreBtn.style.display = 'none';  // Hide the button
-//     }
-
-//     // Clear existing event listeners (important to prevent multiple listeners)
-//     loadMoreBtn.removeEventListener('click', loadMoreHandler);
-
-//     // Add the event listener
-//     loadMoreBtn.addEventListener('click', loadMoreHandler);
-
-//    function loadMoreHandler() {
-//     const loadMoreBtn = document.querySelector(".load-more");
-//     loadMoreBtn.disabled = true;  // Disable the button to prevent double click
-
-//     currentPage++;
-   
-//     fetchBrandCards(queryString, currentPage)
-//         .finally(() => {
-//             loadMoreBtn.disabled = false;  // Re-enable the button after fetch completes
-//         });
-// }
-// }
-
-// let currentPage = 1;
 let currentPage = parseInt(filters.get("page")) || 1;
 const brandsPerPage = 6;
 let loadMoreListenerAttached = false;
@@ -578,35 +476,6 @@ function handleLoadMoreCommentsButton(hasMore, brandId, queryString) {
 
 document.addEventListener("DOMContentLoaded", initComments);
 
-// document.addEventListener('DOMContentLoaded', function() {
-
-//   document.body.addEventListener('click', function(event) {
-//     if (event.target && event.target.classList.contains('edit-button')) {
-//       const commentId = event.target.dataset.commentId;
-//       toggleEditForm(commentId);
-//     }
-
-//     if (event.target && event.target.classList.contains('cancel')) {
-//       const commentId = event.target.closest('form').id.split('-')[1];
-//       toggleEditForm(commentId);
-//     }
-//   });
-// });
-
-// function toggleEditForm(commentId) {
-//   const form = document.getElementById(`editForm-${commentId}`);
-//   const button = document.getElementById(`editButton-${commentId}`);
-
-//   if (!form) return;
-
-//   if (form.style.display === "none") {
-//     form.style.display = "block";
-//     button.style.display = "none"; 
-//   } else {
-//     form.style.display = "none"; 
-//     button.style.display = "inline-block"; 
-//   }
-// }
 
 document.querySelectorAll('input, textarea').forEach(input => {
     input.value = input.value.trim();

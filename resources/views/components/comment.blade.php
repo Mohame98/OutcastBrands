@@ -11,7 +11,7 @@
                     @if($brandUser->profile_image)
                     <div 
                         class="brand-author-profile image" 
-                        style="background-image: url('{{ asset($brandUser->profile_image) }}')">
+                        style="background-image: url('{{ asset('storage/app/public' . $brandUser->profile_image) }}')">
                     </div>
                     @else
                     <div class="brand-author-profile letter">
@@ -146,43 +146,7 @@
                     </dialog>
                 </div>
             @endif
-
             </div>
-
-                {{-- @if(auth()->id() === $comment->user_id)
-                <button 
-                    class="edit-button btn" 
-                    id="editButton-{{ $comment->id }}" 
-                    data-comment-id="{{ $comment->id }}">
-                        Delete
-                </button>
-
-                <form 
-                    method="POST" 
-                    action="{{ route('comments.delete', $comment) }}"
-                    class="action-form" 
-                    data-action="delete-comment"
-                >
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn" type="submit">Delete Comment</button>
-                </form>
-                @endif
-            </div> --}}
-            {{-- @if(auth()->id() === $comment->user_id)
-            <div class="edit-form-container" id="editForm-{{ $comment->id }}" style="display: none;">
-                <form method="POST" action="{{ route('comments.edit', $comment) }}" class="edit-comment-form action-form" data-action="edit-comment">
-                    @csrf
-                    @method('PUT')
-                    <textarea name="comment_text" id="commentText-{{ $comment->id }}" required>{{ old('comment_text', $comment->comment_text) }}
-                    </textarea>
-                    <div class="btn-container">
-                         <button type="button" class="cancel-edit btn cancel" onclick="toggleEditForm({{ $comment->id }})">Cancel</button>
-                        <button class="edit-comment-btn btn" type="submit">Save</button>
-                    </div>
-                </form>
-            </div>
-            @endif --}}
         </div>
     </div>  
 </div>

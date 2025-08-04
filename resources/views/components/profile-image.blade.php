@@ -1,6 +1,6 @@
 <span class="avatar-container">
   @if(auth()->user()->profile_image)
-  <span class="avatar img" style="background-image: url('{{ asset('storage/' . auth()->user()->profile_image) }}');">
+  <span class="avatar img" style="background-image: url('{{ asset('storage/app/public' . auth()->user()->profile_image) }}');">
   </span>
   @else
   <span class="avatar letter">

@@ -9,7 +9,7 @@
     <div 
       class="popular-brand-featured-image" 
       @if ($brand->featuredImage)
-        style="background-image: url('{{ asset($brand->featuredImage->image_path) }}')"
+        style="background-image: url('{{ asset('storage/app/public' . $brand->featuredImage->image_path) }}')"
       @else
         style="background-color: #ccc;"
       @endif
