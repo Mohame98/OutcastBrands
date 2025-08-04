@@ -1,4 +1,4 @@
-w@props(['active' => false])
+@props(['active' => false])
 @php
   $open = 'open';
   $closed = !$open;
