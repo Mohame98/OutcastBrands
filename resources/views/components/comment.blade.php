@@ -11,7 +11,7 @@
                     @if($brandUser->profile_image)
                     <div 
                         class="brand-author-profile image" 
-                        style="background-image: url('{{ asset('storage/app/public' . $brandUser->profile_image) }}')">
+                        style="background-image: url('{{ asset('storage/app/public/' . $brandUser->profile_image) }}')">
                     </div>
                     @else
                     <div class="brand-author-profile letter">
