@@ -17,8 +17,8 @@ $vote = $brand->voters->firstWhere('id', auth()->id())?->pivot->vote ?? null;
         <div class="brand-image-slider slider">
           @foreach ($brand->images->take(4) as $index => $image)
           <div class="slide">
-            <a href="{{ asset('storage/app/' . $image->image_path) }}" data-caption="Brand Image {{ $index + 1 }}" data-fancybox="brandImages">
-              <div class="brand-images" style="background-image: url('{{ asset('storage/app/' . $image->image_path) }}')"></div>
+            <a href="{{ asset('storage/app/public/' . $image->image_path) }}" data-caption="Brand Image {{ $index + 1 }}" data-fancybox="brandImages">
+              <div class="brand-images" style="background-image: url('{{ asset('storage/app/public/' . $image->image_path) }}')"></div>
             </a>
           </div>
           @endforeach
