@@ -10,7 +10,6 @@
     <h1>Featured Brand</h1>
   </header>
   <div class="brand-container"> 
-   
     <div class="left-brand-featured-image" 
       @if ($brand->featuredImage)
         style="background-image: url('{{ asset('storage/app/public/' . $brand->featuredImage->image_path) }}')"
