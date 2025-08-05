@@ -12,7 +12,7 @@
       
       <div class="comment-image-title">
         @if ($brand->featuredImage)   
-          <div class="brand-featured-image" style="background-image: url('{{ asset('storage/app/public/' . $brand->featuredImage->image_path) }}')"></div>
+          <div class="brand-featured-image" style="background-image: url('{{ asset('storage/' . $brand->featuredImage->image_path) }}')"></div>
         @endif
         
         <div>

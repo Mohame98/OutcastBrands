@@ -17,8 +17,8 @@ $vote = $brand->voters->firstWhere('id', auth()->id())?->pivot->vote ?? null;
         <div class="brand-image-slider slider">
           @foreach ($brand->images->take(4) as $index => $image)
           <div class="slide">
-            <a href="{{ asset('storage/app/public/' . $image->image_path) }}" data-caption="Brand Image {{ $index + 1 }}" data-fancybox="brandImages">
-              <div class="brand-images" style="background-image: url('{{ asset('storage/app/public/' . $image->image_path) }}')"></div>
+            <a href="{{ asset('storage/' . $image->image_path) }}" data-caption="Brand Image {{ $index + 1 }}" data-fancybox="brandImages">
+              <div class="brand-images" style="background-image: url('{{ asset('storage/' . $image->image_path) }}')"></div>
             </a>
           </div>
           @endforeach
@@ -137,7 +137,7 @@ $vote = $brand->voters->firstWhere('id', auth()->id())?->pivot->vote ?? null;
           <div class="brand-author">
             <a href="{{ route('profile.show', $brand->user) }}">
               @if($brand->user->profile_image)
-                <div class="brand-author-profile image" style="background-image: url('{{ asset('storage/app/public/' . $brand->user->profile_image) }}')"></div>
+                <div class="brand-author-profile image" style="background-image: url('{{ asset('storage/' . $brand->user->profile_image) }}')"></div>
               @else
                 <div class="brand-author-profile letter">
                   {{ strtoupper(substr($brand->user->email, 0, 1)) }}

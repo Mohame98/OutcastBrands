@@ -12,6 +12,14 @@
             <x-nav-links href="{{ route('account.profile') }}" :active="request()->is('account/profile')">
               Profile
             </x-nav-links>
+
+            <form method="POST" action="{{ route('logout') }}">
+              @csrf
+              <button class="btn logout-btn" type="submit">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                Log Out
+              </button>
+            </form>
           </ul>
         </div>
         <div class="edit-account-container">
