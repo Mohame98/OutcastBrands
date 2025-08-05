@@ -32,7 +32,6 @@ async function handleRequest(actionUrl, options, form) {
   try {
     const response = await fetch(actionUrl, options);
     const result = await response.json();
-
     if (!response.ok) {
       switch (response.status) {
         case 401:

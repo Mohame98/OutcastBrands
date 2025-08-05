@@ -36,9 +36,7 @@ class CommentController extends Controller
             }
         }
     
-
-    // Get the comments based on the applied filters and sorting
-    $comments = $commentsQuery->paginate(5);
+        $comments = $commentsQuery->paginate(5);
 
         $htmlComments = $comments->map(function ($comment) {
             return view('components.comment', compact('comment'))->render();

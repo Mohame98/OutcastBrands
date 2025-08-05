@@ -9,7 +9,6 @@ import {
   closeModal
 } from '../helpers.js';
 
-
 function handleResponse(result, form, actionUrl){
   const actionType = form.dataset.action;
 
@@ -73,8 +72,6 @@ function handleGeneralErrors(result, form) {
   }
 }
 
-
-
 function handleProfileImg(result, form, actionType){
   if (actionType === 'change-profile-image') {
     const profile = document.querySelector('.main-nav .avatar');
@@ -108,9 +105,6 @@ function handleContactSubmission(result, actionType, form){
   form.reset();
   closeModal(result, form);    
 }
-
-
-
 
 function handleVoteCount(result, actionType, form) {
   if (actionType !== 'vote' || !form) return;

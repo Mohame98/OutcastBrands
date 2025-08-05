@@ -85,53 +85,53 @@ class UserProfileController extends Controller
   }
 
  public function savedBrandsApi(Request $request)
-{
+  {
     $user = auth()->user();
 
     if (!$user) {
-        return response()->json(['error' => 'Not authenticated'], 401);
+      return response()->json(['error' => 'Not authenticated'], 401);
     }
 
     $query = Brand::query();
 
     $query->whereHas('savers', function ($q) use ($user) {
-        $q->where('user_id', $user->id);
+      $q->where('user_id', $user->id);
     });
 
     if ($request->has('search')) {
-        $searchTerm = $request->input('search');
-        $query->where('title', 'like', "%{$searchTerm}%");
+      $searchTerm = $request->input('search');
+      $query->where('title', 'like', "%{$searchTerm}%");
     }
 
-   if ($request->has('sort')) {
-    $sortBy = $request->input('sort', 'most popular');
-    if ($sortBy === 'most popular') {
+    if ($request->has('sort')) {
+      $sortBy = $request->input('sort', 'most popular');
+      if ($sortBy === 'most popular') {
         $query->withSum('voters as vote_score', 'brand_votes.vote')
-              ->orderByDesc('vote_score');
-    } elseif ($sortBy === 'oldest') {
+          ->orderByDesc('vote_score');
+      } elseif ($sortBy === 'oldest') {
         $query->orderBy('created_at', 'asc');
-    } else {
+      } else {
         $query->orderBy('created_at', 'desc');
+      }
     }
-}
 
     $brands = $query->with(['featuredImage', 'voters', 'views', 'savers'])->paginate(6);
 
     $cardsHtml = $brands->map(function ($brand) {
-        $authId = auth()->id();
-        $vote = $authId ? $brand->voters->firstWhere('id', $authId)?->pivot->vote : null;
-        $viewCount = $brand->views->count();
+      $authId = auth()->id();
+      $vote = $authId ? $brand->voters->firstWhere('id', $authId)?->pivot->vote : null;
+      $viewCount = $brand->views->count();
 
-        return view('components.brand-card-types.grid-brand-card', [
-            'brand' => $brand,
-            'vote' => $vote,
-            'viewCount' => $viewCount
-        ])->render();
+      return view('components.brand-card-types.grid-brand-card', [
+        'brand' => $brand,
+        'vote' => $vote,
+        'viewCount' => $viewCount
+      ])->render();
     });
 
     return response()->json([
-        'html_cards' => $cardsHtml,
-        'has_more_brands' => $brands->hasMorePages(), 
+      'html_cards' => $cardsHtml,
+      'has_more_brands' => $brands->hasMorePages(), 
     ]);
   }
 }
