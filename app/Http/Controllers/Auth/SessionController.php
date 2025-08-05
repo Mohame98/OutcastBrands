@@ -135,7 +135,7 @@ class SessionController extends Controller
     return response()->json([
       'success' => true,
       'message' => 'Profile image has been updated.',
-      'profile_image_url' => asset('storage/app/public/' . $user->profile_image),
+      'profile_image_url' => asset('storage/' . $user->profile_image),
     ]);
   }
 
