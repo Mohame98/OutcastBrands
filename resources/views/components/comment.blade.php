@@ -105,9 +105,7 @@
                                             name="comment_text" 
                                             id="commentText-{{ $comment->id }}" 
                                             required
-                                        >
-                                            {{ old('comment_text', $comment->comment_text) }}
-                                        </textarea>
+                                            >{{ old('comment_text', $comment->comment_text) }}</textarea>
                                     </label>
                                     <x-form-error name="comment_text" />
                                 </div>
@@ -142,7 +140,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <P>Are you sure you want to delete this comment?</P>
-                                <p>{{ $comment }}</p>
+                                <p>{{ $comment->comment_text }}</p>
                                 <div class="btn-container">
                                     <button type="button" class="btn cancel close-modal">
                                         Cancel
