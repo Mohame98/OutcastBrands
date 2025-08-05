@@ -7,7 +7,7 @@
             @if($user->profile_image)
             <div 
               class="avatar img" 
-              style="background-image: url('{{ asset('storage/app/public/' . $user->profile_image) }}');"
+              style="background-image: url('{{ asset($user->profile_image) }}');"
             ></div>
             @else
             <div class="avatar letter">
