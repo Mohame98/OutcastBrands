@@ -1,0 +1,3 @@
+needs mobile responsive
+edit and delete brands
+change title of each page

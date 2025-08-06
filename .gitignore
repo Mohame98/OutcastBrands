@@ -6,6 +6,7 @@
 /storage/*.key
 /storage/pail
 /vendor
+brandapp.txt
 .env
 .env.backup
 .env.production
