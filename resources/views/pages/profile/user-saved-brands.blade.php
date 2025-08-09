@@ -13,14 +13,14 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input name="search" type="text" id="search-input" placeholder="Search" />
             </div>
+            <select name="sort" id="sort-by">
+              <option value="featured">Default</option>
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+              <option value="most popular">Most Popular</option>
+            </select>
           </div>
 
-          <select name="sort" id="sort-by">
-            <option value="featured">Featured</option>
-            <option value="newest">Newest</option>
-            <option value="oldest">Oldest</option>
-            <option value="most popular">Most Popular</option>
-          </select>
         </div>
       
         <div class="active-filters">

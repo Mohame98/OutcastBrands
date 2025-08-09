@@ -127,7 +127,15 @@
     &:hover{
       background-color: var(--dark-hover-gray);
     }
+
+    @media (max-width: 800px) {
+      width: 100%;
+      padding: var(--space-xxs);
+      border-radius: var(--radius-sm);
+    }
   }
+
+ 
 }
 
 .password-field{

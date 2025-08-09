@@ -161,7 +161,7 @@
                 
                 <div class="password-field form-group">
                   <label for="confirm_deletion">
-                    <span>Confirm your password to delete your account:</span>
+                    <span>Confirm password to delete account:</span>
                     <input type="password" name="confirm_deletion" id="confirm_deletion" aria-label="Confirm account deletion" class="password-input" required>
                   </label>
                   @include('components.toggle-password')

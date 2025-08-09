@@ -17,6 +17,11 @@
       opacity;
     transition-duration: 0.4s;
     transition-behavior: allow-discrete; 
+
+    @media (max-width: 800px) {
+      min-width: 95%;
+      width: auto;
+    }
   }
 
   dialog::backdrop {

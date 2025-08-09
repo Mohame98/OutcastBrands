@@ -9,7 +9,7 @@
       ];
       @endphp
 
-      <div class="modal-wrapper">
+      <div class="modal-wrapper category-filter">
         <button 
           class="btn category-filter-btn modal-btn white-btn"
           aria-haspopup="show get in touch form" 
@@ -47,6 +47,7 @@
       </div>
 
       <div class="filter-container">
+    
         <div class="filter-section">
           <div class="filter-btns">
             <button name="filter" value="all" data-filter="filter:all"
@@ -75,12 +76,6 @@
             </button>
           </div>
 
-          <select name="sort" id="sort-by">
-            <option value="featured">Featured</option>
-            <option value="newest">Newest</option>
-            <option value="oldest">Oldest</option>
-            <option value="most popular">Most Popular</option>
-          </select>
         </div>
 
         <div class="search-input">
@@ -88,6 +83,14 @@
             <i class="fa-solid fa-magnifying-glass"></i>
             <input name="search" type="text" id="search-input" placeholder="Search" />
           </div>
+
+          <select name="sort" id="sort-by" class="sort-desktop">
+            <option value="featured">Default</option>
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="most popular">Most Popular</option>
+          </select>
+
         </div>
 
         <div class="active-filters">

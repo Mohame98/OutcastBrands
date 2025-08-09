@@ -107,3 +107,19 @@
     }
   }
 }
+
+/* responsive */
+@media (max-width: 800px) {
+  .edit-account{
+    padding-top: 0;
+   
+    .account-settings-flex{
+      flex-direction: column;
+      gap: var(--space-md);
+
+      .settings{
+        width: 100%;
+      }
+    }
+  }
+}

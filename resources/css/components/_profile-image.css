@@ -99,3 +99,15 @@
   }
 }
 
+/* responsive */
+@media (max-width: 800px) {
+  .avatar-container{
+   .user-email{
+    display: none;
+   }
+  }
+
+  .profile-dropdown-menu{
+    left: anchor(-290%);
+  }
+}

@@ -1,7 +1,7 @@
 .search-page{
 
-  .filter-btns{
-    margin-top: var(--space-md);
+  .modal-wrapper.category-filter{
+    margin-bottom: 20px;
   }
 
   .category-filters {
@@ -15,5 +15,4 @@
   .category-filter-modal{
     width: 500px;
   }
-
 }
