@@ -191,6 +191,10 @@ input::placeholder {
   display: flex;
   flex-direction: row;
   gap: var(--space-xs);
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
 }
 
 .form-group{

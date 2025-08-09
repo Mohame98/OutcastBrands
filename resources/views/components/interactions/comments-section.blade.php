@@ -48,7 +48,7 @@
         </div>
         
         <select name="sort" id="sort-by">
-          <option value="featured">Featured</option>
+          <option value="featured">Default</option>
           <option value="newest">Newest</option>
           <option value="oldest">Oldest</option>
           <option value="most liked">Most Liked</option>

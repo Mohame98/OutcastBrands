@@ -44,10 +44,6 @@
       display: none;
     }
 
-    .profile.item.add-brand{
-      display: none;
-    }
-
     [aria-current="page"] {
       background-color: var(--light);
       color: var(--dark-text-opposite);
@@ -91,6 +87,10 @@
 
   .add-brand-modal{
     top: 45%;
+
+    @media (max-width: 800px) {
+      top: 51%;
+    }
 
     .number-files{
       margin-left: auto;

@@ -1,6 +1,11 @@
 @layer layout {
   .comment-side-panel{
     width: 575px;
+
+    @media (max-width: 800px) {
+      width: 100%;
+    }
+
     padding: 25px !important;
     /* left: auto; */
     /* right: 20px; */
