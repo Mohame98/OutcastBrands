@@ -3,6 +3,7 @@
     class="btn add-brand-btn modal-btn"
     aria-haspopup="add a brand form" 
     aria-controls="add-brand-modal" 
+    title="Add a Brand"
     aria-expanded="false">
       <i class="fa-solid fa-plus"></i>
       <span class="btn-text">

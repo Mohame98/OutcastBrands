@@ -16,7 +16,7 @@
 
 		<div class="right-side-navigation">
 			<div class="search-link-container">
-				<x-nav-links href="{{ route('search') }}" :active="request()->is('search')">
+				<x-nav-links href="{{ route('search') }}" :active="request()->is('search')" title="Search Brands">
 					<i class="fa-solid fa-magnifying-glass"></i>
 					<span class="search-text">Search</span>
 				</x-nav-links>
@@ -25,14 +25,14 @@
 				@guest
 				<ul class="login-links">
 					<li>
-						<x-nav-links href="{{ route('login') }}" :active="request()->is('signin')">
+						<x-nav-links href="{{ route('login') }}" :active="request()->is('signin')" title="Sign In">
 							<i class="fa-solid fa-arrow-right-to-bracket"></i> 
 							Sign In
 						</x-nav-links>
 					</li>
 
 					<li>
-						<x-nav-links href="{{ route('signup') }}" :active="request()->is('signup')">
+						<x-nav-links href="{{ route('signup') }}" :active="request()->is('signup')" title="Sign Up">
 							<i class="fa-solid fa-user-plus"></i>
 							Sign Up
 						</x-nav-links>
@@ -56,14 +56,14 @@
 
            	<ul class="login-links mobile">
 							<li>
-								<x-nav-links href="{{ route('login') }}" :active="request()->is('signin')">
+								<x-nav-links href="{{ route('login') }}" :active="request()->is('signin')" title="Sign In">
 									<i class="fa-solid fa-arrow-right-to-bracket"></i> 
 									Sign In
 								</x-nav-links>
 							</li>
 
 							<li>
-								<x-nav-links href="{{ route('signup') }}" :active="request()->is('signup')">
+								<x-nav-links href="{{ route('signup') }}" :active="request()->is('signup')" title="Sign Up">
 									<i class="fa-solid fa-user-plus"></i>
 									Sign Up
 								</x-nav-links>
@@ -94,25 +94,25 @@
 					>
 						<ul class="dropdown-menu">
 							<li class="profile item">
-								<a href="{{ route('profile.show', auth()->user()) }}">
+								<a href="{{ route('profile.show', auth()->user()) }}" title="My Profile">
 									<i class="fa-solid fa-address-card"></i>
 									My Profile
 								</a>
 							</li>
 							<li class="saved item">
-								<a href="{{ route('profile.saved-brands') }}">
+								<a href="{{ route('profile.saved-brands') }}" title="Saved Brands">
 									<i class="fa-solid fa-user-astronaut"></i>
 									Saved Brands
 								</a>
 							</li>
 							<li class="account-settings item">
-								<a href="{{ route('account.edit') }}">
+								<a href="{{ route('account.edit') }}" title="Account Settings">
 									<i class="fa-solid fa-user-gear"></i>
 									Account Settings
 								</a>
 							</li>
 							<li class="logout item">
-								<form method="POST" action="{{ route('logout') }}">
+								<form method="POST" action="{{ route('logout') }}" title="Logout">
 									@csrf
 									<button class="btn logout-btn" type="submit">
 										<i class="fa-solid fa-arrow-right-to-bracket"></i>
