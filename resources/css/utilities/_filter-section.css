@@ -1,8 +1,8 @@
 .filter-container{
   .filter-section{
-    display: flex;
+    /* display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; */
 
     .filter-btns{
       display: flex;

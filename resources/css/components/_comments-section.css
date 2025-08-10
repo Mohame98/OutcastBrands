@@ -73,6 +73,11 @@
 
   .comments-container{
     max-height: 420px;
+    
+    @media (max-width: 800px) {
+      max-height: 320px;
+    }
+
     overflow-y: scroll;
     margin-bottom: var(--space-xs);
   }
