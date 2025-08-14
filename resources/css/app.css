@@ -204,5 +204,5 @@ ul li{
 }
 
 main{
-  padding-top: var(--space-lg);
+  padding-top: var(--space-sm);
 }
