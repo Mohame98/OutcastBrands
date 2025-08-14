@@ -16,14 +16,14 @@
         <div>
           <label for="username">Username</label>
           <input type="text" name="username" id="username" value="{{ old('username') }}" autocomplete="on"
-              placeholder="Enter username" aria-label="Enter username">
+              placeholder="Enter username" aria-label="Enter username" required>
           <x-form-error name='username'></x-form-error>    
         </div>
         
         <div>
           <label for="log-email">Email address</label>
           <input type="email" name="email" id="log-email" value="{{ old('email') }}" autocomplete="on"
-              placeholder="eg.andrew@example.com" aria-label="Enter email">
+              placeholder="eg.andrew@example.com" aria-label="Enter email" required>
           <x-form-error name='email'></x-form-error>      
         </div>
 
@@ -31,7 +31,7 @@
           <div class="password-field"> 
             <label for="log-pass">Password</label>
             <input type="password" name="password" id="log-pass"
-                placeholder="Enter password" aria-label="Enter password" class="password-input">
+                placeholder="Enter password" aria-label="Enter password" class="password-input" required>
             @include('components.toggle-password')
             <x-form-error name='password'></x-form-error>
           </div>
@@ -39,7 +39,7 @@
           <div class="password-field"> 
             <label for="c-pass">Confirm Password</label>
             <input type="password" name="password_confirmation" id="c-pass"
-                placeholder="Re-enter password" aria-label="Confirm password" class="password-input">
+                placeholder="Re-enter password" aria-label="Confirm password" class="password-input" required>
             @include('components.toggle-password')
             <x-form-error name='password_confirmation'></x-form-error>
           </div>

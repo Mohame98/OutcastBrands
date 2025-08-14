@@ -24,7 +24,7 @@
         <div class="form-group">
           <label for="title">
             <span>Brand Title *</span>
-            <input type="text" id="title" name="title">
+            <input type="text" id="title" name="title" required>
           </label>
           <x-form-error name="title" />
         </div>
@@ -32,7 +32,7 @@
         <div class="form-group">
           <label for="sub_title" class="sub_title">
             <span>Sub Title *</span>
-            <input type="text" id="sub_title" name="sub_title">
+            <input type="text" id="sub_title" name="sub_title" required>
           </label>
           <x-form-error name="sub_title" />
         </div>
@@ -49,7 +49,7 @@
           <div class="form-group">
             <label for="location">
               <span>Location *</span>
-              <input type="text" id="location" name="location">
+              <input type="text" id="location" name="location" required>
             </label>
             <x-form-error name="location" />
           </div>
@@ -78,7 +78,6 @@
         <div class="form-group">
           <div id="editor-container"></div>
           <input type="hidden" name="description" id="quill-content-description">
-          
           <x-form-error name="description" />
         </div>
 
@@ -104,7 +103,7 @@
               <label for="brand-image" class="media-label" tabindex="0">
                 <span>Drag or upload</span> <i class="fa-solid fa-cloud-arrow-up"></i>
               </label>
-              <input type="file" accept="image/*" data-selector="multiple-photos" data-multiple="true" data-maxFiles="4" name="photos[]" multiple id="brand-image" aria-label="Drag and Drop or upload media" data-maxSize="4194304">
+              <input type="file" accept="image/*" data-selector="multiple-photos" data-multiple="true" data-maxFiles="4" name="photos[]" multiple id="brand-image" aria-label="Drag and Drop or upload media" data-maxSize="4194304" required>
               <div class="media-preview brand slider"></div>
               <div class="upload-info">
                 <p>Formats: JPG, PNG</p>
@@ -151,6 +150,7 @@
                 class="category-checkbox"
                 id="checkbox-{{ $category }}"
                 data-selector="multiple-categories"
+                required
               >
               <span>{{ $category }}</span>
             </label>

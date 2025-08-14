@@ -10,7 +10,7 @@
     
         <div>
           <label for="email">Email</label>
-          <input type="email" name="email" id="email" value="{{ old('email') }}" autocomplete="on" placeholder="Enter Email" aria-label="Enter email">
+          <input type="email" name="email" id="email" value="{{ old('email') }}" autocomplete="on" placeholder="Enter Email" aria-label="Enter email" required>
           <x-form-error name='email'></x-form-error>
         </div>
 

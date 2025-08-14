@@ -69,61 +69,7 @@
 						menuLoginLinks.classList.toggle("responsive");
 						document.body.classList.toggle("menu-open");
 					}
-
 				</script>
-				{{-- <div class="modal-wrapper menu">
-          <button 
-            class="btn mobile-menu-btn modal-btn"
-            aria-haspopup="open mobile menu" 
-            aria-controls="mobile-menu-modal" 
-            aria-expanded="false">
-            
-          </button>
-
-          <dialog id="mobile-menu-modal" class="mobile-menu-modal">
-						 <header class="modal-headers">
-							<h2>Login</h2>
-							@include('components.close-modal')
-						</header>
-						<p>Log in to share your brand, customize your profile, and unlock exclusive features.</p>
-
-           	<ul class="login-links mobile">
-							<li>
-								<div class="modal-wrapper signin">
-									<button 
-										class="btn signin-btn modal-btn"
-										aria-haspopup="Sign In form" 
-										aria-controls="signin-modal" 
-										title="Sign In"
-										aria-expanded="false">
-											<i class="fa-solid fa-arrow-right-to-bracket"></i> 
-											Sign In
-									</button>
-									<dialog id="signin-modal" class="signin-modal">
-										@include('authentication.pages.signin')
-									</dialog>
-								</div>
-							</li>
-
-							<li>
-								<div class="modal-wrapper signup">
-									<button 
-										class="btn signup-btn modal-btn"
-										aria-haspopup="Sign Up form" 
-										aria-controls="signup-modal" 
-										title="Sign Up"
-										aria-expanded="false">
-											<i class="fa-solid fa-arrow-right-to-bracket"></i> 
-											Sign Up
-									</button>
-									<dialog id="signup-modal" class="signup-modal">
-										@include('authentication.pages.signup')
-									</dialog>
-								</div>
-							</li>
-						</ul>
-          </dialog>
-        </div> --}}
 				@endguest
 				@auth
 					<button
