@@ -7,12 +7,12 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    width: 100%;
     gap: 15px;
   }
 
   form{
     width: 450px;
-    margin-top: 50px;
 
     @media (max-width: 800px) {
       width: 100%;
@@ -23,6 +23,7 @@
       padding: 0;
       margin: 0;
       min-inline-size: auto; 
+      gap: 0;
     }
 
     div{
@@ -31,6 +32,10 @@
       gap: var(--space-xxxs);
       margin-bottom: 10px;
       width: 100%;
+
+      @media (max-width: 800px) {
+        margin-bottom: 4px;
+      }
     }
 
     .row{
@@ -42,13 +47,11 @@
         flex-direction: column;
       }
     }
-  }
-}
 
-.signin{
-  header{
-     h1{
-      text-align: center;
+    .password-field {
+      .toggle-password {
+        top: 43px;
+      }
     }
   }
 }

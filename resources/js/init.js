@@ -1,5 +1,6 @@
 import { 
-  handleModals
+  handleModals,
+  toggleLoginModals,
 } from './modals.js';
 
 import { 
@@ -49,6 +50,7 @@ export function init() {
   initBrandImgSlider(),
   initBrandMediaPreview(),
   closeDetails();
+  toggleLoginModals();
   // trimAllFields();
   main();
 }

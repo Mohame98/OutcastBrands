@@ -46,6 +46,44 @@ function handleModals() {
   });
 }
 
+function toggleLoginModals(){
+  function toggleModals(modalToShow, modalToClose) {
+    if (modalToClose.open) {
+      modalToClose.close(); 
+    }
+    
+    if (!modalToShow.open) {
+      modalToShow.showModal();
+    }
+  }
+  const signInBtns = document.querySelectorAll('.second-sign-in-btn');
+  const signUpBtns = document.querySelectorAll('.second-sign-up-btn');
+  const forgotPassBtns = document.querySelectorAll('.forgot-second-sign-in-btn')
+
+  const signUpModal = document.querySelector('.signup-modal');
+  const signInModal = document.querySelector('.signin-modal');
+  const forgotPassModal = document.querySelector('.forgot-password-modal');
+
+  signInBtns.forEach(button => {
+    button.addEventListener('click', function () {
+      toggleModals(signInModal, signUpModal);
+    });
+  });
+
+  signUpBtns.forEach(button => {
+    button.addEventListener('click', function () {
+      toggleModals(signUpModal, signInModal);
+    });
+  });
+
+  forgotPassBtns.forEach(button => {
+    button.addEventListener('click', function () {
+      forgotPassModal.close();    
+    });
+  });
+}
+
 export {
   handleModals,
+  toggleLoginModals,
 };

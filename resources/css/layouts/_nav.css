@@ -40,7 +40,7 @@
   .right-side-navigation{
     gap: var(--space-sm);
 
-    .modal-wrapper.menu{
+    .mobile-menu-btn{
       display: none;
     }
 
@@ -62,7 +62,7 @@
 
     .login-links{
       display: flex;
-      gap: var(--space-xxxs);
+      gap: var(--space-xxs);
       align-items: center;
 
       a{
@@ -104,7 +104,7 @@
       max-width: 600px;
     }
 
-    fieldset {
+    .multi-field {
       display: flex;
       flex-direction: column;
       gap: var(--space-xxs);
@@ -212,7 +212,8 @@
     .right-side-navigation{
 
       .mobile-menu-btn{
-        padding: var(--space-xxs);
+        display: block;
+        padding: var(--space-xxxs) var(--space-xxs);
         border-radius: var(--radius-sm);
 
         &:hover{
@@ -221,25 +222,29 @@
         }
       }
 
-      .modal-wrapper.menu{
-        display: block;
+      .navigation-menu{
+        position: relative;
       }
 
       .login-links{
         display: none;
       }
 
-      .login-links.mobile{
+      .login-links.responsive{
         display: flex;
         justify-content: center;
-        margin-top: 15px;
+        flex-direction: column;
+        position: absolute;
+        top: 130%;
+        right: 0;
+        padding: var(--space-xxs);
+        background-color: var(--dark-secondary-bg);
+        border-radius: var(--radius-sm);
+      }
 
-        [aria-current="false"] {
-          &:hover{
-            background-color: var(--dark-hover-gray);
-            color: var(--dark-text-primary);
-          }
-        }
+      .login-links.responsive li,
+      .login-links.responsive .signin-btn{
+        width: 100%;
       }
     }
   }

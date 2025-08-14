@@ -18,12 +18,10 @@ class BrandsController extends Controller
     $view_count = $brand->views()->count();
 
     $topBrands = Brand::with([
-      'featuredImage' => function ($query) {
-        $query->select('id', 'brand_id', 'image_path');
-      }
+      'featuredImage:id,brand_id,image_path',
     ])->withCount([
       'voters as total_votes' => function ($query) {
-        $query->select(DB::raw('COALESCE(SUM(vote), 0)'));
+        $query->selectRaw('SUM(vote)')->limit(1);
       },
       'savers'
     ])

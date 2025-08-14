@@ -21,30 +21,63 @@
 					<span class="search-text">Search</span>
 				</x-nav-links>
 			</div>
-			<div class="desktop-nav" aria-label="Desktop navigation right">
+			<nav class="navigation-menu" aria-label="Navigation right">
 				@guest
 				<ul class="login-links">
 					<li>
-						<x-nav-links href="{{ route('login') }}" :active="request()->is('signin')" title="Sign In">
-							<i class="fa-solid fa-arrow-right-to-bracket"></i> 
-							Sign In
-						</x-nav-links>
+						<div class="modal-wrapper signup">
+							<button 
+								class="btn signup-btn modal-btn"
+								aria-haspopup="Sign Up form" 
+								aria-controls="signup-modal" 
+								title="Sign Up"
+								aria-expanded="false">
+									<i class="fa-solid fa-user-plus"></i>
+									Sign Up
+							</button>
+							<dialog id="signup-modal" class="signup-modal">
+								@include('authentication.pages.signup')
+							</dialog>
+						</div>
 					</li>
 
 					<li>
-						<x-nav-links href="{{ route('signup') }}" :active="request()->is('signup')" title="Sign Up">
-							<i class="fa-solid fa-user-plus"></i>
-							Sign Up
-						</x-nav-links>
+						<div class="modal-wrapper signin">
+							<button 
+								class="btn signin-btn white-btn modal-btn"
+								aria-haspopup="Sign In form" 
+								aria-controls="signin-modal" 
+								title="Log In"
+								aria-expanded="false">
+									<i class="fa-solid fa-arrow-right-to-bracket"></i> 
+									Log In
+							</button>
+							<dialog id="signin-modal" class="signin-modal">
+								@include('authentication.pages.signin')
+							</dialog>
+						</div>
 					</li>
+
+					
 				</ul>
-				<div class="modal-wrapper menu">
+				<div class="btn mobile-menu-btn" onclick="mobileMenuToggle()">
+					<i class="fa-solid fa-bars"></i>
+				</div>
+				<script>
+					function mobileMenuToggle() {
+						const menuLoginLinks = document.querySelector(".login-links");
+						menuLoginLinks.classList.toggle("responsive");
+						document.body.classList.toggle("menu-open");
+					}
+
+				</script>
+				{{-- <div class="modal-wrapper menu">
           <button 
             class="btn mobile-menu-btn modal-btn"
             aria-haspopup="open mobile menu" 
             aria-controls="mobile-menu-modal" 
             aria-expanded="false">
-            <i class="fa-solid fa-bars"></i>
+            
           </button>
 
           <dialog id="mobile-menu-modal" class="mobile-menu-modal">
@@ -56,21 +89,41 @@
 
            	<ul class="login-links mobile">
 							<li>
-								<x-nav-links href="{{ route('login') }}" :active="request()->is('signin')" title="Sign In">
-									<i class="fa-solid fa-arrow-right-to-bracket"></i> 
-									Sign In
-								</x-nav-links>
+								<div class="modal-wrapper signin">
+									<button 
+										class="btn signin-btn modal-btn"
+										aria-haspopup="Sign In form" 
+										aria-controls="signin-modal" 
+										title="Sign In"
+										aria-expanded="false">
+											<i class="fa-solid fa-arrow-right-to-bracket"></i> 
+											Sign In
+									</button>
+									<dialog id="signin-modal" class="signin-modal">
+										@include('authentication.pages.signin')
+									</dialog>
+								</div>
 							</li>
 
 							<li>
-								<x-nav-links href="{{ route('signup') }}" :active="request()->is('signup')" title="Sign Up">
-									<i class="fa-solid fa-user-plus"></i>
-									Sign Up
-								</x-nav-links>
+								<div class="modal-wrapper signup">
+									<button 
+										class="btn signup-btn modal-btn"
+										aria-haspopup="Sign Up form" 
+										aria-controls="signup-modal" 
+										title="Sign Up"
+										aria-expanded="false">
+											<i class="fa-solid fa-arrow-right-to-bracket"></i> 
+											Sign Up
+									</button>
+									<dialog id="signup-modal" class="signup-modal">
+										@include('authentication.pages.signup')
+									</dialog>
+								</div>
 							</li>
 						</ul>
           </dialog>
-        </div>
+        </div> --}}
 				@endguest
 				@auth
 					<button
@@ -123,7 +176,7 @@
 						</ul>
 					</nav>
 				@endauth
-			</div>
+			</nav>
 		</div>
 	</div>
 </nav>

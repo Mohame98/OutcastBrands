@@ -35,7 +35,7 @@ async function handleRequest(actionUrl, options, form) {
     if (!response.ok) {
       switch (response.status) {
         case 401:
-          window.location.href = '/signin';
+          showFlashMessage({ message: true }, 'Please sign in to continue');
           break;
         case 422:
           handleGeneralErrors(result, form);

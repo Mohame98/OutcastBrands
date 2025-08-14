@@ -1,31 +1,48 @@
-<x-main-layout>
-  <section class="signin">
-    <div class="container">
-      <form method="POST" action="{{ route('login') }}">
-        @csrf
-        <fieldset>
-          <header>
-            <legend><h1>Sign In</h1></legend>
-          </header>
-      
-          <div>
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" value="{{ old('email') }}" autocomplete="on" placeholder="Enter Email" aria-label="Enter email">
-            <x-form-error name='email'></x-form-error>
-          </div>
-
-          <div class="password-field">
-            <label for="pass">Password</label>
-            <input type="password" name="password" id="pass" placeholder="Enter password" aria-label="Enter password" class="password-input" required>
-            @include('components.toggle-password')
-            <x-form-error name='password'></x-form-error>
-          </div>
+<section class="signin">
+  <div class="container">
+    <form method="POST" action="{{ route('login') }}">
+      @csrf
+      <fieldset>
+        <header class="modal-headers">
+          <legend><h1>Log In</h1></legend>
+          @include('components.close-modal')
+        </header>
     
-          <button class="btn main-button" type="submit">Sign In</button>
-        </fieldset>
-      </form>
-      <p>Dont have an account? <a href="{{ route('signup') }}">Sign Up</a></p>
-      <a href="{{ route('password.request') }}">Forgot your password?</a>
+        <div>
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" value="{{ old('email') }}" autocomplete="on" placeholder="Enter Email" aria-label="Enter email">
+          <x-form-error name='email'></x-form-error>
+        </div>
+
+        <div class="password-field">
+          <label for="pass">Password</label>
+          <input type="password" name="password" id="pass" placeholder="Enter password" aria-label="Enter password" class="password-input" required>
+          @include('components.toggle-password')
+          <x-form-error name='password'></x-form-error>
+        </div>
+  
+        <button class="btn main-button" type="submit">Log In</button>
+      </fieldset>
+    </form>
+    <p>Dont have an account? 
+      <button class="btn second-sign-up-btn underline" title="Sign Up">
+        Sign Up
+      </button>
+    </p>
+
+    <div class="modal-wrapper forgot-password">
+      <button 
+        class="btn forgot-password-btn modal-btn underline"
+        aria-haspopup="forgot-password form" 
+        aria-controls="forgot-password-modal" 
+        title="Forgot Password"
+        aria-expanded="false">
+          Forgot Your Password?
+      </button>
+      <dialog id="forgot-password-modal" class="forgot-password-modal">
+        @include('authentication.password-recovery.forgot-password')
+      </dialog>
     </div>
-  </section> 
-</x-main-layout>
+    
+  </div>
+</section> 
