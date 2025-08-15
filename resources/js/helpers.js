@@ -120,12 +120,13 @@ function moveBackSteps(form) {
 }
 
 function backButtons() {
-  document.querySelectorAll('[data-back-button]').forEach(button => {
-    button.addEventListener('click', (e) => {
-      const form = e.target.closest('form');
-      if (!form) return;
-      moveBackSteps(form);
-    });
+  document.body.addEventListener('click', function(e) {
+    const button = e.target.closest('[data-back-button]');
+    if (!button) return;
+
+    const form = button.closest('form');
+    if (!form) return;
+    moveBackSteps(form);
   });
 }
 
