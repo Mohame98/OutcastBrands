@@ -164,13 +164,13 @@
  
 }
 
-.password-field{
+.password-input-container{
   position: relative;
  
   .toggle-password{
     position: absolute;
     right: 16px;
-    top: 48px;
+    top: 15px;
 
     .hover-caption{
       top: -20px;

@@ -1,7 +1,7 @@
 
 <section class="signup">
   <div class="container">
-    <form method="POST" action="{{ route('signup') }}">
+    <form method="POST" action="{{ route('signup') }}" class="action-form" data-action="sign-up">
       @csrf
       <fieldset>
         <header class="modal-headers">
@@ -13,37 +13,45 @@
           <p>Join a network of fashion trend setters</p>
         </div>
         
-        <div>
-          <label for="username">Username</label>
-          <input type="text" name="username" id="username" value="{{ old('username') }}" autocomplete="on"
+        <div class="form-group">
+          <label for="username">
+            <span>Username</span>
+            <input type="text" name="username" id="username" value="{{ old('username') }}" autocomplete="on"
               placeholder="Enter username" aria-label="Enter username" required>
+          </label>  
           <x-form-error name='username'></x-form-error>    
         </div>
         
-        <div>
-          <label for="log-email">Email address</label>
-          <input type="email" name="email" id="log-email" value="{{ old('email') }}" autocomplete="on"
+        <div class="form-group">
+          <label for="email">
+            <span>Email address</span>
+            <input type="email" name="email" id="email" value="{{ old('email') }}" autocomplete="on"
               placeholder="eg.andrew@example.com" aria-label="Enter email" required>
+          </label>    
           <x-form-error name='email'></x-form-error>      
         </div>
 
-        <div class="row">
-          <div class="password-field"> 
-            <label for="log-pass">Password</label>
-            <input type="password" name="password" id="log-pass"
-                placeholder="Enter password" aria-label="Enter password" class="password-input" required>
-            @include('components.toggle-password')
+        {{-- <div class="row"> --}}
+          <div class="password-field form-group"> 
+            <label for="password">
+              <span>Password</span>
+              <div class="password-input-container">
+                <input type="password" name="password" id="password"
+                  placeholder="Enter password" aria-label="Enter password" class="password-input" required>
+                @include('components.toggle-password')
+              </div>
+            </label>
             <x-form-error name='password'></x-form-error>
           </div>
         
-          <div class="password-field"> 
-            <label for="c-pass">Confirm Password</label>
-            <input type="password" name="password_confirmation" id="c-pass"
+          {{-- <div class="password-field"> 
+            <label for="password_confirmation">Confirm Password</label>
+            <input type="password" name="password_confirmation" id="password_confirmation"
                 placeholder="Re-enter password" aria-label="Confirm password" class="password-input" required>
             @include('components.toggle-password')
             <x-form-error name='password_confirmation'></x-form-error>
-          </div>
-        </div> 
+          </div> --}}
+        {{-- </div>  --}}
         <button class="btn main-button" type="submit">Create account</button>
       </fieldset>
     </form>

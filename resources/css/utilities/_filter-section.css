@@ -168,9 +168,9 @@
     background-color: var(--dark-hover-gray);
   }
 
-  .filter-checkbox:checked + .category-button:hover {
+  /* .filter-checkbox:checked + .category-button:hover {
     
-  }
+  } */
 }
 
 @media (max-width: 800px) {

@@ -19,11 +19,6 @@ use App\Models\User;
 class SessionController extends Controller
 {
   // signup
-  public function signupView()
-  {
-    return view("authentication.pages.signup");
-  }
-
   public function storeSignup(Request $request)
   {
     $validated = $request->validate([
@@ -31,7 +26,6 @@ class SessionController extends Controller
       'email' => 'required|string|email|max:255|unique:users',
       'password' => [
       'required',
-      'confirmed',
       Password::min(8)
         ->mixedCase()
         ->letters()
@@ -49,16 +43,16 @@ class SessionController extends Controller
     event(new Registered($user));
     Auth::login($user);
 
-    session()->flash('flash_message', 'Please verify your account');
-    return redirect('/');
+    session()->flash('flash_message', 'Signup successful. Please verify your account.');
+    // return redirect('/');
+    return response()->json([
+      'success' => true,
+      'redirect_url' => '/'
+      // 'user' => $user,
+    ]);
   }
 
   // signin
-  public function signinView()
-  {
-    return view("authentication.pages.signin");
-  }
-
   public function checkSignin(Request $request)
   {
     $email = (string) $request->input('email');
@@ -87,8 +81,14 @@ class SessionController extends Controller
     RateLimiter::clear($throttleKey);
     $request->session()->regenerate();
 
-    session()->flash('flash_message', 'Hello, ' . e(auth()->user()->username) . '!');
-    return redirect()->intended('/');
+    session()->flash('flash_message', 'Hello, welcome ' . e(auth()->user()->username) . '!');
+    // return redirect()->intended('/');
+
+    return response()->json([
+      'success' => true,
+      'redirect_url' => '/'
+      // 'user' => auth()->user(),
+    ]);
   }
 
   public function edit()

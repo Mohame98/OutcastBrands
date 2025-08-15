@@ -253,4 +253,22 @@ class BrandsController extends Controller
       'relatedBrands' => $relatedBrands,
     ]);
   }
+
+  public function deleteBrand(Brand $brand)
+  {
+  
+    if ($brand->user_id !== auth()->id()) {
+      return response()->json([
+        'message' => 'You are not authorized to delete this brand.'
+      ], 403);
+    }
+    
+    $brand->delete(); 
+
+    session()->flash('flash_message', 'Brand deleted!');
+    return response()->json([
+      'success' => true,
+      'redirect_url' => '/',
+    ]);
+  }
 }

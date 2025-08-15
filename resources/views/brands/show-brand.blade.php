@@ -173,6 +173,41 @@ $vote = $brand->voters->firstWhere('id', auth()->id())?->pivot->vote ?? null;
         </div>
       @endif
       </div>
+
+      @if(auth()->id() === $brand->user_id)
+        <div class="modal-wrapper">
+          <button 
+          class="btn delete-brand-btn modal-btn"
+          aria-haspopup="Delete brand confirmation" 
+          aria-controls="delete-brand-modal" 
+          aria-expanded="false">
+            Delete Brand
+          </button>
+          <dialog id="delete-brand-modal" class="delete-brand-modal">
+            <form method="POST" action="{{ route('brand.delete', $brand) }}" class="delete-brand-form action-form" data-action="delete-brand">
+              <fieldset class="delete-brand-field" id="delete-brand-field">
+                <header class="modal-headers">
+                  <h1>Delete this brand</h1>
+                  @include('components.close-modal')
+                </header>
+
+                <p>
+                  Are you sure you want to delete this brand? It is permanent.
+                </p>
+
+                @csrf
+                @method('DELETE')
+                <div class="btn-container">
+                  <button type="button" class="btn cancel close-modal">
+                    Cancel
+                  </button>
+                  <button class="delete-brand-btn btn update" type="submit">Delete</button>
+                </div>
+              </fieldset>
+            </form>
+          </dialog>
+      </div>
+      @endif
     </div>
   </section>
   @include('layouts.newsletter')

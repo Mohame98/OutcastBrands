@@ -103,7 +103,7 @@
               <label for="brand-image" class="media-label" tabindex="0">
                 <span>Drag or upload</span> <i class="fa-solid fa-cloud-arrow-up"></i>
               </label>
-              <input type="file" accept="image/*" data-selector="multiple-photos" data-multiple="true" data-maxFiles="4" name="photos[]" multiple id="brand-image" aria-label="Drag and Drop or upload media" data-maxSize="4194304" required>
+              <input type="file" accept="image/*" data-selector="multiple-photos" data-multiple="true" data-maxFiles="4" name="photos[]" multiple id="brand-image" aria-label="Drag and Drop or upload media" data-maxSize="4194304">
               <div class="media-preview brand slider"></div>
               <div class="upload-info">
                 <p>Formats: JPG, PNG</p>
@@ -150,7 +150,6 @@
                 class="category-checkbox"
                 id="checkbox-{{ $category }}"
                 data-selector="multiple-categories"
-                required
               >
               <span>{{ $category }}</span>
             </label>

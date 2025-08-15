@@ -2,28 +2,9 @@
   <section class="edit-account">
     <div class="container">
       <div class="account-settings-flex">
-        <div class="settings">
-          <ul class="settings-links">
-            <x-nav-links href="{{ route('account.edit') }}" :active="request()->is('account/edit')"> 
-              Account
-            </x-nav-links>
-
-            <x-nav-links href="{{ route('account.profile') }}" :active="request()->is('account/profile')">
-              Profile
-            </x-nav-links>
-
-            <form method="POST" action="{{ route('logout') }}">
-              @csrf
-              <button class="btn logout-btn" type="submit">
-                <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                Log Out
-              </button>
-            </form>
-          </ul>
-        </div>
+        @include('components.setting-links')
 
         <div class="edit-account-container">
-
           <h2>Account</h2>
           <h3>Update Your Account Personal Details or Delete Your Account</h3>
           <p>Signed In as: <span>{{ auth()->user()->email }}</span></p>
@@ -100,27 +81,35 @@
                 <div class="password-field form-group"> 
                   <label for="current_password">
                     <span>Current Password</span>
-                    <input type="password" class="password-input" name="current_password" id="current_password" aria-label="Enter your current password">
+                    <div class="password-input-container">
+                      <input type="password" class="password-input" name="current_password" id="current_password" aria-label="Enter your current password">
+                      @include('components.toggle-password')
+                    </div>
                   </label>
-                  @include('components.toggle-password')
                   <x-form-error name="current_password" />
                 </div>
 
                 <div class="password-field form-group"> 
                   <label for="password">
                     <span>New Password</span>
-                    <input type="password" class="password-input" name="password" id="password" aria-label="Enter new password">
+                    <div class="password-input-container">
+                      <input type="password" class="password-input" name="password" id="password" aria-label="Enter new password">
+                      @include('components.toggle-password')
+                    </div>
                   </label>
-                  @include('components.toggle-password')
+                  
                   <x-form-error name="password" />
                 </div>
 
                 <div class="password-field form-group"> 
                   <label for="password_confirmation">
                     <span>Confirm New Password</span>
-                    <input type="password" class="password-input" name="password_confirmation" id="password_confirmation" aria-label="Enter password confirmation" >
+                    <div class="password-input-container">
+                      <input type="password" class="password-input" name="password_confirmation" id="password_confirmation" aria-label="Enter password confirmation" >
+                      @include('components.toggle-password')
+                    </div>
                   </label>
-                  @include('components.toggle-password')
+                  
                   <x-form-error name="password_confirmation" />
                 </div>
 
@@ -158,13 +147,17 @@
                   <legend><h1>Confirm Account Deletion</h1></legend>
                   @include('components.close-modal')
                 </header>
+
+                <p>Keep in mind that upon deleting your account all of your account information will be deleted permanently.</p>
                 
                 <div class="password-field form-group">
                   <label for="confirm_deletion">
                     <span>Confirm password to delete account:</span>
-                    <input type="password" name="confirm_deletion" id="confirm_deletion" aria-label="Confirm account deletion" class="password-input" required>
+                    <div class="password-input-container">
+                      <input type="password" name="confirm_deletion" id="confirm_deletion" aria-label="Confirm account deletion" class="password-input" required>
+                      @include('components.toggle-password')
+                    </div>
                   </label>
-                  @include('components.toggle-password')
                   <x-form-error name="confirm_deletion" />
                 </div>
                 
@@ -173,7 +166,7 @@
                     Cancel
                   </button>
                   <button class="btn update" type="submit">
-                    Update
+                    Delete
                   </button>
                 </div>
               </fieldset>

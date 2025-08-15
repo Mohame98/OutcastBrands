@@ -1,7 +1,7 @@
 
 <section class="forgot-password">
   <div class="container">
-    <form action="{{ route('password.email') }}" method="POST">
+    <form action="{{ route('password.email') }}" method="POST" class="action-form" data-action="forgot-password">
       @csrf
       <fieldset>
         <header class="modal-headers">
@@ -12,8 +12,10 @@
         <p>Enter your email to receive the password reset link</p>
     
         <div class="form-group">
-          <label for="forgot-password-email">Email</label>
-          <input type="email" name="email" id="forgot-password-email" value="{{ old('email') }}" placeholder="Enter email" aria-label="Enter email" required>
+          <label for="forgot-password-email">
+            <span>Email</span>
+            <input type="email" name="email" id="forgot-password-email" value="{{ old('email') }}" placeholder="Enter email" aria-label="Enter email" required>
+          </label>
           <x-form-error name='email'></x-form-error>
         </div>
 

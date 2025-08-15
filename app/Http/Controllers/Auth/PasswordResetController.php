@@ -28,7 +28,10 @@ class PasswordResetController extends Controller
 
     if ($status === Password::RESET_LINK_SENT) {
       session()->flash('flash_message', __($status));
-      return back();
+      return response()->json([
+        'success' => true,
+        'redirect_url' => '/',
+      ]);
     }
 
     return back()->withErrors([

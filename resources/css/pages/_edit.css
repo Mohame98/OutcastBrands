@@ -23,6 +23,13 @@
       flex-direction: column;
       gap: var(--space-xs);
 
+      .logout-btn{
+        &:hover{
+          background-color: var(--dark-secondary-bg);
+          color: var(--dark-text-primary);
+        }
+      }
+
       .link{
         padding: var(--space-xxs) var(--space-sm); 
         border-radius: var(--radius-md);
@@ -89,6 +96,10 @@
         gap: var(--space-xs);
         margin-top: var(--space-sm);
       }
+    }
+
+    .delete-account-modal{
+      max-width: 500px;
     }
 
     .delete-account-modal,

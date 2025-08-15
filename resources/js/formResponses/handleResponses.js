@@ -21,7 +21,9 @@ function handleResponse(result, form, actionUrl){
   handleAddComment(result, actionType, form);
   handleDeleteComment(result, actionType);
   handleEditComment(result, actionType);
-  handleContactSubmission(result, actionType, form)
+  handleContactSubmission(result, actionType, form);
+  handleLoginSubmissions(result, actionType, form);
+  handleDeleteBrand(result, actionType, form);
 
   handleSingleInput(form, actionType, '#username', result.username, "change-username");
   handleSingleInput(form, actionType, '#bio', result.bio, "change-bio");
@@ -55,6 +57,7 @@ function handleGeneralErrors(result, form) {
           const container = document.querySelector(`.${selector}`);
           const errorElement = createNode('span', messages, null, 'error-message', `error-${fieldName}`);
           arrayField.classList.add('error');
+          console.log(` container ${container}`)
           container.insertAdjacentElement('afterend', errorElement);
         }
 
@@ -62,6 +65,8 @@ function handleGeneralErrors(result, form) {
           const label = form.querySelector(`label[for="${field.name}"]`);
           const errorElement = createNode('span', messages[0], null, 'error-message', `error-${fieldName}`);
           field.classList.add('error');
+          console.log(` label ${label} ${field.name}`)
+          
           label.insertAdjacentElement('afterend', errorElement);
         } 
       });
@@ -104,6 +109,24 @@ function handleContactSubmission(result, actionType, form){
   if (actionType !== 'send-contact-message' || !result.success) return;
   form.reset();
   closeModal(result, form);    
+}
+
+function handleLoginSubmissions(result, actionType, form){
+  if (!result.success) return;
+  if (actionType === 'sign-up' || actionType === 'sign-in' || actionType === 'forgot-password'){
+    window.location.href = result.redirect_url;
+    form.reset();
+    closeModal(result, form);
+  }
+}
+
+function handleDeleteBrand(result, actionType, form){
+  if (!result.success) return;
+  if (actionType === 'delete-brand') {
+    window.location.href = result.redirect_url;
+    form.reset();
+    closeModal(result, form);
+  }
 }
 
 function handleVoteCount(result, actionType, form) {

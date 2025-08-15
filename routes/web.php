@@ -27,36 +27,17 @@ Route::get('/',
 [BrandsController::class, 'index'])
   ->name('home');
 
-Route::post('/comments/{comment}/like', 
-[CommentController::class, 'likeComments'])
-  ->name('comments.like');
-
-Route::put('/comments/{comment}/edit', 
-[CommentController::class, 'editComment'])
-->name('comments.edit');
-
-Route::delete('/comments/{comment}/delete', 
-[CommentController::class, 'deleteComment'])
-  ->name('comments.delete');
-
 Route::get('/api/profile/{user}/brands', 
 [UserProfileController::class, 'brandProfileApi']);
 
 Route::get('api/saved-brands/profile', 
 [UserProfileController::class, 'savedBrandsApi']);
 
-Route::post('api/brands/{brand}/comments', 
-[CommentController::class, 'addComment']);
-
 Route::get('api/brands/{brand}/comments', 
 [CommentController::class, 'getCommentsApi']);
 
 Route::get('api/brands/search', 
 [SearchController::class, 'searchApi']);
-
-Route::post('/brands/{brand}/comments', 
-[CommentController::class, 'addComment'])
-  ->name('comment.add');
 
 // Route::get('/brands/{brand}/comments', 
 // [CommentController::class, 'getComments'])
@@ -78,9 +59,9 @@ Route::post('/profile/{user}',
 [ContactController::class, 'send'])
   ->name('contact.send');
 
-Route::get('/profile', function () {
-  return view('pages/profile');
-})->middleware(['auth', 'verified']);
+// Route::get('/profile', function () {
+//   return view('pages/profile');
+// })->middleware(['auth', 'verified']);
 
 Route::middleware('guest')->group(function () {
   // Password Reset Routes
@@ -136,11 +117,6 @@ Route::middleware('auth')->group(function () {
   Route::post('/logout', 
   [SessionController::class, 'logOut'])
     ->name('logout');
-
-  // user interactions
-  Route::post('/brands/{brand}/vote',
-  [BrandsController::class, 'vote'])
-    ->name('brands.vote');
 
   Route::post('/brands/{brand}/save', 
   [BrandsController::class, 'toggleSave'])
@@ -210,4 +186,31 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::get('/saved-brands/profile', 
   [UserProfileController::class, 'savedBrands'])
     ->name('profile.saved-brands');
+
+  Route::post('/brands/{brand}/vote',
+  [BrandsController::class, 'vote'])
+    ->name('brands.vote');
+
+  Route::delete('/brands/{brand}', 
+  [BrandsController::class, 'deleteBrand'])
+    ->name('brand.delete');
+
+  Route::post('/comments/{comment}/like', 
+  [CommentController::class, 'likeComments'])
+    ->name('comments.like');
+
+  Route::put('/comments/{comment}/edit', 
+  [CommentController::class, 'editComment'])
+  ->name('comments.edit');
+
+  Route::delete('/comments/{comment}/delete', 
+  [CommentController::class, 'deleteComment'])
+    ->name('comments.delete');
+
+  Route::post('api/brands/{brand}/comments', 
+  [CommentController::class, 'addComment']);
+
+  Route::post('/brands/{brand}/comments', 
+  [CommentController::class, 'addComment'])
+    ->name('comment.add');
 });

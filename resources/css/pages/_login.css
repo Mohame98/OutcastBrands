@@ -29,29 +29,21 @@
     div{
       display: flex;
       flex-direction: column;
-      gap: var(--space-xxxs);
-      margin-bottom: 10px;
+      gap: 0;
+      margin-bottom: 5px;
       width: 100%;
-
-      @media (max-width: 800px) {
-        margin-bottom: 4px;
-      }
-    }
-
-    .row{
-      display: flex;
-      flex-direction: row;
-      gap: var(--space-xs);
-
-      @media (max-width: 800px) {
-        flex-direction: column;
-      }
     }
 
     .password-field {
       .toggle-password {
-        top: 43px;
+        top: 15px;
       }
     }
   }
 }
+
+/* .signup-modal{
+  @media (max-width: 800px) {
+    top: 47%;
+  }
+} */

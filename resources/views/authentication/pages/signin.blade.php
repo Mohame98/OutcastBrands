@@ -1,6 +1,6 @@
 <section class="signin">
   <div class="container">
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login') }}" class="action-form" data-action="sign-in">
       @csrf
       <fieldset>
         <header class="modal-headers">
@@ -8,16 +8,22 @@
           @include('components.close-modal')
         </header>
     
-        <div>
-          <label for="email">Email</label>
-          <input type="email" name="email" id="email" value="{{ old('email') }}" autocomplete="on" placeholder="Enter Email" aria-label="Enter email" required>
+        <div class="form-group">
+          <label for="email">
+            <span>Email</span>
+            <input type="email" name="email" id="email" value="{{ old('email') }}" autocomplete="on" placeholder="Enter Email" aria-label="Enter email" required>
+          </label>
           <x-form-error name='email'></x-form-error>
         </div>
 
-        <div class="password-field">
-          <label for="pass">Password</label>
-          <input type="password" name="password" id="pass" placeholder="Enter password" aria-label="Enter password" class="password-input" required>
-          @include('components.toggle-password')
+        <div class="password-field form-group">
+          <label for="pass">
+            <span>Password</span>
+            <div class="password-input-container">
+              <input type="password" name="password" id="pass" placeholder="Enter password" aria-label="Enter password" class="password-input" required>
+              @include('components.toggle-password')
+            </div>
+          </label>
           <x-form-error name='password'></x-form-error>
         </div>
   
