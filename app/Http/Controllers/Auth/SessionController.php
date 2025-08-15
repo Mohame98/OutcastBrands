@@ -310,6 +310,7 @@ class SessionController extends Controller
     Auth::logout();
     $request->session()->invalidate();
     $request->session()->regenerateToken();
+    session()->flash('flash_message', 'Logged Out');
     return redirect('/');
   }
 }
