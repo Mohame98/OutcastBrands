@@ -114,7 +114,7 @@ function handleContactSubmission(result, actionType, form){
 function handleLoginSubmissions(result, actionType, form){
   if (!result.success) return;
   if (actionType === 'sign-up' || actionType === 'sign-in' || actionType === 'forgot-password'){
-    window.location.href = result.redirect_url;
+    window.location.reload();
     form.reset();
     closeModal(result, form);
   }

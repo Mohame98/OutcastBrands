@@ -44,10 +44,9 @@ class SessionController extends Controller
     Auth::login($user);
 
     session()->flash('flash_message', 'Signup successful. Please verify your account.');
-    // return redirect('/');
     return response()->json([
       'success' => true,
-      'redirect_url' => '/'
+      // 'redirect_url' => url()->current()
       // 'user' => $user,
     ]);
   }
@@ -86,7 +85,7 @@ class SessionController extends Controller
 
     return response()->json([
       'success' => true,
-      'redirect_url' => '/'
+      // 'redirect_url' => url()->current()
       // 'user' => auth()->user(),
     ]);
   }

@@ -111,7 +111,7 @@ function handleSearchInput() {
 	if (!searchInput) return;
     searchInput.addEventListener("input", (e) => {
         const searchValue = e.target.value;
-        if (searchValue.length <= 2) return;
+        // if (searchValue.length <= 2) return;
         if (searchValue) {
             filters.set("search", searchValue);
         } else {
