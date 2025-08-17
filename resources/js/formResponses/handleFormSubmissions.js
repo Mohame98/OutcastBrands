@@ -70,18 +70,12 @@ function multiStepFormAction(event, form) {
   const step = button?.dataset?.step;
   const baseUrl = form.dataset.formBase;
 
-  // if (!baseUrl) {
-  //   console.error('Missing data-form-base on form');
-  //   return;
-  // }
-
   let actionUrl;
   if (step) {
     actionUrl = `${baseUrl}/step-${step}`;
   } else {
     actionUrl = form.action;
   }
-
   return actionUrl;
 }
 

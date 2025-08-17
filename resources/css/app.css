@@ -15,6 +15,7 @@
 @import './pages/_home.css';
 @import './pages/_user-profiles.css';
 @import './pages/_search.css';
+@import './pages/_errors.css';
 
 @import './components/_input.css';
 @import './components/_button.css';
@@ -107,12 +108,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* font-family: "Manrope", sans-serif; */
   font-family: "Figtree", sans-serif;
   letter-spacing: 0.01em;
-  /* font-family: "Merriweather", serif; */
-  /* font-family: "Inter", sans-serif; */
-  /* font-family: "Montserrat", sans-serif; */
 }
 
 html{
@@ -141,10 +138,6 @@ a{
   color: var(--dark-text-primary);
   font-weight: 500;
   transition: 0.4s;
-
-  /* &:hover{
-    color: var(--color-light-gray);
-  } */
 }
 
 ul li{
@@ -171,10 +164,6 @@ ul li{
   .brand-author-profile.letter{
     background-color: lightcoral;
     font-weight: 600;
-
-    /* height: 30px;
-    width: 30px; */
-
     display: flex;
     align-items: center;
     justify-content: center;

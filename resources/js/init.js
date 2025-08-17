@@ -4,6 +4,10 @@ import {
 } from './modals.js';
 
 import { 
+  runQuillEditor,
+} from './quillTextEditor.js';
+
+import { 
   handleMultipleMediaUpload,
   handleMedia,
 } from './mediaInputs.js';
@@ -26,6 +30,10 @@ import {
 } from './sliders.js'
 
 import {
+  initFilterSystem,
+} from './filterSystem/mainFilterSys.js'
+
+import {
   createNode,
   setupPasswordToggles,
   handleSpecificError,
@@ -33,7 +41,6 @@ import {
   // trimAllFields,
   closeModal,
   backButtons,
-  closeDetails,
 } from './helpers.js';
 
 export function init() {
@@ -49,7 +56,9 @@ export function init() {
   handleAllPopovers(),
   initBrandImgSlider(),
   initBrandMediaPreview(),
-  closeDetails();
+  runQuillEditor();
+  initFilterSystem();
+  // closeDetails();
   toggleLoginModals();
   // trimAllFields();
   main();

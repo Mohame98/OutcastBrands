@@ -1,25 +1,17 @@
 function handleModals() {
   document.addEventListener('click', (event) => {
     const modalBtn = event.target.closest('.modal-btn');
-    
     if (modalBtn) {
       const wrapper = modalBtn.closest('.modal-wrapper');
-      if (!wrapper) return;
-
-      const dialog = wrapper.querySelector('dialog');
+      const dialog = wrapper?.querySelector('dialog');
       if (!dialog) return;
       dialog.showModal();
-
-      const isOpen = dialog.open;
-      modalBtn.setAttribute('aria-expanded', isOpen.toString());
       document.body.classList.add('no-scroll');
     }
 
     const dialog = event.target.closest('dialog');
     if (dialog && event.target === dialog) {
       dialog.close();
-      const modalBtn = dialog.closest('.modal-wrapper').querySelector('.modal-btn');
-      if (modalBtn) modalBtn.setAttribute('aria-expanded', 'false');
       document.body.classList.remove('no-scroll');
     }
 
@@ -28,21 +20,43 @@ function handleModals() {
       const dialog = closeBtn.closest('dialog');
       if (!dialog) return;
       dialog.close();
-      const modalBtn = dialog.closest('.modal-wrapper').querySelector('.modal-btn');
-      if (modalBtn) modalBtn.setAttribute('aria-expanded', 'false');
       document.body.classList.remove('no-scroll');
     }
   });
 
-  document.addEventListener('keydown', function(event) {
+  document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
       const dialog = document.querySelector('dialog[open]');
-      if (!dialog) return;
-      dialog.close();
-      const modalBtn = dialog.closest('.modal-wrapper').querySelector('.modal-btn');
-      if (modalBtn) modalBtn.setAttribute('aria-expanded', 'false');
-      document.body.classList.remove('no-scroll');
+      if (dialog) {
+        dialog.close();
+        document.body.classList.remove('no-scroll');
+      }
     }
+  });
+
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach(mutation => {
+      if (
+        mutation.type === 'attributes' &&
+        mutation.attributeName === 'open'
+      ) {
+        const dialog = mutation.target;
+        const modalWrapper = dialog.closest('.modal-wrapper');
+        const modalBtn = modalWrapper?.querySelector('.modal-btn');
+        if (modalBtn) {
+          const isOpen = dialog.hasAttribute('open');
+          modalBtn.setAttribute('aria-expanded', isOpen.toString());
+        }
+      }
+    });
+  });
+
+  const dialogs = document.querySelectorAll('dialog');
+  dialogs.forEach(dialog => {
+    observer.observe(dialog, {
+      attributes: true,
+      attributeFilter: ['open'],
+    });
   });
 }
 

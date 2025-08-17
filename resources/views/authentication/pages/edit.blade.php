@@ -97,7 +97,6 @@
                       @include('components.toggle-password')
                     </div>
                   </label>
-                  
                   <x-form-error name="password" />
                 </div>
 
@@ -109,7 +108,6 @@
                       @include('components.toggle-password')
                     </div>
                   </label>
-                  
                   <x-form-error name="password_confirmation" />
                 </div>
 

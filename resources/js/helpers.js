@@ -45,14 +45,6 @@ function handleSpecificError(message, field){
   }
 }
 
-// function clearSpecificError(field) {
-//   const errorEl = document.querySelector(`#error-${field}`);
-//   if (errorEl) {
-//     errorEl.textContent = '';
-//     errorEl.style.display = 'none';
-//   }
-// }
-
 function clearSpecificError(field) {
   const errorElements = document.querySelectorAll(`#error-${field}`);
   if (!errorElements) return;
@@ -91,18 +83,6 @@ function selectOnlyThreeCategories() {
   updateCheckboxStates();
 }
 
-function closeDetails() {
-  document.addEventListener('click', function(event) {
-    document.querySelectorAll('details[open]').forEach((dropdown) => {
-      const isOutsideClick = !dropdown.contains(event.target);
-      const isCloseTrigger = event.target.closest('[data-close-details]');
-      if (isOutsideClick || isCloseTrigger) {
-        dropdown.removeAttribute('open');
-      }
-    });
-  });
-}
-
 function moveBackSteps(form) {
   const fieldsets = form.querySelectorAll('.multi-field');
   const current = form.querySelector('.multi-field.active');
@@ -130,26 +110,12 @@ function backButtons() {
   });
 }
 
-
-// function trimAllFields(){
-//   const forms = document.querySelectorAll('form');
-  
-//   forms.forEach(form => {
-//     form.querySelectorAll('input, textarea').forEach(el => {
-//       if (!el) return;
-//       el.value = el.value.trim();
-//     });
-//   });
-// }
-
 export {
   createNode,
   setupPasswordToggles,
   handleSpecificError,
   selectOnlyThreeCategories,
   closeModal,
-  closeDetails,
   backButtons,
   clearSpecificError,
-  // trimAllFields,
 };

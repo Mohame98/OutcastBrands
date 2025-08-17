@@ -8,11 +8,16 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Auth;
 
 class EmailVerificationController extends Controller
 {
 	public function showVerificationNotice()
 	{
+		if (Auth::check() && Auth::user()->hasVerifiedEmail()) {
+      return redirect()->route('home');
+    }
+
 		return view('authentication.verification.verify-email');
 	}
 

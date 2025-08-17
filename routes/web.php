@@ -19,29 +19,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\User;
 
-Route::get('/phpinfo', function () {
-  phpinfo();
-});
-
 Route::get('/', 
 [BrandsController::class, 'index'])
   ->name('home');
 
-Route::get('/api/profile/{user}/brands', 
-[UserProfileController::class, 'brandProfileApi']);
-
-Route::get('api/saved-brands/profile', 
-[UserProfileController::class, 'savedBrandsApi']);
-
-Route::get('api/brands/{brand}/comments', 
-[CommentController::class, 'getCommentsApi']);
-
 Route::get('api/brands/search', 
 [SearchController::class, 'searchApi']);
-
-// Route::get('/brands/{brand}/comments', 
-// [CommentController::class, 'getComments'])
-//   ->name('comments.show');
 
 Route::get('/search', 
 [SearchController::class, 'searchView'])
@@ -51,17 +34,15 @@ Route::get('/brands/{brand}',
 [BrandsController::class, 'showBrand'])
   ->name('brand.show');
 
+Route::get('api/brands/{brand}/comments', 
+[CommentController::class, 'getCommentsApi']);
+
+Route::get('/api/profile/{user}/brands', 
+[UserProfileController::class, 'brandProfileApi']);
+
 Route::get('/profile/{user}', 
 [UserProfileController::class, 'userProfile'])
   ->name('profile.show');
-
-Route::post('/profile/{user}', 
-[ContactController::class, 'send'])
-  ->name('contact.send');
-
-// Route::get('/profile', function () {
-//   return view('pages/profile');
-// })->middleware(['auth', 'verified']);
 
 Route::middleware('guest')->group(function () {
   // Password Reset Routes
@@ -82,19 +63,13 @@ Route::middleware('guest')->group(function () {
     ->name('password.update');
 
   // login routes
-  Route::get('/signup', 
-  [SessionController::class, 'signupView'])
+  Route::post('/signup', 
+  [SessionController::class, 'storeSignup'])
     ->name('signup');
 
-  Route::post('/signup', 
-  [SessionController::class, 'storeSignup']);
-
-  Route::get('/signin', 
-  [SessionController::class, 'signinView'])
-    ->name('login');
-
   Route::post('/signin', 
-  [SessionController::class, 'checkSignin']);
+  [SessionController::class, 'checkSignin'])
+    ->name('login');
 });
 
 Route::middleware('auth')->group(function () {
@@ -113,14 +88,14 @@ Route::middleware('auth')->group(function () {
     ->middleware('signed')
     ->name('verification.verify');
 
+  Route::post('/brands/{brand}/save', 
+  [BrandsController::class, 'toggleSave'])
+    ->name('brands.save');
+
   // logout
   Route::post('/logout', 
   [SessionController::class, 'logOut'])
     ->name('logout');
-
-  Route::post('/brands/{brand}/save', 
-  [BrandsController::class, 'toggleSave'])
-    ->name('brands.save');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -213,4 +188,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::post('/brands/{brand}/comments', 
   [CommentController::class, 'addComment'])
     ->name('comment.add');
+
+  Route::get('api/saved-brands/profile', 
+  [UserProfileController::class, 'savedBrandsApi']);
+
+  Route::post('/profile/{user}', 
+  [ContactController::class, 'send'])
+    ->name('contact.send');
 });

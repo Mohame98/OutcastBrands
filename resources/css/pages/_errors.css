@@ -1,0 +1,25 @@
+.error-page{
+  text-align: center;
+  height: 40dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .container{
+    background-color: var(--dark-secondary-bg);
+    border-radius: var(--radius-sm);
+    padding: var(--space-md);
+    width: fit-content;
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  a{
+    text-decoration: underline;
+    &:hover{
+      text-decoration: none;
+    }
+  }
+}

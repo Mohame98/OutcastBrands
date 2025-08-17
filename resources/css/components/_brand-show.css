@@ -1,9 +1,9 @@
 .show-brand{
 
   .main-header{
-    display: flex;
+    /* display: flex;
     gap: var(--space-xxs);
-    position: relative;
+    position: relative; */
 
     .brand-author{
       .brand-author-profile{
@@ -14,12 +14,18 @@
 
     .wrapper{
       display: flex;
+      justify-content: space-between;
 
       .title{
-        position: absolute;
+        /* position: absolute;
         left: 47%;
         top: 50%;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%); */
+        margin-right: 86px;
+
+        @media (max-width: 800px) {
+          margin-right: 0;
+        }
       }
     }
   }
