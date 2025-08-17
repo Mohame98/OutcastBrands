@@ -38,32 +38,25 @@ function handleResponse(result, form, actionUrl){
 }
 
 function handleGeneralErrors(result, form) {
-  console.log('hh')
   form.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
   form.querySelectorAll('.error-message').forEach(el => el.remove());
 
   if (result.errors || result.error) {
-    console.log('hhff')
     if (result.error) {
-      console.log('hhff66')
       const errorElement = createNode('span', result.error, null, 'error-message');
       form.insertAdjacentElement('afterbegin', errorElement);
     }
 
     if (result.errors) {
-      console.log('hhffyy66')
       Object.entries(result.errors).forEach(([fieldName, messages]) => {
         const arrayField = form.querySelector(`[name="${fieldName}[]"]`);
         const field = form.querySelector(`[name="${fieldName}"]`);
-
-        console.log(fieldName)
 
         if (arrayField){
           const selector = arrayField.dataset.selector
           const container = document.querySelector(`.${selector}`);
           const errorElement = createNode('span', messages, null, 'error-message', `error-${fieldName}`);
           arrayField.classList.add('error');
-          console.log(` container ${container}`)
           container.insertAdjacentElement('afterend', errorElement);
         }
 
@@ -71,8 +64,6 @@ function handleGeneralErrors(result, form) {
           const label = form.querySelector(`label[for="${field.name}"]`);
           const errorElement = createNode('span', messages[0], null, 'error-message', `error-${fieldName}`);
           field.classList.add('error');
-          console.log(` label ${label} ${field.name}`)
-          
           label.insertAdjacentElement('afterend', errorElement);
         } 
       });
