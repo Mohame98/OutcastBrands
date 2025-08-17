@@ -12,33 +12,33 @@
           <p>Please Enter your new password</p>
         
           <div class="form-group">
-            <label for="email">
+            <label for="reset_email">
               <span>Email</span>
-              <input type="email" name="email" id="email" value="{{ old('email') }}" placeholder="Enter email" aria-label="Enter email" required>
+              <input type="email" name="reset_email" id="reset_email" value="{{ old('email') }}" placeholder="Enter email" aria-label="Enter email" required>
             </label>
-            <x-form-error name='email'></x-form-error>
+            <x-form-error name='reset_email'></x-form-error>
           </div>
 
           <div class="password-field">
-            <label for="password">
+            <label for="reset_password">
               <span>New Password</span>
               <div class="password-input-container">
-                <input type="password" name="password" id="password" placeholder="Enter new password" aria-label="Enter new password"  class="password-input" required>
+                <input type="password" name="reset_password" id="reset_password" placeholder="Enter new password" aria-label="Enter new password"  class="password-input" required>
                 @include('components.toggle-password')
               </div>
             </label>
-            <x-form-error name='password'></x-form-error>
+            <x-form-error name='reset_password'></x-form-error>
           </div>
 
           <div class="password-field">
-            <label for="password_confirmation">
+            <label for="reset_password_confirmation">
               <span>New Password confirmation</span>
               <div class="password-input-container">
-                <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Enter new password confirmation" aria-label="Enter new password confirmation"  class="password-input" required>
+                <input type="password" name="reset_password_confirmation" id="reset_password_confirmation" placeholder="Enter new password confirmation" aria-label="Enter new password confirmation"  class="password-input" required>
                 @include('components.toggle-password')
               </div>
             </label>
-            <x-form-error name='password_confirmation'></x-form-error>
+            <x-form-error name='reset_password_confirmation'></x-form-error>
           </div>
 
           <button class="btn main-button" type="submit">Reset Password</button>

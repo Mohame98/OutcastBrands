@@ -23,35 +23,25 @@
         </div>
         
         <div class="form-group">
-          <label for="email">
+          <label for="signup_email">
             <span>Email address</span>
-            <input type="email" name="email" id="email" value="{{ old('email') }}" autocomplete="on"
+            <input type="email" name="signup_email" id="signup_email" value="{{ old('email') }}" autocomplete="on"
               placeholder="eg.andrew@example.com" aria-label="Enter email" required>
           </label>    
-          <x-form-error name='email'></x-form-error>      
+          <x-form-error name='signup_email'></x-form-error>      
         </div>
 
-        {{-- <div class="row"> --}}
-          <div class="password-field form-group"> 
-            <label for="password">
-              <span>Password</span>
-              <div class="password-input-container">
-                <input type="password" name="password" id="password"
-                  placeholder="Enter password" aria-label="Enter password" class="password-input" required>
-                @include('components.toggle-password')
-              </div>
-            </label>
-            <x-form-error name='password'></x-form-error>
-          </div>
-        
-          {{-- <div class="password-field"> 
-            <label for="password_confirmation">Confirm Password</label>
-            <input type="password" name="password_confirmation" id="password_confirmation"
-                placeholder="Re-enter password" aria-label="Confirm password" class="password-input" required>
-            @include('components.toggle-password')
-            <x-form-error name='password_confirmation'></x-form-error>
-          </div> --}}
-        {{-- </div>  --}}
+        <div class="password-field form-group"> 
+          <label for="signup_password">
+            <span>Password</span>
+            <div class="password-input-container">
+              <input type="password" name="signup_password" id="signup_password"
+                placeholder="Enter password" aria-label="Enter password" class="password-input" required>
+              @include('components.toggle-password')
+            </div>
+          </label>
+          <x-form-error name='signup_password'></x-form-error>
+        </div>
         <button class="btn main-button" type="submit">Create account</button>
       </fieldset>
     </form>

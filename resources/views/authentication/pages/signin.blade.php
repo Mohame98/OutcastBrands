@@ -9,22 +9,22 @@
         </header>
     
         <div class="form-group">
-          <label for="email">
+          <label for="signin_email">
             <span>Email</span>
-            <input type="email" name="email" id="email" value="{{ old('email') }}" autocomplete="on" placeholder="Enter Email" aria-label="Enter email" required>
+            <input type="email" name="signin_email" id="signin_email" value="{{ old('email') }}" autocomplete="on" placeholder="Enter Email" aria-label="Enter email" required>
           </label>
-          <x-form-error name='email'></x-form-error>
+          <x-form-error name='signin_email'></x-form-error>
         </div>
 
         <div class="password-field form-group">
-          <label for="pass">
+          <label for="signin_password">
             <span>Password</span>
             <div class="password-input-container">
-              <input type="password" name="password" id="pass" placeholder="Enter password" aria-label="Enter password" class="password-input" required>
+              <input type="password" name="signin_password" id="signin_password" placeholder="Enter password" aria-label="Enter password" class="password-input" required>
               @include('components.toggle-password')
             </div>
           </label>
-          <x-form-error name='password'></x-form-error>
+          <x-form-error name='signin_password'></x-form-error>
         </div>
   
         <button class="btn main-button" type="submit">Log In</button>

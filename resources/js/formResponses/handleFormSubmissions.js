@@ -22,7 +22,8 @@ async function sendForm(actionUrl, formMethod, form, formData, csrfToken) {
     body: formData,
     headers: {
       'X-CSRF-TOKEN': csrfToken,
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      // 'Content-Type': 'application/json'
     }
   };
   await handleRequest(actionUrl, options, form);
@@ -78,7 +79,6 @@ function multiStepFormAction(event, form) {
   }
   return actionUrl;
 }
-
 
 export {
   main,

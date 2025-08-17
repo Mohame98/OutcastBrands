@@ -12,9 +12,9 @@
         <p>Enter your email to receive the password reset link</p>
     
         <div class="form-group">
-          <label for="forgot-password-email">
+          <label for="forgot_password_email">
             <span>Email</span>
-            <input type="email" name="email" id="forgot-password-email" value="{{ old('email') }}" placeholder="Enter email" aria-label="Enter email" required>
+            <input type="email" name="forgot_password_email" id="forgot_password_email" value="{{ old('email') }}" placeholder="Enter email" aria-label="Enter email" required>
           </label>
           <x-form-error name='email'></x-form-error>
         </div>

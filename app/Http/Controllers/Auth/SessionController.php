@@ -18,76 +18,103 @@ use App\Models\User;
 
 class SessionController extends Controller
 {
-  // signup
+  // Signup
   public function storeSignup(Request $request)
   {
-    $validated = $request->validate([
-      'username' => 'required|string|max:90',
-      'email' => 'required|string|email|max:255|unique:users',
-      'password' => [
-      'required',
-      Password::min(8)
-        ->mixedCase()
-        ->letters()
-        ->numbers()
-        ->symbols(),
-      ],
-    ]);
+    try {
+      $validator = \Validator::make($request->all(), [
+        'username' => 'required|string|max:90',
+        'signup_email' => 'required|string|email|max:255|unique:users,email',
+        'signup_password' => [
+          'required',
+          Password::min(8)
+            ->mixedCase()
+            ->letters()
+            ->numbers()
+            ->symbols(),
+        ],
+      ]);
 
-    $user = User::create([
-      'username' => $validated['username'],
-      'email' => $validated['email'],
-      'password' => Hash::make($validated['password']),
-    ]);
+      if ($validator->fails()) {
+        return response()->json([
+          'success' => false,
+          'errors' => $validator->errors(),
+          'message' => 'Validation failed.',
+        ], 422);
+      }
 
-    event(new Registered($user));
-    Auth::login($user);
+      $validated = $validator->validated();
 
-    session()->flash('flash_message', 'Signup successful. Please verify your account.');
-    return response()->json([
-      'success' => true,
-      // 'redirect_url' => url()->current()
-      // 'user' => $user,
-    ]);
+      $user = User::create([
+        'username' => $validated['username'],
+        'email' => $validated['signup_email'],
+        'password' => Hash::make($validated['signup_password']),
+      ]);
+
+      event(new Registered($user));
+      Auth::login($user);
+
+      session()->flash('flash_message', 'Signup successful. Please verify your account.');
+      return response()->json([
+        'success' => true,
+      ]);
+    } catch (ValidationException $e) {
+      throw $e;
+    } catch (\Exception $e) {
+      \Log::error('Signup error: ' . $e->getMessage());
+      return response()->json([
+        'success' => false,
+        'message' => 'Something went wrong during signup. Please try again later.',
+      ], 500);
+    }
   }
 
   // signin
   public function checkSignin(Request $request)
   {
-    $email = (string) $request->input('email');
-    $throttleKey = strtolower($email) . '|' . $request->ip();
+    try {
+      $email = (string) $request->input('signin_email');
+      $throttleKey = strtolower($email) . '|' . $request->ip();
 
-    if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
-      throw ValidationException::withMessages([
-        'email' => __('Too many login attempts. Please try again in :seconds seconds.', [
-          'seconds' => RateLimiter::availableIn($throttleKey),
-        ]),
+      if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
+        throw ValidationException::withMessages([
+          'signin_email' => __('Too many login attempts. Please try again in :seconds seconds.', [
+            'seconds' => RateLimiter::availableIn($throttleKey),
+          ]),
+        ]);
+      }
+
+      $attributes = $request->validate([
+        'signin_email' => ['required', 'email'],
+        'signin_password' => ['required'],
       ]);
-    }
 
-    $attributes = $request->validate([
-      'email' => ['required', 'email'],
-      'password' => ['required'],
-    ]);
+      if (!Auth::attempt([
+        'email' => $attributes['signin_email'],
+        'password' => $attributes['signin_password'],
+      ])) {
+        RateLimiter::hit($throttleKey);
+        throw ValidationException::withMessages([
+          'signin_email' => 'Invalid email or password.',
+        ]);
+      }
 
-    if (!Auth::attempt($attributes)) {
-      RateLimiter::hit($throttleKey);
-      throw ValidationException::withMessages([
-        'email' => 'Invalid email or password',
+      RateLimiter::clear($throttleKey);
+      $request->session()->regenerate();
+
+      session()->flash('flash_message', 'Hello, welcome ' . e(auth()->user()->username) . '!');
+      return response()->json([
+        'success' => true,
       ]);
+    } catch (ValidationException $e) {
+      throw $e;
+    } catch (\Exception $e) {
+      \Log::error('Signin error: ' . $e->getMessage());
+      return response()->json([
+        'success' => false,
+        'message' => 'Something went wrong. Please try again later.',
+      ], 500);
     }
-
-    RateLimiter::clear($throttleKey);
-    $request->session()->regenerate();
-
-    session()->flash('flash_message', 'Hello, welcome ' . e(auth()->user()->username) . '!');
-    // return redirect()->intended('/');
-
-    return response()->json([
-      'success' => true,
-      // 'redirect_url' => url()->current()
-      // 'user' => auth()->user(),
-    ]);
   }
 
   public function edit()

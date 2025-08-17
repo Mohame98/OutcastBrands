@@ -38,19 +38,25 @@ function handleResponse(result, form, actionUrl){
 }
 
 function handleGeneralErrors(result, form) {
+  console.log('hh')
   form.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
   form.querySelectorAll('.error-message').forEach(el => el.remove());
 
   if (result.errors || result.error) {
+    console.log('hhff')
     if (result.error) {
+      console.log('hhff66')
       const errorElement = createNode('span', result.error, null, 'error-message');
       form.insertAdjacentElement('afterbegin', errorElement);
     }
 
     if (result.errors) {
+      console.log('hhffyy66')
       Object.entries(result.errors).forEach(([fieldName, messages]) => {
         const arrayField = form.querySelector(`[name="${fieldName}[]"]`);
         const field = form.querySelector(`[name="${fieldName}"]`);
+
+        console.log(fieldName)
 
         if (arrayField){
           const selector = arrayField.dataset.selector
