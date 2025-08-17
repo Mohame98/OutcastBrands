@@ -1,17 +1,9 @@
-import {
-  createNode,
-} from '../helpers.js';	
+import { createNode } from '../helpers.js';
+import { initComments } from './filterComments.js';
+import { initBrands } from './filterBrands.js';
 
-import {
-  initComments,
-} from './filterComments.js'
-
-import {
-  initBrands,
-} from './filterBrands.js'
-
-const filters = new URLSearchParams(window.location.search);
 const resetSearchBtn = createNode("i", null, null, "fa-solid fa-xmark");
+const filters = new URLSearchParams(window.location.search);
 
 function updateQuery() {
   filters.set("page", 1);

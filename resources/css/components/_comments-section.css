@@ -79,7 +79,7 @@
   }
 
   .comments-container{
-    max-height: 420px;
+    max-height: 460px;
 
     @media (max-width: 800px) {
       max-height: 300px;

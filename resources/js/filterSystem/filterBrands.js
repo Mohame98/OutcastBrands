@@ -1,10 +1,5 @@
-import {
-  updateActiveFilters,
-} from './mainFilterSys';	
-
-import {
-  createNode,
-} from '../helpers.js';	
+import { updateActiveFilters } from './mainFilterSys';
+import { createNode } from '../helpers.js';
 
 async function fetchBrandCards(queryString, filters) {
   const brandsPerPage = 6;
@@ -61,16 +56,17 @@ function renderBrandCards(cardsHtml) {
 }
 
 function loadMoreHandler(filters) {
-  let currentPage = parseInt(filters.get("page"));
   const loadMoreBtn = document.querySelector(".load-more");
   loadMoreBtn.disabled = true;
+  let page = parseInt(filters.get("page")) || 1;
 
-  currentPage++;
-  filters.set("page", currentPage);
+  page++;
+  filters.set("page", page);
   const queryString = filters.toString();
+
   window.history.replaceState(null, "", `${window.location.pathname}?${queryString}`);
-  fetchBrandCards(queryString, filters)
-  
+  updateActiveFilters();
+  fetchBrandCards(queryString)
   .finally(() => {
     loadMoreBtn.disabled = false;
   });
@@ -81,9 +77,9 @@ function handleLoadMoreButton(hasMoreBrands, filters) {
   const loadMoreBtn = document.querySelector(".load-more");
   if (!loadMoreBtn) return;
   if (hasMoreBrands) {
-    loadMoreBtn.style.display = 'inline-block';
+    loadMoreBtn.style.display = 'block';
     if (!loadMoreListenerAttached) {
-      loadMoreBtn.addEventListener('click', loadMoreHandler(filters));
+      loadMoreBtn.addEventListener('click', () => loadMoreHandler(filters));
       loadMoreListenerAttached = true;
     }
   } else {

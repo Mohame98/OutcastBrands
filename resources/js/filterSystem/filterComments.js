@@ -1,46 +1,52 @@
-import {
-  updateActiveFilters,
-} from './mainFilterSys';	
+import { updateActiveFilters } from './mainFilterSys';  
 
 let commentsPage = 1;
 
 async function fetchComments(brandId, queryString, page, filters) {
   const commentsPerPage = 5;
   const paginatedQuery = `${queryString}&page=${page}&limit=${commentsPerPage}`;
-  const response = await fetch(`/api/brands/${brandId}/comments?${paginatedQuery}`);
-  if (!response.ok) throw new Error("Failed to fetch comments");
-  const data = await response.json();
-  renderComments(data.html_comments.join(""));
-  handleLoadMoreCommentsButton(data.has_more_comments, brandId, filters);
+  
+  try {
+    const response = await fetch(`/api/brands/${brandId}/comments?${paginatedQuery}`);
+    if (!response.ok) throw new Error("Failed to fetch comments");
+
+    const data = await response.json();
+    renderComments(data.html_comments.join(""));
+    handleLoadMoreCommentsButton(data.has_more_comments, brandId, filters);
+
+  } catch (error) {
+    console.error("Error fetching comments:", error);
+  }
 }
 
 function renderComments(html) {
   const container = document.querySelector("#comments-container");
   if (!container) return;
+
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
   const comments = doc.body.children;
-  Array.from(comments).forEach(el => container.appendChild(el));
+
+  if (comments.length === 0) {
+    const messageContainer = createNode('div', null, container, 'no-comments');
+    createNode('p', 'No comments yet', messageContainer, 'no-comments');
+    return;
+  }
+
+  Array.from(comments).forEach(el => {
+    container.appendChild(el);
+  });
 }
 
 let loadMoreCommentsListenerAttached = false;
 function handleLoadMoreCommentsButton(hasMore, brandId, filters) {
   const btn = document.querySelector(".load-more-comments");
   if (!btn) return;
+
   if (hasMore) {
     btn.style.display = 'block';
     if (!loadMoreCommentsListenerAttached) {
-      btn.addEventListener("click", () => {
-        btn.disabled = true;
-        commentsPage++;
-        filters.set("page", commentsPage);
-        const queryString = filters.toString();
-        window.history.replaceState(null, "", `${window.location.pathname}?${queryString}`);
-        fetchComments(brandId, queryString, commentsPage, filters)
-          .finally(() => {
-            btn.disabled = false;
-        });
-      });
+      btn.addEventListener("click", () => loadMoreCommentsHandler(brandId, filters)); 
       loadMoreCommentsListenerAttached = true;
     }
   } else {
@@ -48,16 +54,34 @@ function handleLoadMoreCommentsButton(hasMore, brandId, filters) {
   }
 }
 
+function loadMoreCommentsHandler(brandId, filters) {
+  const btn = document.querySelector(".load-more-comments");
+  btn.disabled = true;
+
+  commentsPage++;  
+  filters.set("page", commentsPage); 
+  const queryString = filters.toString();
+
+  window.history.replaceState(null, "", `${window.location.pathname}?${queryString}`);
+  updateActiveFilters();
+  
+  fetchComments(brandId, queryString, commentsPage, filters)
+    .finally(() => {
+      btn.disabled = false;
+    });
+}
+
 function initComments(filters) {
   const commentsContainer = document.querySelector('#comments-container');
   if (!commentsContainer) return;
+
   const brandId = commentsContainer.dataset.brandId;
-  
+  commentsPage = 1;  
+
   updateActiveFilters();
   const initialQuery = filters.toString();
+  
   fetchComments(brandId, initialQuery, commentsPage, filters);
 }
 
-export {
-  initComments
-};
+export { initComments };
