@@ -235,4 +235,6 @@ dialog{
   border-radius: var(--radius-sm);
 }
 
-
+.load-more-comments{
+  display: none;
+}

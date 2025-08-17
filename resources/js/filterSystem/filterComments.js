@@ -1,4 +1,5 @@
 import { updateActiveFilters } from './mainFilterSys';  
+import { createNode } from '../helpers.js';
 
 let commentsPage = 1;
 
@@ -29,7 +30,7 @@ function renderComments(html) {
 
   if (comments.length === 0) {
     const messageContainer = createNode('div', null, container, 'no-comments');
-    createNode('p', 'No comments yet', messageContainer, 'no-comments');
+    createNode('p', 'No Comments', messageContainer, 'no-comments');
     return;
   }
 
