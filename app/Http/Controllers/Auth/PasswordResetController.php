@@ -73,7 +73,7 @@ class PasswordResetController extends Controller
 
     if ($status === Password::PASSWORD_RESET) {
       session()->flash('flash_message', __($status));
-      return redirect()->route('login');
+      return redirect()->route('/');
     }
 
     return back()->withErrors([
