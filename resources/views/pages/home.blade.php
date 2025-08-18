@@ -1,12 +1,12 @@
 <x-main-layout>
   <section class="home-page">
     <div class="container">
-      <header class="home-page-header">
+      {{-- <header class="home-page-header">
         <span>
           <i class="fa-regular fa-calendar"></i>
           {{ ucfirst(\Carbon\Carbon::now()->format('l, F j')) }}
         </span>
-      </header>
+      </header> --}}
 
       @if ($featuredBrand)
       <x-brand-card-types.featured-card :brand="$featuredBrand" :featured="true" />

@@ -24,16 +24,9 @@
       color: var(--dark-text-primary);
       display: flex;
       flex-direction: column;
-      font-weight: 800;
-      /* padding: 11px; */
-      border-radius: var(--radius-md);
-      /* align-items: center; */
+      align-items: center;
       gap: 2px;
       font-size: var(--font-md);
-
-      span:nth-of-type(2){
-        margin-left: 30px;
-      }
     }
   }
 
