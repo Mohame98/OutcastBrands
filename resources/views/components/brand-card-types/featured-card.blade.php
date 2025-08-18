@@ -28,7 +28,7 @@
           <div class="user-menu-container">
             @include('components.brand-author-profile')
             @auth
-              <div class="context-menu-container">
+              <div class="popover-container context-menu-container">
                 <button 
                   class="btn context-menu-btn" 
                   id="context-menu-btn" 

@@ -1,5 +1,5 @@
-<div class="comments item" id="comments-section">
-  <button class="btn comment-section-btn" id="comment-section-btn" popovertarget="comment-section" popovertargetaction="toggle" aria-haspopup="menu" aria-expanded="false" aria-controls="comment-section">
+<div class="popover-container comments item" id="comments-section">
+  <button class="btn comment-section-btn item-btn" id="comment-section-btn" popovertarget="comment-section" popovertargetaction="toggle" aria-haspopup="menu" aria-expanded="false" aria-controls="comment-section">
     <i class="fa-solid fa-comments"></i>
   </button>
 

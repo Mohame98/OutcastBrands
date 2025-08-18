@@ -37,11 +37,12 @@
         </div>
       </div>
       @auth
-      <div class="context-menu-container">
+      <div class="popover-container context-menu-container">
         <button 
           class="btn context-menu-btn" 
           id="context-menu-btn" 
           popovertarget="brand-menu-{{ $brand->id }}" 
+          popovertarget
           popovertargetaction="toggle" 
           aria-haspopup="menu" 
           title="Menu" 

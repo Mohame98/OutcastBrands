@@ -1,7 +1,7 @@
 <li class="report context-item">
   <div class="modal-wrapper">
     <button 
-      class="btn report-btn modal-btn"
+      class="btn report-btn modal-btn item-btn"
       aria-haspopup="Report {{ $type }}" 
       aria-controls="report-{{ $type }}-{{ $model->id }}"  
       aria-expanded="false">

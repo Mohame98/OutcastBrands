@@ -17,6 +17,4 @@ function handleAllPopovers() {
   });
 }
 
-export {
-  handleAllPopovers,
-};
+export { handleAllPopovers };
