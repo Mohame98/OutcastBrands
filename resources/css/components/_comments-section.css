@@ -159,6 +159,10 @@
     gap: var(--space-xxs);
     padding-right: var(--space-xs);
 
+    .report-btn{
+      padding: var(--space-xxs) !important;
+    }
+
     .comment-flex{
       display: flex;
       flex-direction: column;
