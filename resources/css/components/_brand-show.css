@@ -128,10 +128,6 @@
         background-color: var(--dark-secondary-bg);
         list-style: none;
 
-        .item-btn{
-          padding: 15px;
-        }
-
         &:hover{
           background-color: var(--dark-tertiary-bg);
         }

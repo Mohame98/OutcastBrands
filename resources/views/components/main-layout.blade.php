@@ -38,19 +38,7 @@
 	</script>
 
 	<script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.1/dist/jquery.fancybox.min.js"></script>
-
-	<script>
-	
-
-
-
-        // document.querySelectorAll('input, textarea').forEach(input => {
-        //     input.value = input.value.trim();
-        // });
-
-	</script>
-
-    <!-- Include Quill JS -->
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+	<!-- Include Quill JS -->
+	<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 </body>
 </html>

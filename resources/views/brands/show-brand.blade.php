@@ -25,17 +25,18 @@ $vote = $brand->voters->firstWhere('id', auth()->id())?->pivot->vote ?? null;
         </div>
 
         <div class="social-interactions brand-detail">
-          <div class="social-item" title="Save Brand">
+          <div class="social-item">
             <x-interactions.saveV2 :brand="$brand"/>
           </div>
           
-          <div class="social-item" title="Brand Details">
+          <div class="social-item">
             <div class="brand-data-details item">
               <div class="modal-wrapper">
                 <button 
                   class="btn brand-details modal-btn item-btn"
                   aria-haspopup="show brand details" 
                   aria-controls="brand-details-modal" 
+                  title="Brand Details"
                   aria-expanded="false">
                   <i class="fa-regular fa-circle-question"></i>
                 </button>
@@ -97,22 +98,23 @@ $vote = $brand->voters->firstWhere('id', auth()->id())?->pivot->vote ?? null;
             </div>
           </div>
 
-          <div class="social-item" title="Comment Section">
+          <div class="social-item">
             <x-interactions.comments-section :brand="$brand" />
           </div>
 
           @auth
-          <div class="main-brand-report social-item" title="Report Brand">
+          <div class="main-brand-report social-item">
             <x-interactions.report :model="$brand" type="brand" />
           </div>  
           @endauth
 
           @if(auth()->id() === $brand->user_id)
-          <div class="modal-wrapper social-item" title="Delete Brand">
+          <div class="modal-wrapper social-item">
             <button 
             class="btn delete-brand-btn modal-btn item-btn"
             aria-haspopup="Delete brand confirmation" 
             aria-controls="delete-brand-modal" 
+            title="Delete Brand"
             aria-expanded="false">
               <i class="fa-solid fa-trash-can"></i>
             </button>

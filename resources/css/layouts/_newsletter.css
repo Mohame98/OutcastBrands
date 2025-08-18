@@ -43,7 +43,7 @@
       font-size: var(--font-base);
       padding: 0 var(--space-sm);
       background-color: var(--dark-accent-blue);
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius-md);
       color: var(--light);
       cursor: pointer;
       font-weight: 500;

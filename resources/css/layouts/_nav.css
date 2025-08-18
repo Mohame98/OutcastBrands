@@ -1,9 +1,23 @@
+.main-nav.scrolled{
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
 .main-nav{
-  height: 100px;
+  height: 80px;
   display: flex;
   align-items: center;
   font-size: var(--font-sm);
-  
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid #181818;
+  background-color: transparent;
+  backdrop-filter: blur(13px); 
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+
   .container{
     display: flex;
     justify-content: space-between;
@@ -27,6 +41,10 @@
       align-items: center;
       gap: 2px;
       font-size: var(--font-md);
+      
+      &:hover{
+        color: var(--dark-text-secondary);
+      }
     }
   }
 
@@ -72,8 +90,9 @@
         display: flex;
         gap: var(--space-xxs);
         align-items: center;
-        padding: 11px;
-        border-radius: var(--radius-md);
+        padding: var(--space-xxs);
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--dark-secondary-bg);
       }
     }
   }

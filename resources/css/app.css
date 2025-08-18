@@ -121,6 +121,7 @@ body {
   font-size: var(--font-md);
   color: var(--dark-text-primary);
   background-color: var(--dark-main-bg);
+  padding-top: 105px;
 }
 
 .container{

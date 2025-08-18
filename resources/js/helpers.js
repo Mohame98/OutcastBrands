@@ -110,6 +110,12 @@ function backButtons() {
   });
 }
 
+function trimInputs(){
+  document.querySelectorAll('input, textarea').forEach(input => {
+    input.value = input.value.trim();
+  });
+}
+     
 export {
   createNode,
   setupPasswordToggles,
@@ -118,4 +124,5 @@ export {
   closeModal,
   backButtons,
   clearSpecificError,
+  trimInputs,
 };

@@ -3,6 +3,7 @@
     <button 
       class="btn report-btn modal-btn item-btn"
       aria-haspopup="Report {{ $type }}" 
+      title="Report {{ $type }}"
       aria-controls="report-{{ $type }}-{{ $model->id }}"  
       aria-expanded="false">
         <i class="fa-solid fa-flag"></i>

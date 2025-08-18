@@ -34,11 +34,15 @@ import {
 } from './filterSystem/mainFilterSys.js'
 
 import {
+  handleNavOnScroll,
+} from './navigation.js'
+
+import {
   createNode,
   setupPasswordToggles,
   handleSpecificError,
   selectOnlyThreeCategories,
-  // trimAllFields,
+  trimInputs,
   closeModal,
   backButtons,
 } from './helpers.js';
@@ -58,8 +62,8 @@ export function init() {
   initBrandMediaPreview(),
   runQuillEditor();
   initFilterSystem();
-  // closeDetails();
   toggleLoginModals();
-  // trimAllFields();
+  handleNavOnScroll();
+  trimInputs();
   main();
 }

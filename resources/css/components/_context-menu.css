@@ -22,12 +22,8 @@
     margin: 0;
 
     background-color: var(--dark-tertiary-bg);
-    
-
     padding: var(--space-xxxs);
-    /* border: none; */
     border: 1px solid var(--dark-quaternary-bg);
-    /* border: 1px solid var(--color-grayblue-100); */
     border-radius: var(--radius-sm);
     box-shadow: 0 7px 12px rgba(0, 0, 0, 0.1);
     width: fit-content;
