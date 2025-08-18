@@ -28,12 +28,6 @@ function renderComments(html) {
   const doc = parser.parseFromString(html, 'text/html');
   const comments = doc.body.children;
 
-  if (comments.length === 0) {
-    const messageContainer = createNode('div', null, container, 'no-comments');
-    createNode('p', 'No Comments', messageContainer, 'no-comments');
-    return;
-  }
-
   Array.from(comments).forEach(el => {
     container.appendChild(el);
   });

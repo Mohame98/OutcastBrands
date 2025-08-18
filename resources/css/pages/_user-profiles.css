@@ -62,18 +62,11 @@
 
 
   .avatar-container{
-    /* backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 40px;
-    padding: var(--space-xs); */
-
     .avatar.img,
     .avatar.letter{
       height: 250px;
       width: 250px;
       border-radius: 30px;
-
-      /* box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); */
     }
 
     .avatar.letter{
@@ -84,4 +77,8 @@
       display: none;
     }
   }
+}
+
+.color-username{
+  color: var(--dark-accent-blue);
 }

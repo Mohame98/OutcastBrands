@@ -79,8 +79,8 @@
                             @if($user->profile_image)
                             <div 
                               class="avatar img" 
-                              style="background-image: url('{{ asset('storage/' . $user->profile_image) }}');"
-                            ></div>
+                              style="background-image: url('{{ asset('storage/' . $user->profile_image) }}');">
+                            </div>
                             @else
                             <div class="avatar letter">
                               {{ strtoupper(substr($user->email, 0, 1)) }}
@@ -91,7 +91,7 @@
                         </legend>
                         @include('components.close-modal')
                       </header>
-                      <p>Send a message to {{ $user->username }} and receive a reply through email</p>
+                      <p>Send a message to <span class="color-username">{{ $user->username }}</span> and receive a reply through email</p>
 
                       <ul>
                         <li>

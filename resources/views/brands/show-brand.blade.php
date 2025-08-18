@@ -58,17 +58,17 @@ $vote = $brand->voters->firstWhere('id', auth()->id())?->pivot->vote ?? null;
 
                     <div class="data-container">
                       <span>Saves</span>
-                      <p>{{ $save_count }}</p>
+                      <p class="detail-save-count">{{ $save_count }}</p>
                     </div>
 
                     <div class="data-container">
                       <span>Votes</span>
-                      <p>{{ $vote_count }}</p>
+                      <p class="detail-vote-count">{{ $vote_count }}</p>
                     </div>
 
                     <div class="data-container">
                       <span>Comments</span>
-                      <p>{{ $brand->comments_count }}</p>
+                      <p id="comment-count">{{ $brand->comments_count }}</p>
                     </div>
                   </div>
               
@@ -192,7 +192,7 @@ $vote = $brand->voters->firstWhere('id', auth()->id())?->pivot->vote ?? null;
       @if ($relatedBrands->isNotEmpty())
         <div class="related-brands">
           <header class="popular-brands-header">
-            <h3>More Brands By {{ $brand->user->username }}</h3>
+            <h3>More Brands By <span class="color-username">{{ $brand->user->username }}</span></h3>
             <a class="white-btn view-profile-btn" href="{{ route('profile.show', $brand->user) }}">
               <span class="profile-link">View Profile</span>  
             </a>

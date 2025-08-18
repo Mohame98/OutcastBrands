@@ -20,7 +20,7 @@ class PasswordResetController extends Controller
     return view('authentication.password-recovery.forgot-password');
   }
 
- /// Send Reset Link Email
+  // Send Reset Link Email
   public function sendResetLinkEmail(Request $request)
   {
     try {

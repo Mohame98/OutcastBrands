@@ -162,6 +162,11 @@
             display: flex;
             gap: var(--space-lg);
             margin: var(--space-sm) 0;
+            flex-wrap: wrap;
+
+            @media (max-width: 600px) {
+              gap: var(--space-sm);
+            }
 
             p{
               color: var(--dark-text-secondary);

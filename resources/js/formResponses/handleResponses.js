@@ -133,9 +133,10 @@ function handleVoteCount(result, actionType, form) {
   if (!container) return;
 
   const voteCount = container?.querySelector('.vote-count');
-  if (voteCount) {
-    voteCount.textContent = result.total_votes;
-  }
+  if (voteCount) voteCount.textContent = result.total_votes;
+
+  const detailVoteCount = document.querySelector('.detail-vote-count');
+  if (detailVoteCount) detailVoteCount.textContent = result.total_votes
 
   const upvoteBtn = container?.querySelector('.upvote');
   const downvoteBtn = container?.querySelector('.downvote');
@@ -154,6 +155,8 @@ function handleSave(result, actionType, form){
   if (actionType !== 'save') return;
   const saveBtn = form.querySelector('.save-btn');
   const saveBtnCard = form.querySelector('.save-btn.card');
+  const detailSaveCount = document.querySelector('.detail-save-count');
+  if (detailSaveCount) detailSaveCount.textContent = result.total_saves
 
   if (saveBtn) {
     saveBtn.innerHTML = result.saved 
@@ -170,7 +173,6 @@ function handleSave(result, actionType, form){
 
 function handleLikeComment(result, actionType, form) {
   if (actionType !== 'like-comment') return;
-
   const likeBtn = form.querySelector('.like-btn');
   const likeCount = form.closest('.comment').querySelector('.like-count');
 
@@ -178,7 +180,6 @@ function handleLikeComment(result, actionType, form) {
     likeBtn.innerHTML = result.liked
       ? '<i class="fa-solid fa-heart"></i>'
       : '<i class="fa-regular fa-heart"></i>';
-
     likeBtn.classList.toggle('liked', result.liked);
   }
 
@@ -204,6 +205,12 @@ function handleDeleteComment(result, actionType) {
   commentCount.forEach(el => {
     el.textContent = result.comments_count;
   });
+
+  const commentContainer = document.querySelector('.comment-count-container');
+  if (!commentContainer) return; 
+  commentContainer && (commentContainer.textContent = result.comments_count === 1 
+  ? `${result.comments_count} Comment` 
+  : `${result.comments_count} Comments`);
 }
 
 function handleAddComment(result, actionType, form) {
@@ -217,6 +224,12 @@ function handleAddComment(result, actionType, form) {
   commentCount.forEach(el => {
     el.textContent = result.comments_count;
   });
+
+  const commentContainer = document.querySelector('.comment-count-container');
+  if (!commentContainer) return; 
+  commentContainer && (commentContainer.textContent = result.comments_count === 1 
+  ? `${result.comments_count} Comment` 
+  : `${result.comments_count} Comments`);
 }
 
 function handleUser(result, actionType){

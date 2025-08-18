@@ -5,7 +5,7 @@
         @include('components.setting-links')
         <div class="edit-account-container">
           <h2>Profile</h2>
-          <h3>Choose how you appear and what you see on WesternOutlaw</h3>
+          <h3>Choose how you appear on OutcastBrands</h3>
 
           <div class="modal-wrapper">
             <button 

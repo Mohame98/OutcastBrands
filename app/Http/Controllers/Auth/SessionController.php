@@ -340,7 +340,3 @@ class SessionController extends Controller
     return redirect('/');
   }
 }
-
-// if (!Auth::check()) {
-//   return redirect()->route('login');
-// }
