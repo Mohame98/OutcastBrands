@@ -9,7 +9,7 @@
     <span>TODAY</span>
     <h1>Featured Brand</h1>
   </header>
-  <div class="brand-container"> 
+  <article class="brand-container"> 
     <div class="left-brand-featured-image" 
       @if ($brand->featuredImage)
         style="background-image: url('{{ asset('storage/' . $brand->featuredImage->image_path) }}')"
@@ -70,6 +70,6 @@
         </div>
       </div>
     </div>
-  </div>
+  </article>
 </section>
 @endif

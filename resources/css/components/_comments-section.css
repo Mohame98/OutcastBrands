@@ -1,6 +1,6 @@
 @layer layout {
   .comment-side-panel{
-    width: 575px;
+    width: 600px;
 
     @media (max-width: 800px) {
       width: 100%;

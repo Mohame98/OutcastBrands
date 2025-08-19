@@ -7,7 +7,7 @@
     <span id="comment-count">{{ $brand->comments_count }}</span> 
   </div>
 
-  <div class="comment-section comment-side-panel popover" aria-label="comment-section"  id="comment-section" popover>
+  <aside class="comment-section comment-side-panel popover" aria-label="comment-section"  id="comment-section" popover>
     <header class="comment-section-header">
       
       <div class="comment-image-title">
@@ -98,5 +98,5 @@
       Load More Comments
     </button>
     {{-- <div class="spinner" style="display: none;"></div> --}}
-  </div>
+  </aside>
 </div>
