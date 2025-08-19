@@ -41,7 +41,7 @@
           <div class="report-list">
             @foreach($reasons as $value)
             <div class="form-group">
-              <label for="reason_{{ $value }}_{{ $model->id }}" class="reason">
+              <label for="reason_{{ $value }}_{{ $model->id }}" class="reason" title="{{ $value }}">
                 <input type="radio" name="reason" value="{{ $value }}" id="reason_{{ $value }}_{{ $model->id }}" class="radio-btn">
                 {{ $value }}
                 <x-form-error name="reason" />
