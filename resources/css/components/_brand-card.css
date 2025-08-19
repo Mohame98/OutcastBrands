@@ -343,7 +343,7 @@
       .left-brand-featured-image {
         width: 100%;
         aspect-ratio: 5 / 4;
-        border-radius: var(--radius-lg);
+        border-radius: var(--radius-md);
       }
 
       .brand-content{
