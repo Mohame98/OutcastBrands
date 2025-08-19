@@ -38,6 +38,10 @@ import {
 } from './navigation.js'
 
 import {
+  scrollToTop,
+} from './scrollToTop.js'
+
+import {
   createNode,
   setupPasswordToggles,
   handleSpecificError,
@@ -64,6 +68,7 @@ export function init() {
   initFilterSystem();
   toggleLoginModals();
   handleNavOnScroll();
+  scrollToTop();
   trimInputs();
   main();
 }

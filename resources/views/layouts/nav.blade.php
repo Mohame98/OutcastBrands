@@ -1,7 +1,7 @@
 <nav class="main-nav">
 	<div class="container">
 		<div class="left-side-navigation">
-			<a class="logo" href="/">
+			<a class="logo" href="/" title="Home">
 				<span>
 					&lt;Outcast&gt;
 				</span>

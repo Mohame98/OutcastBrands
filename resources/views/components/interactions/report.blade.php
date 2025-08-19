@@ -9,7 +9,7 @@
         <i class="fa-solid fa-flag"></i>
         <span class="btn-text">Report</span>
     </button>
-    <dialog id="report-{{ $type }}-{{ $model->id }}" class="report-{{ $type }}">
+    <dialog id="report-{{ $type }}-{{ $model->id }}" class="report-modal report-{{ $type }}">
       <form action="" method="POST" class="action-form" data-action="report" enctype="multipart/form-data" data-form-base="/report" data-total-steps="2">
         @csrf
         <input type="hidden" name="reportable_type" value="{{ $type }}">
@@ -41,12 +41,10 @@
           <div class="report-list">
             @foreach($reasons as $value)
             <div class="form-group">
-              <label for="reason">
-                  <label for="reason_{{ $value }}" class="reason">
-                    <input type="radio" name="reason" value="{{ $value }}" id="reason_{{ $value }}">
-                  {{ $value }}
-                  <x-form-error name="reason" />
-                </label>
+              <label for="reason_{{ $value }}_{{ $model->id }}" class="reason">
+                <input type="radio" name="reason" value="{{ $value }}" id="reason_{{ $value }}_{{ $model->id }}" class="radio-btn">
+                {{ $value }}
+                <x-form-error name="reason" />
               </label>
             </div>
             @endforeach

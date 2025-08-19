@@ -1,9 +1,8 @@
 
 
 .report{
-
   dialog{
-    width: 350px;
+    width: 465px;
   }
   
   fieldset {
@@ -14,8 +13,49 @@
 
     .report-list{
       display: flex;
-      flex-direction: column;
-      gap: var(--space-xxs);
+      flex-wrap: wrap;
+      flex-direction: unset;
+      gap: 0.5rem;
+
+      .form-group {
+        width: auto;
+
+        .reason {
+          display: inline-block;
+          padding: var(--space-xxs);
+          border: 1px solid var(--dark-hover-gray);
+          border-radius: var(--radius-sm);
+          background-color: var(--dark-secondary-bg);
+          color: var(--dark-text-primary); 
+          font-size: var(--font-sm);
+          transition: all 0.2s ease-in-out;
+          user-select: none;
+          cursor: pointer;
+
+          &:hover{
+            background-color: var(--dark-hover-gray);
+          }
+
+          &:focus-within,
+          .radio-btn:focus + & {
+            outline: 2px solid var(--dark-accent-blue);
+            outline-offset: 2px;
+          }
+
+          .radio-btn {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+          }
+
+          .radio-btn:checked ~ &,
+          &:has(.radio-btn:checked) {
+            background-color: var(--light);
+            border: 1px solid var(--light);
+            color: var(--dark-text-opposite);
+          }
+        }
+      }
     }
 
     .form-step{

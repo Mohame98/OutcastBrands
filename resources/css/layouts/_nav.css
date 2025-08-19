@@ -16,7 +16,7 @@
   border-bottom: 1px solid #181818;
   background-color: transparent;
   backdrop-filter: blur(13px); 
-  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+  transition: 0.4s ease-in-out;
 
   .container{
     display: flex;
@@ -160,39 +160,40 @@
       position: relative;
       display: inline-block;
       cursor: pointer;
-    }
+    
 
-    .category-button input[type="checkbox"] {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
+      input[type="checkbox"] {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
 
-    .category-button span {
-      display: inline-block;
-      padding: var(--space-xxs);
-      border: 1px solid var(--dark-hover-gray);
-      border-radius: var(--radius-sm);
-      background-color: var(--dark-secondary-bg);
-      color: var(--dark-text-primary); 
-      font-size: var(--font-sm);
-      transition: all 0.2s ease;
-      user-select: none;
+        &:checked + span {
+          background-color: var(--light);
+          border: 1px solid var(--light);
+          color: var(--dark-text-opposite);
+        }
 
-      &:hover{
-        background-color: var(--dark-hover-gray);
+        &:focus + span {
+          outline: 2px solid var(--dark-accent-blue);
+          outline-offset: 2px;
+        }
       }
-    }
 
-    .category-button input[type="checkbox"]:checked + span {
-      background-color: var(--light);
-      border: 1px solid var(--light);
-      color: var(--dark-text-opposite);
-    }
+      span {
+        display: inline-block;
+        padding: var(--space-xxs);
+        border: 1px solid var(--dark-hover-gray);
+        border-radius: var(--radius-sm);
+        background-color: var(--dark-secondary-bg);
+        color: var(--dark-text-primary); 
+        font-size: var(--font-sm);
+        transition: all 0.2s ease-in-out;
+        user-select: none;
 
-    .category-button input[type="checkbox"]:focus + span {
-      outline: 2px solid var(--dark-accent-blue);
-      outline-offset: 2px;
+        &:hover{
+          background-color: var(--dark-hover-gray);
+        }
+      }
     }
   } 
 }

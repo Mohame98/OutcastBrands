@@ -193,6 +193,28 @@ ul li{
   font-size: var(--space-xs);
 }
 
+#scrollToTopBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+
+  height: 50px;
+  width: 50px;
+  backdrop-filter: blur(16px); 
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  border: none;
+  border-radius: var(--radius-circle);
+  display: none;
+  cursor: pointer;
+  font-size: 18px;
+  transition: 0.4s ease-in-out;
+
+  &:hover{
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+}
+
 main{
   padding-top: var(--space-sm);
 }

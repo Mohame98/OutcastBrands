@@ -1,10 +1,6 @@
 .show-brand{
 
   .main-header{
-    /* display: flex;
-    gap: var(--space-xxs);
-    position: relative; */
-
     .brand-author{
       .brand-author-profile{
         height: 45px;
@@ -17,10 +13,6 @@
       justify-content: space-between;
 
       .title{
-        /* position: absolute;
-        left: 47%;
-        top: 50%;
-        transform: translate(-50%, -50%); */
         margin-right: 86px;
 
         @media (max-width: 800px) {
