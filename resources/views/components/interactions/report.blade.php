@@ -18,7 +18,7 @@
         {{-- step 1 --}}
         <fieldset class="multi-field active">
           <header class="modal-headers">
-            <legend><h1>Select a report reason</h1></legend>
+            <legend><h1>Report reason</h1></legend>
             @include('components.close-modal')
           </header>
 

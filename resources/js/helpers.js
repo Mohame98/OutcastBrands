@@ -58,6 +58,7 @@ function closeModal(result, form){
   const dialog = form.closest('dialog');
   if (result.success && dialog) {
     dialog.close();
+    document.body.classList.remove('no-scroll');
   }
 }
 

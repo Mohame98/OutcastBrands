@@ -116,6 +116,10 @@
         gap: var(--space-xs);
       }
     }
+
+    .edit-bio-modal{
+      width: 500px;
+    }
   }
 }
 

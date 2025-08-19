@@ -35,6 +35,8 @@ import {
 
 import {
   handleNavOnScroll,
+  mobileMenuToggle,
+  closeMenu,
 } from './navigation.js'
 
 import {
@@ -67,7 +69,11 @@ export function init() {
   runQuillEditor();
   initFilterSystem();
   toggleLoginModals();
+
   handleNavOnScroll();
+  mobileMenuToggle();
+  closeMenu();
+
   scrollToTop();
   trimInputs();
   main();

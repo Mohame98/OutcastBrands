@@ -57,19 +57,10 @@
 							</dialog>
 						</div>
 					</li>
-
-					
 				</ul>
-				<div class="btn mobile-menu-btn" onclick="mobileMenuToggle()">
+				<div class="btn mobile-menu-btn">
 					<i class="fa-solid fa-bars"></i>
 				</div>
-				<script>
-					function mobileMenuToggle() {
-						const menuLoginLinks = document.querySelector(".login-links");
-						menuLoginLinks.classList.toggle("responsive");
-						document.body.classList.toggle("menu-open");
-					}
-				</script>
 				@endguest
 				@auth
 					<button
