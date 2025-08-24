@@ -5,19 +5,25 @@ textarea{
   border-radius: 8px;
   border: 1px solid var(--dark-quaternary-bg);
   background-color: var(--dark-tertiary-bg);
-  transition: background-color 0.6s ease;
+  transition: all 0.2s ease-in-out;
   color: var(--dark-text-primary);
   
   &:hover{
     background-color: var(--dark-hover-gray);
   }
+
+  &:focus{
+    outline: 2px solid var(--dark-accent-blue);
+    outline-offset: 2px;
+  }
 }
 
-input:focus,
-textarea:focus {
-  outline: none;
-  box-shadow: 0 0 0 4px var(--dark-hover-dark-gray);
-}
+/* input:focus,
+textarea:focus { */
+  /* outline: none; */
+  /* box-shadow: 0 0 0 4px var(--dark-hover-dark-gray); */
+ 
+/* } */
 
 textarea{
   resize: vertical;
@@ -96,19 +102,8 @@ input::placeholder {
   }
 }
 
-/* .media-input.brand{
-  .media-label{
-
-
-    &:hover{
-      background-color: var(--color-grayblue-100);
-    }
-  }
-} */
-
 .media-input{
   border: 1px dashed var(--dark-hover-dark-gray);
-  /* padding-top: var(--space-sm); */
   border-radius: var(--radius-lg);
   background-color: var(--dark-tertiary-bg);
   min-height: 200px;
@@ -120,7 +115,6 @@ input::placeholder {
   .media-label {
     cursor: pointer;
     background-color: var(--dark-quaternary-bg);
-    /* border: 1px solid var(--color-grayblue-100); */
     font-size: var(--font-sm);
     border-radius: var(--radius-md);
     width: fit-content;

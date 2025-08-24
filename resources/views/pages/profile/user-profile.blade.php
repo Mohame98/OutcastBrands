@@ -20,7 +20,7 @@
               <div class="info-header">
                 <h3>{{ $user->username }}</h3>
               </div>
-             
+              @auth
               <div class="context-menu-container">
                 <button 
                   class="btn context-menu-btn" 
@@ -41,6 +41,7 @@
                   </ul>
                 </nav>
               </div>
+              @endauth
             </div>
             
             <p class="user-bio">{{ $user->bio }}</p>

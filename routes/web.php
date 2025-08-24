@@ -23,6 +23,10 @@ Route::get('/',
 [BrandsController::class, 'index'])
   ->name('home');
 
+Route::get('/signin', function () {
+  return redirect('/');
+});
+
 Route::get('api/brands/search', 
 [SearchController::class, 'searchApi']);
 

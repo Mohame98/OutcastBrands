@@ -40,8 +40,8 @@
 
 .cancel,
 .update{
-  padding: var(--space-xs);
-  border-radius: var(--radius-lg);
+  padding: var(--space-xxs) var(--space-xs);
+  border-radius: var(--radius-sm);
   font-weight: 600;
   color: var(--dark-text-primary);
   width: fit-content;

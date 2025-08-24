@@ -41,7 +41,6 @@
       opacity: 1;
       translate: 0 0;
  
-
       @starting-style{
         opacity: 0;
         translate: 0 -30px;
