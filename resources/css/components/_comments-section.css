@@ -90,7 +90,7 @@
   }
 
   .comments-container {
-    max-height: 63dvh;
+    max-height: 65dvh;
     overflow-y: scroll;
     margin-bottom: var(--space-xs);
 

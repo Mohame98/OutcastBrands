@@ -11,7 +11,7 @@ function handleAllPopovers() {
       popoverBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
 
       popoverId === 'comment-section' 
-        ? document.body.classList.toggle('no-scroll', isOpen) 
+        ? document.body.classList.toggle('always-no-scroll', isOpen) 
         : null;
     });
   });

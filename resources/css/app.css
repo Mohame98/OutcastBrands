@@ -134,6 +134,10 @@ body {
   overflow: hidden;
 }
 
+.always-no-scroll{
+  overflow: hidden;
+}
+
 a{
   text-decoration: none;
   color: var(--dark-text-primary);
