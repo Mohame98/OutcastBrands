@@ -62,7 +62,7 @@
     flex-wrap: wrap;
     width: 100%;
     gap: var(--space-xxs);
-    margin: var(--space-sm) 0;
+    margin: var(--space-xs) 0;
 
     button{
       background-color: var(--dark-secondary-bg);

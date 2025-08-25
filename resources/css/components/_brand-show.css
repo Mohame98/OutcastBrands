@@ -141,7 +141,6 @@
 
       .brand-data-details{
         .brand-details-modal{
-          padding: var(--space-md);
 
           header{
             display: flex;

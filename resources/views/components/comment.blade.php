@@ -92,7 +92,7 @@
                         <form method="POST" action="{{ route('comments.edit', $comment) }}" class="edit-comment-form action-form" data-action="edit-comment">
                             <fieldset class="edit-comment-field" id="edit-comment-field">
                                 <header class="modal-headers">
-                                    <h1>Edit or Update Comment</h1>
+                                    <h1>Update Comment</h1>
                                     @include('components.close-modal')
                                 </header>
 
@@ -139,8 +139,8 @@
 
                                 @csrf
                                 @method('DELETE')
-                                <P>Are you sure you want to delete this comment?</P>
-                                <p>{{ $comment->comment_text }}</p>
+                                <p>Are you sure you want to delete this comment?:</p>                              
+                                <p class="color-blue">{{ $comment->comment_text }}</p>
                                 <div class="btn-container">
                                     <button type="button" class="btn cancel close-modal">
                                         Cancel

@@ -233,6 +233,14 @@ dialog{
   border-radius: var(--radius-sm);
 }
 
+.add-comment-modal-btn{
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xxs);
+  margin-bottom: var(--space-sm);
+}
+
 .load-more-comments{
   display: none;
 }

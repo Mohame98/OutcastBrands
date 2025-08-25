@@ -56,8 +56,11 @@ function clearSpecificError(field) {
 
 function closeModal(result, form){
   const dialog = form.closest('dialog');
-  if (result.success && dialog) {
-    dialog.close();
+  if (!result.success) return; 
+  form.reset(); 
+  if (!dialog) return;
+  dialog.close();
+  if (!document.body.classList.contains('no-scroll')) {
     document.body.classList.remove('no-scroll');
   }
 }

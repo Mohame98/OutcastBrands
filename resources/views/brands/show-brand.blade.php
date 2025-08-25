@@ -194,7 +194,7 @@ $vote = $brand->voters->firstWhere('id', auth()->id())?->pivot->vote ?? null;
       @if ($relatedBrands->isNotEmpty())
         <div class="related-brands">
           <header class="popular-brands-header">
-            <h3>More Brands By <span class="color-username">{{ $brand->user->username }}</span></h3>
+            <h3>More Brands By <span class="color-blue">{{ $brand->user->username }}</span></h3>
             <a class="white-btn view-profile-btn" href="{{ route('profile.show', $brand->user) }}">
               <span class="profile-link">View Profile</span>  
             </a>

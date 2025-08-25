@@ -92,7 +92,7 @@
                         </legend>
                         @include('components.close-modal')
                       </header>
-                      <p>Send a message to <span class="color-username">{{ $user->username }}</span> and receive a reply through email</p>
+                      <p>Send a message to <span class="color-blue">{{ $user->username }}</span> and receive a reply through email</p>
 
                       <ul>
                         <li>

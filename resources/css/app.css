@@ -215,6 +215,10 @@ ul li{
   }
 }
 
+.color-blue{
+  color: var(--dark-accent-blue);
+}
+
 main{
   padding-top: var(--space-sm);
 }

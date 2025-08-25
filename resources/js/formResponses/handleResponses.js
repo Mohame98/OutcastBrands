@@ -69,7 +69,6 @@ function handleGeneralErrors(result, form) {
       });
     }
   } else if (result.success && form.dataset.submission === 'true') {
-    form.reset();
     closeModal(result, form);
   }
 }
@@ -96,7 +95,6 @@ function handleProfileImg(result, form, actionType){
 function handleStepFormSubmissions(result, form, actionType, actionUrl, expectedUrl, type){
   if (actionType === type) {
     if (result.success && actionUrl === expectedUrl) {
-      form.reset();
       closeModal(result, form);
     }
   }
@@ -104,7 +102,6 @@ function handleStepFormSubmissions(result, form, actionType, actionUrl, expected
 
 function handleContactSubmission(result, actionType, form){
   if (actionType !== 'send-contact-message' || !result.success) return;
-  form.reset();
   closeModal(result, form);    
 }
 
@@ -112,7 +109,6 @@ function handleLoginSubmissions(result, actionType, form){
   if (!result.success) return;
   if (actionType === 'sign-up' || actionType === 'sign-in' || actionType === 'forgot-password'){
     window.location.reload();
-    form.reset();
     closeModal(result, form);
   }
 }
@@ -121,7 +117,6 @@ function handleDeleteBrand(result, actionType, form){
   if (!result.success) return;
   if (actionType === 'delete-brand') {
     window.location.href = result.redirect_url;
-    form.reset();
     closeModal(result, form);
   }
 }
@@ -219,7 +214,6 @@ function handleAddComment(result, actionType, form) {
   if (!commentsContainer) return;
   commentsContainer.insertAdjacentHTML('beforeend', result.html_comment);
 
-  form.reset();
   const commentCount = document.querySelectorAll('#comment-count');
   commentCount.forEach(el => {
     el.textContent = result.comments_count;
@@ -230,6 +224,8 @@ function handleAddComment(result, actionType, form) {
   commentContainer && (commentContainer.textContent = result.comments_count === 1 
   ? `${result.comments_count} Comment` 
   : `${result.comments_count} Comments`);
+
+  closeModal(result, form);
 }
 
 function handleUser(result, actionType){

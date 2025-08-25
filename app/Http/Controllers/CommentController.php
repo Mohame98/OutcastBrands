@@ -52,13 +52,13 @@ class CommentController extends Controller
     public function addComment(Request $request, Brand $brand)
     {
         $request->validate([
-            'comment_text' => 'required|string|max:1000',
+            'add_comment_text' => 'required|string|max:1000',
         ]);
 
         $comment = Comment::create([
             'user_id' => auth()->id(),
             'brand_id' => $brand->id,
-            'comment_text' => $request->input('comment_text'),
+            'comment_text' => $request->input('add_comment_text'),
         ]);
 
         $comment->load('user');
@@ -67,6 +67,7 @@ class CommentController extends Controller
         $html = view('components.comment', compact('comment'))->render();
 
         return response()->json([
+            'success' => true,
             'html_comment' => $html,
             'message' => "Comment Added",
             'comments_count' => $brand->comments_count,
