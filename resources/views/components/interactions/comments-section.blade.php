@@ -70,6 +70,7 @@
                   rows="3" 
                   required
                   placeholder="Write your comment here..."
+                  autofocus
                   >
                 </textarea>
               </label>

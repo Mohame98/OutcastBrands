@@ -97,7 +97,7 @@
                     <label for="bio">
                       <span>Change Bio</span>
                       <textarea 
-                        name="bio" id="bio" aria-label="Change your profile's biography" rows="4" maxlength="200">
+                        name="bio" id="bio" aria-label="Change your profile's biography" rows="4" maxlength="200" autofocus>
                         {{ old('bio', auth()->user()->bio) }}
                       </textarea>
                     </label>  
@@ -142,7 +142,7 @@
                   <div class="form-group">
                     <label for="instagram">
                       <span>Add your instagram link</span>
-                      <input type="text" name="instagram" id="instagram" aria-label="update your profiles instagram link" value="{{ old('instagram', auth()->user()->instagram) }}" required>
+                      <input autofocus type="text" name="instagram" id="instagram" aria-label="update your profiles instagram link" value="{{ old('instagram', auth()->user()->instagram) }}" required>
                     </label>               
                     <x-form-error name="instagram" />
                   </div>
@@ -185,7 +185,7 @@
                   <div class="form-group">
                     <label for="user_location">
                       <span>Represent your city</span>
-                      <input type="text" name="user_location" id="user_location" aria-label="change your profile's location" value="{{ old('user_location', auth()->user()->user_location) }}" required>
+                      <input autofocus type="text" name="user_location" id="user_location" aria-label="change your profile's location" value="{{ old('user_location', auth()->user()->user_location) }}" required>
                     </label>
                     <x-form-error name="user_location" />
                   </div>

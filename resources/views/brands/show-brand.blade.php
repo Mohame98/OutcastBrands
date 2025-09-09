@@ -74,7 +74,7 @@ $vote = $brand->voters->firstWhere('id', auth()->id())?->pivot->vote ?? null;
                   </div>
               
                   <p>
-                    <a class="brand-site" href="{{ $brand->website }}">
+                    <a class="brand-site" href="{{ $brand->website }}" target="_blank">
                       <i class="fa-solid fa-link"></i>
                       Brand Site
                     </a>

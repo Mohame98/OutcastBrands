@@ -37,7 +37,7 @@
                 <div class="form-group">
                   <label for="username">
                     <span>New Username</span>
-                    <input type="text" name="username" id="username" aria-label="Enter your new username" value="{{ old('username', auth()->user()->username) }}" maxlength="90">
+                    <input autofocus type="text" name="username" id="username" aria-label="Enter your new username" value="{{ old('username', auth()->user()->username) }}" maxlength="90">
                   </label>
                   <x-form-error name='username' />
                   <small id="charCount"></small>
@@ -82,7 +82,7 @@
                   <label for="current_password">
                     <span>Current Password</span>
                     <div class="password-input-container">
-                      <input type="password" class="password-input" name="current_password" id="current_password" aria-label="Enter your current password">
+                      <input autofocus type="password" class="password-input" name="current_password" id="current_password" aria-label="Enter your current password">
                       @include('components.toggle-password')
                     </div>
                   </label>
@@ -93,7 +93,7 @@
                   <label for="password">
                     <span>New Password</span>
                     <div class="password-input-container">
-                      <input type="password" class="password-input" name="password" id="password" aria-label="Enter new password">
+                      <input autofocus type="password" class="password-input" name="password" id="password" aria-label="Enter new password">
                       @include('components.toggle-password')
                     </div>
                   </label>
@@ -104,7 +104,7 @@
                   <label for="password_confirmation">
                     <span>Confirm New Password</span>
                     <div class="password-input-container">
-                      <input type="password" class="password-input" name="password_confirmation" id="password_confirmation" aria-label="Enter password confirmation" >
+                      <input autofocus type="password" class="password-input" name="password_confirmation" id="password_confirmation" aria-label="Enter password confirmation" >
                       @include('components.toggle-password')
                     </div>
                   </label>
@@ -152,7 +152,7 @@
                   <label for="confirm_deletion">
                     <span>Confirm password to delete account:</span>
                     <div class="password-input-container">
-                      <input type="password" name="confirm_deletion" id="confirm_deletion" aria-label="Confirm account deletion" class="password-input" required>
+                      <input autofocus type="password" name="confirm_deletion" id="confirm_deletion" aria-label="Confirm account deletion" class="password-input" required>
                       @include('components.toggle-password')
                     </div>
                   </label>

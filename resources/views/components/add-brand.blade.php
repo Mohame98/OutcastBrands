@@ -24,7 +24,7 @@
         <div class="form-group">
           <label for="title">
             <span>Brand Title *</span>
-            <input type="text" id="title" name="title" required>
+            <input autofocus type="text" id="title" name="title" required>
           </label>
           <x-form-error name="title" />
         </div>

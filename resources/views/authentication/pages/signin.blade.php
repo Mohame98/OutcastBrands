@@ -11,7 +11,7 @@
         <div class="form-group">
           <label for="signin_email">
             <span>Email</span>
-            <input type="email" name="signin_email" id="signin_email" value="{{ old('email') }}" autocomplete="on" placeholder="Enter Email" aria-label="Enter email" required>
+            <input type="email" name="signin_email" id="signin_email" value="{{ old('email') }}" autocomplete="on" placeholder="Enter Email" aria-label="Enter email" required autofocus>
           </label>
           <x-form-error name='signin_email'></x-form-error>
         </div>

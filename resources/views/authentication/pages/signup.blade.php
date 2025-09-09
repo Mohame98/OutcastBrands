@@ -17,7 +17,7 @@
           <label for="username">
             <span>Username</span>
             <input type="text" name="username" id="username" value="{{ old('username') }}" autocomplete="on"
-              placeholder="Enter username" aria-label="Enter username" required>
+              placeholder="Enter username" aria-label="Enter username" required autofocus>
           </label>  
           <x-form-error name='username'></x-form-error>    
         </div>
