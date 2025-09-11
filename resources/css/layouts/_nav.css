@@ -1,5 +1,6 @@
 .main-nav.scrolled{
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  border-bottom: 0px;
 }
 
 .main-nav{

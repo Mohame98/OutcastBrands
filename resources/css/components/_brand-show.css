@@ -13,8 +13,9 @@
       justify-content: space-between;
 
       .title{
-        margin-right: 86px;
-
+        margin-right: 86px; 
+        font-size: var(--font-lg);
+  
         @media (max-width: 800px) {
           margin-right: 0;
         }

@@ -18,14 +18,14 @@
     position: fixed;
     position-anchor: --anchor-context-menu;
     top: calc(anchor(bottom) + 10px);
-    left: anchor(-200%);
+    left: anchor(-215%);
     margin: 0;
 
     background-color: var(--dark-tertiary-bg);
     padding: var(--space-xxxs);
     border: 1px solid var(--dark-quaternary-bg);
     border-radius: var(--radius-sm);
-    box-shadow: 0 7px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 7px 12px rgba(0, 0, 0, 0.3);
     width: fit-content;
 
     display: none;

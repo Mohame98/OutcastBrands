@@ -19,6 +19,10 @@
       font-size: var(--font-sm);
       font-weight: 500;
     }
+
+    h1{
+      font-size: var(--font-lg);
+    }
   }
 
   .brand-container{
@@ -30,18 +34,17 @@
     background-color: var(--dark-secondary-bg);
     transition: 0.4s ease-in-out;
 
-    /* &:hover{
-      box-shadow:
-        0 2px 4px rgba(0, 0, 0, 0.1),
-        0 8px 16px rgba(0, 0, 0, 0.2);
-    } */
+    .featured-image-container{
+      width: 40%;
+    }
 
     .left-brand-featured-image{
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      border-radius: var(--radius-md) 0 var(--radius-md) var(--radius-md);
-      width: 40%;
+      border-radius: var(--radius-md) 0 var(--radius-md) var(--radius-md); 
+      width: 100%;
+      height: 100%;
       position: relative;
 
       .badge-new{
@@ -60,43 +63,33 @@
     .brand-content{
       width: 60%;
       padding: var(--space-md);
+      position: relative;
+
+      .brand-author{
+        position: absolute;
+        top: 20px;
+
+        .brand-author-username{
+          font-size: var(--font-sm);
+          font-weight: 600;
+          color: var(--dark-text-primary);
+        }
+      }
+
+      .context-menu-container{
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
 
       .brand-content-container{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
         height: 100%;
 
-        .top-content{
-
-          .user-menu-container{
-            display: flex;
-            justify-content: space-between;
-
-            .context-menu-container{
-
-              .context-menu-btn{
-                transform: translate(10px, -11px);
-              }
-            }
-          }
-
-          .brand-author{
-            
-            .brand-author-username{
-              font-size: var(--font-sm);
-              font-weight: 600;
-              color: var(--dark-text-primary);
-            }
-          }
-
-          .brand-text-content{
-            text-align: center;
-            margin-top: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-xxs);
-          }
+        .content-container{
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
         }
 
         .middle-content{
@@ -340,15 +333,19 @@
     flex-direction: column;
     height: auto;
 
-      .left-brand-featured-image {
+      .featured-image-container{
         width: 100%;
-        aspect-ratio: 5 / 4;
+      }
+
+      .left-brand-featured-image {
+        aspect-ratio: 6 / 4;
         border-radius: var(--radius-md);
       }
 
       .brand-content{
         width: 100%;
         height: 300px;
+        padding: var(--space-xs);
       }
     }
   }

@@ -114,20 +114,6 @@
   }
 }
 
-.load-more-comments,
-.load-more{
-  border-radius: var(--radius-md);
-  margin: 0 auto;
-
-  &:hover{
-    opacity: 0.7;
-  }
-}
-
-.load-more{
-  margin-top: 20px;
-}
-
 .comment{
   .comment-container{
     display: flex;

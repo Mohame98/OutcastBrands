@@ -216,7 +216,7 @@ dialog{
 
 .view-all-brands-btn{
   width: fit-content;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   margin: 0 auto;
   margin-top: var(--space-md);
 }
@@ -243,4 +243,18 @@ dialog{
 
 .load-more-comments{
   display: none;
+}
+
+.load-more-comments,
+.load-more{
+  border-radius: var(--radius-sm);
+  margin: 0 auto;
+
+  &:hover{
+    opacity: 0.7;
+  }
+}
+
+.load-more{
+  margin-top: 20px;
 }
