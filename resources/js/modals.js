@@ -103,7 +103,6 @@ function handleModals() {
     syncTriggerAria(dialog);
 
     await playOpenAnimation(dialog);
-    dialog.focus();
     recomputeInert();
   };
 
