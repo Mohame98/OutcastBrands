@@ -11,8 +11,8 @@
     integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- Include Quill stylesheet -->
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+  <!-- Include Quill stylesheet -->
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
 
 	<link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.1/dist/jquery.fancybox.min.css" rel="stylesheet" />
 	@vite(['resources/css/app.css', 'resources/js/app.js'])

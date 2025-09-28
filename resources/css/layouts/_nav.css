@@ -99,12 +99,7 @@
   }
 
   .add-brand-modal{
-    top: 45%;
     width: 500px;
-
-    @media (max-width: 800px) {
-      top: 51%;
-    }
 
     .number-files{
       margin-left: auto;

@@ -30,25 +30,33 @@
         <button class="btn main-button" type="submit">Log In</button>
       </fieldset>
     </form>
-    <p>Dont have an account? 
-      <button class="btn second-sign-up-btn underline" title="Sign Up">
+    <p>
+      Dont have an account? 
+      <button 
+        data-dialog-open="#signup-modal"
+        class="btn second-sign-up-btn underline" 
+        aria-controls="signup-modal"
+        aria-expanded="false"
+        title="Sign Up"
+      >
         Sign Up
       </button>
     </p>
 
     <div class="modal-wrapper forgot-password">
       <button 
+        data-dialog-open="#forgot-password-modal"
         class="btn forgot-password-btn modal-btn underline"
         aria-haspopup="forgot-password form" 
         aria-controls="forgot-password-modal" 
         title="Forgot Password"
-        aria-expanded="false">
-          Forgot Your Password?
+        aria-expanded="false"
+      >
+        Forgot Your Password?
       </button>
       <dialog id="forgot-password-modal" class="forgot-password-modal">
         @include('authentication.password-recovery.forgot-password')
       </dialog>
     </div>
-    
   </div>
 </section> 

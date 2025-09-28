@@ -8,15 +8,15 @@
           <legend><h1>Create your account</h1></legend>
           @include('components.close-modal')
         </header>
-
+        
         <div>
           <p>Join a network of fashion trend setters</p>
         </div>
-        
+
         <div class="form-group">
           <label for="username">
             <span>Username</span>
-            <input type="text" name="username" id="username" value="{{ old('username') }}" autocomplete="on"
+            <input type="text" name="username" id="username" value="{{ old('username') }}" autocomplete="username"
               placeholder="Enter username" aria-label="Enter username" required autofocus>
           </label>  
           <x-form-error name='username'></x-form-error>    
@@ -25,8 +25,8 @@
         <div class="form-group">
           <label for="signup_email">
             <span>Email address</span>
-            <input type="email" name="signup_email" id="signup_email" value="{{ old('email') }}" autocomplete="on"
-              placeholder="eg.andrew@example.com" aria-label="Enter email" required>
+            <input type="email" name="signup_email" id="signup_email" value="{{ old('email') }}" autocomplete="email"
+              placeholder="eg@example.com" aria-label="Enter email" required>
           </label>    
           <x-form-error name='signup_email'></x-form-error>      
         </div>
@@ -47,7 +47,13 @@
     </form>
     <p>
       Already have an account? 
-      <button class="btn second-sign-in-btn underline" title="Log In">
+      <button 
+        data-dialog-open="#signin-modal"
+        class="btn second-sign-in-btn underline" 
+        title="Log In"
+        type="button"
+        data-target="login-modal"
+      >
         Log in
       </button>
     </p>

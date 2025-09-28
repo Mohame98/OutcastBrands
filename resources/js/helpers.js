@@ -60,9 +60,10 @@ function closeModal(result, form){
   form.reset(); 
   if (!dialog) return;
   dialog.close();
-  if (!document.body.classList.contains('no-scroll')) {
+  if (document.body.classList.contains('no-scroll')) {
     document.body.classList.remove('no-scroll');
   }
+  Array.from(document.body.children).forEach(el => el.removeAttribute('inert'));
 }
 
 function selectOnlyThreeCategories() {

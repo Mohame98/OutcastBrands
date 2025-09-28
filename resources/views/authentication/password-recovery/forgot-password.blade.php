@@ -24,8 +24,12 @@
     </form>
     <p>
       Back to
-      <button class="btn forgot-second-sign-in-btn underline">
-        Sign in
+      <button 
+        class="btn second-sign-in-btn underline close-modal" 
+        title="Log In"
+        type="button"
+      >
+        Log in
       </button>
     </p>
   </div>

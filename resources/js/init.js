@@ -1,6 +1,5 @@
 import { 
   handleModals,
-  toggleLoginModals,
 } from './modals.js';
 
 import { 
@@ -68,7 +67,6 @@ export function init() {
   initBrandMediaPreview(),
   runQuillEditor();
   initFilterSystem();
-  toggleLoginModals();
 
   handleNavOnScroll();
   mobileMenuToggle();
