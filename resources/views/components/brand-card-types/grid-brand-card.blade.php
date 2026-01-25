@@ -19,7 +19,7 @@
       @endif
       <div class="hover-content">
         <div class="title">
-          <p>{{ $brand->title }}</p>
+          <p>{{ Str::limit($brand->title, 30, '...') }}</p>
         </div>
         <x-interactions.saveV2 :brand="$brand"/>
       </div>

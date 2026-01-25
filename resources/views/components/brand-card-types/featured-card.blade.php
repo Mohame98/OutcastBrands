@@ -56,13 +56,13 @@
           <div style="height: 30px"></div>
           <div class="middle-content">
             <div class="brand-text-content">
-              <h2 class="title">{{ $brand->title }}</h2>
-              <p class="sub-title">{{ $brand->sub_title }}</p>
+              <h2 class="title">{{ Str::limit($brand->title, 30, '...') }}</h2>
+              <p class="sub-title">{{ Str::limit($brand->sub_title, 50, '...') }}</p>
             </div>
           </div>
         
           <div class="bottom-content">
-            <small class="location">{{ $brand->location }}</small>
+            <small class="location">{{ Str::limit($brand->location, 30, '...') }}</small>
             <x-interactions.vote :brand="$brand"/>
           </div>
         </a>

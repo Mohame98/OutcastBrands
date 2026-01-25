@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
       [
         'username' => '7878',
         'email_verified_at' => now(),
-        'password' => Hash::make('Mohame9999@'),
+        'password' => Hash::make('Apples9999@'),
         'remember_token' => Str::random(10),
       ]
     );
@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
     User::updateOrCreate(
       ['email' => 'newuser@example.com'],
       [
-        'username' => '4543',
+        'username' => '1234',
         'email_verified_at' => now(),
         'password' => Hash::make('Mohame8888@'),
         'remember_token' => Str::random(10),

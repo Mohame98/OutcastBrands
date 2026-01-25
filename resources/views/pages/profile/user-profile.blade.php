@@ -48,7 +48,7 @@
             @if ($user->user_location)
             <div class="location">
               <i class="fa-solid fa-location-dot"></i>
-              {{ $user->user_location }}
+              {{ Str::limit($user->user_location, 30, '...') }}
             </div>
             @endif
             

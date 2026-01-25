@@ -7,6 +7,6 @@
     {{ strtoupper(substr(auth()->user()->email, 0, 1)) }}
   </span>
   @endif
-  <span class="user-email">{{ auth()->user()->email }}</span>
+  <span class="user-email">{{ Str::limit(auth()->user()->email, 30, '...') }}</span>
 </span>
  

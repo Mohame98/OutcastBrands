@@ -10,6 +10,6 @@
         {{ strtoupper(substr($brand->user->email, 0, 1)) }}
       </div>
     @endif
-    <p class="brand-author-username">{{ $brand->user->username }}</p>
+    <p class="brand-author-username">{{ Str::limit($brand->user->username, 20, '...') }}</p>
   </a>
 </div>         
