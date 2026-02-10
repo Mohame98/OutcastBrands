@@ -19,7 +19,7 @@
           Filter by Category
         </button>
         <dialog id="category-filter-modal" class="category-filter-modal">
-          <div id="filters">
+          <section id="filters">
             <header class="modal-headers">
 							<h1>Brand Categories</h1>
 							@include('components.close-modal')
@@ -36,18 +36,15 @@
               </div>
               @endforeach
             </div>
-          </div>
-
-          <div class="btn-container">
-						<button type="button" class="btn cancel close-modal">
-              Apply
-            </button>
-					</div>
+            <div class="btn-container">
+              <button type="button" class="btn cancel close-modal">
+                Apply
+              </button>
+					  </div>
+          </section>
         </dialog>
       </div>
-
       <div class="filter-container">
-    
         <div class="filter-section">
           <div class="filter-btns">
             <button name="filter" value="all" data-filter="filter:all"
@@ -90,9 +87,7 @@
             <option value="oldest">Oldest</option>
             <option value="most popular">Most Popular</option>
           </select>
-
         </div>
-
         <div class="active-filters">
           <div id="active-filters">
 
@@ -101,8 +96,9 @@
       </div>
 
       <section class="popular-brands-top-layer">
+        <p class="brands-count" id="brands-count" aria-live="polite"></p>
         <div class="grid" id="brands-container"></div>
-        <button type="button" class="load-more btn white-btn">Load more</button>
+        <button type="button" id="load-more-brands" class="load-more btn white-btn">Load more</button>
       </section>
       
     </div>

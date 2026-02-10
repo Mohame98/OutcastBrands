@@ -1,4 +1,4 @@
-<div class="social-interactions">
+<div class="social-interactions save">
   <div class="save context-item">
     <form method="POST" action="{{ route('brands.save', $brand) }}" class="action-form" data-action="save">
       @csrf

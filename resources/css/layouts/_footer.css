@@ -1,4 +1,15 @@
 footer{
-  background-color: white;
-  color: black;
+  background-color: var(--dark-main-bg);
+  color: white;
+  padding: var(--space-sm) 0;
+  font-size: var(--font-sm);
+
+  a{
+    color: var(--dark-accent-blue);
+    transition: 0.4s;
+
+    &:hover{
+      color: var(--dark-accent-blue-hover);
+    }
+  }
 }

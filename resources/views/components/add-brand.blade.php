@@ -11,10 +11,10 @@
         <span>Brand</span>
       </span>  
   </button>
-  <dialog id="add-brand-modal" class="add-brand-modal">
+  <dialog id="add-brand-modal" class="add-brand-modal" data-action-url="{{ route('brands.store.step1') }}">
     <form action="" method="POST" class="action-form" data-action="add-brand" enctype="multipart/form-data" data-form-base="/add-brands" data-total-steps="4">
       @csrf
-      <fieldset class="multi-field active" id="fieldset1">
+      <fieldset class="multi-field active" id="fieldset1" data-action-url="{{ route('brands.store.step1') }}">
         <header class="modal-headers">
           <legend><h1>1 - Brand Info</h1></legend>
           @include('components.close-modal')
@@ -24,7 +24,7 @@
         <div class="form-group">
           <label for="title">
             <span>Brand Title *</span>
-            <input autofocus type="text" id="title" name="title" required>
+            <input autofocus type="text" id="title" name="title">
           </label>
           <x-form-error name="title" />
         </div>
@@ -32,7 +32,7 @@
         <div class="form-group">
           <label for="sub_title" class="sub_title">
             <span>Sub Title *</span>
-            <input type="text" id="sub_title" name="sub_title" required>
+            <input type="text" id="sub_title" name="sub_title">
           </label>
           <x-form-error name="sub_title" />
         </div>
@@ -49,7 +49,7 @@
           <div class="form-group">
             <label for="location">
               <span>Location *</span>
-              <input type="text" id="location" name="location" required>
+              <input type="text" id="location" name="location">
             </label>
             <x-form-error name="location" />
           </div>
@@ -64,7 +64,7 @@
         </div>
 
         <div class="btn-container">
-          <button class="btn update" type="submit" id="nextBtn1" data-step="1">Next</button>
+          <button class="btn update" type="submit" id="nextBtn1" data-step="1" data-action="next-step">Next</button>
         </div>
       </fieldset>
 
@@ -85,7 +85,7 @@
 
         <div class="btn-container">
           <button type="button" class="btn cancel" data-back-button>Back</button>
-          <button class="btn update" type="submit" id="nextBtn1" data-step="2">Next</button>
+          <button class="btn update" type="submit" id="nextBtn1" data-step="2" data-action="next-step">Next</button>
         </div>
       </fieldset>
 
@@ -96,6 +96,7 @@
         </header>
         <p>Submit at most 4 images of your brand/product.</p>
         <p class="featured-noti">The first image will be the featured image.</p>
+        <p class="upload-warning">Keep total size under 4MB. Large files will be rejected.</p>
 
         <div class="multiple-photos">
           <label for="brand-image">
@@ -116,13 +117,15 @@
           </label>
         </div>
 
-        <x-form-error name="photos" />
+        <div class="form-group form-error-wrapper">
+          <x-form-error name="photos" />
+        </div>
 
         <p class="number-files"><span class="files-digit">0</span>/4</p>
         
         <div class="btn-container">
           <button type="button" class="btn cancel" data-back-button>Back</button>
-          <button class="btn update" type="submit" id="nextBtn2" data-step="3">Next</button>
+          <button class="btn update" type="submit" id="nextBtn2" data-step="3" data-action="next-step">Next</button>
         </div>
       </fieldset>
 

@@ -7,9 +7,16 @@
   font-size: var(--font-sm);
 }
 
+.instagram-btn{
+  i{
+    font-size: var(--font-md);
+  }
+}
+
 .white-btn{
   background-color: var(--light);
   color: var(--dark-text-opposite); 
+  border-radius: var(--radius-sm);
   font-size: var(--font-sm);
   padding: var(--space-xxs);
   outline: none;
@@ -31,6 +38,18 @@
   white-space: nowrap;
 }
 
+.log{
+  padding: var(--space-sm);
+}
+
+.overlay-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
 .signup-btn{
   &:hover{
     background-color: var(--dark-hover-gray);
@@ -48,7 +67,7 @@
   transition: 0.4s;
 
   &:hover{
-    opacity: 0.9;
+    opacity: 0.75;
   }
 }
 
@@ -216,21 +235,8 @@ dialog{
 
 .view-all-brands-btn{
   width: fit-content;
-  border-radius: var(--radius-sm);
   margin: 0 auto;
   margin-top: var(--space-md);
-}
-
-.edit-profile-btn{
-  border-radius: var(--radius-sm);
-}
-
-.view-profile-btn{
-  border-radius: var(--radius-sm);
-}
-
-.category-filter-btn{
-  border-radius: var(--radius-sm);
 }
 
 .add-comment-modal-btn{
@@ -241,9 +247,9 @@ dialog{
   margin-bottom: var(--space-sm);
 }
 
-.load-more-comments{
+/* .load-more-comments{
   display: none;
-}
+} */
 
 .load-more-comments,
 .load-more{

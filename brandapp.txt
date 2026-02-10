@@ -1,3 +1,5 @@
-change login forms to show in a modal instead seperate routes
-edit and delete brands
-change title of each page
+modals for grid brands
+change comment section to comment section youtube similar
+Instead of the small loading replace the entire container with a large div with a spinner in the middle
+
+to be continued

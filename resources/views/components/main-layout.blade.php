@@ -20,13 +20,15 @@
 </head>
 
 <body>
-	@include('components.flash-message')
 	@include('layouts.nav')
 	<main>
-	{{ $slot }}
-	<button id="scrollToTopBtn">
-		<i class="fa-solid fa-angles-up"></i>
-	</button>
+		<div class="flash-message-wrapper" id="flash-message-wrapper" aria-live="polite">
+			@include('components.flash-message')
+		</div>
+		{{ $slot }}
+		<button id="scrollToTopBtn">
+			<i class="fa-solid fa-angles-up"></i>
+		</button>
 	</main>
 	@include('layouts.footer')
 	

@@ -146,7 +146,7 @@
                   @include('components.close-modal')
                 </header>
 
-                <p>Keep in mind that upon deleting your account all of your account information will be deleted permanently.</p>
+                {{-- <p>Keep in mind that upon deleting your account all of your account information will be deleted permanently.</p> --}}
                 
                 <div class="password-field form-group">
                   <label for="confirm_deletion">
@@ -159,13 +159,18 @@
                   <x-form-error name="confirm_deletion" />
                 </div>
                 
-                <div class="btn-container">
-                  <button type="button" class="btn cancel close-modal">
-                    Cancel
-                  </button>
-                  <button class="btn update" type="submit">
-                    Delete
-                  </button>
+                <div class="warning-card">
+                  <h3>Warning</h3>
+                  <p>Keep in mind that upon deleting your account all of your account information will be deleted permanently.</p>
+
+                  <div class="btn-container">
+                    <button type="button" class="btn cancel close-modal">
+                      Cancel
+                    </button>
+                    <button class="btn danger-btn" type="submit">
+                      Delete Account
+                    </button>
+                  </div>
                 </div>
               </fieldset>
             </form> 

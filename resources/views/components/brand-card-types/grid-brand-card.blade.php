@@ -1,31 +1,44 @@
 @php
-  $authId = auth()->id();
-  $vote = $authId ? $brand->voters?->firstWhere('id', $authId)?->pivot->vote : null;
   $viewCount = optional($brand->views)->count() ?? 0;
 @endphp
-
-<article class="popular-brands-card">
-  <a href="{{ route('brand.show', $brand) }}" class="popular-brand-container" title="{{ $brand->title }}">
-    <div 
-      class="popular-brand-featured-image" 
-      @if ($brand->featuredImage)
-        style="background-image: url('{{ asset('storage/' . $brand->featuredImage->image_path) }}')"
-      @else
-        style="background-color: #ccc;"
-      @endif
-    >
-      @if($brand->created_at->gt(now()->subWeek()))
-      <span class="badge-new">New</span>
-      @endif
-      <div class="hover-content">
-        <div class="title">
-          <p>{{ Str::limit($brand->title, 30, '...') }}</p>
-        </div>
-        <x-interactions.saveV2 :brand="$brand"/>
-      </div>
+<article class="popular-brands-card brand-card" data-brand-id="{{ $brand->id }}" >
+  <div class="modal-wrapper">
+    <div class="btn-wrapper">
+      <button 
+        class="btn preview-brand-btn modal-btn"
+        aria-haspopup="dialog preview-brand-modal" 
+        aria-controls="preview-brand-modal" 
+        title="Preview Brand"
+        aria-expanded="false">
+        <span class="popular-brand-container" title="{{ $brand->title }}">
+          <span 
+            class="popular-brand-featured-image" 
+            @if ($brand->featuredImage)
+              style="background-image: url('{{ asset('storage/' . $brand->featuredImage->image_path) }}')"
+            @else
+              style="background-color: #ccc;"
+            @endif
+          >
+            @if($brand->created_at->gt(now()->subWeek()))
+            <span class="badge-new">New</span>
+            @endif
+            <span class="hover-content">
+              <span class="hover-content-wrapper">
+                <span class="title">
+                  <span>{{ Str::limit($brand->title, 30, '...') }}</span>
+                </span>
+              </span>
+            </span>
+          </span>
+        </span>
+      </button>
+      <x-interactions.saveV2 :brand="$brand"/>
     </div>
-  </a>
-
+    
+    <dialog id="preview-brand-modal" class="preview-brand-modal" data-brand-id="{{ $brand->id }}">
+      <x-preview-brand-card :brand="$brand"/>
+    </dialog>
+  </div>
   <div class="card-author-info">
     @include('components.brand-author-profile')
     <div class="wrapper">

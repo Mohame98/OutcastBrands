@@ -100,6 +100,14 @@
 
     .delete-account-modal{
       max-width: 500px;
+
+      @media (max-width: 600px) {
+        max-width: 96%;;
+      }
+
+      .btn-container{
+        justify-content: flex-start;
+      }
     }
 
     .delete-account-modal,

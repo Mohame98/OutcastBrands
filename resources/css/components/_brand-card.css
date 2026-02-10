@@ -4,6 +4,10 @@
   padding-top: var(--space-lg);
   color: var(--dark-text-primary);
 
+  @media (max-width: 800px) {
+    padding-top: 0;
+  }
+
   .featured-brand-header{
     display: flex;
     justify-content: unset;
@@ -28,7 +32,7 @@
   .brand-container{
     display: flex;
     gap: 0px;
-    height: 425px;
+    height: 385px;
     border: 1px solid var(--dark-quaternary-bg);
     border-radius: var(--radius-md);
     background-color: var(--dark-secondary-bg);
@@ -38,28 +42,6 @@
       width: 40%;
     }
 
-    .left-brand-featured-image{
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      border-radius: var(--radius-md) 0 var(--radius-md) var(--radius-md); 
-      width: 100%;
-      height: 100%;
-      position: relative;
-
-      .badge-new{
-        position: absolute;
-        padding: 2px 4px;
-        top: 10px;
-        right: 10px;
-        background-color: var(--dark-accent-blue);
-        border: 1px solid var(--dark-accent-blue-hover);
-        border-radius: var(--radius-sm);
-        font-size: 13px;
-        opacity: 0.7;
-      }
-    }
-     
     .brand-content{
       width: 60%;
       padding: var(--space-sm);
@@ -208,6 +190,43 @@
 
   .popular-brands-card{
 
+    .preview-brand-btn{
+      width: 100%;
+    }
+
+    .btn-wrapper {
+      .social-interactions.save{
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        position: absolute;
+        z-index: 5000;
+        bottom: 65px;
+        right: 10px;
+
+        .save-btn{
+          /* border: 1px solid var(--dark-quaternary-bg);
+          border-radius: var(--radius-circle); */
+          padding: 10px 14px;
+        }
+      }
+
+      &:hover 
+      .social-interactions.save {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      &:hover .hover-content{
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      &:hover .popular-brand-featured-image::after {
+        opacity: 1;
+      }
+    }
+   
     i{
       font-size: var(--font-sm);
     }
@@ -236,10 +255,15 @@
         align-items: flex-end;
         gap: var(--space-sm);
         width: 100%;
-        padding: var(--space-sm) var(--space-md);
+        padding: var(--space-sm);
         opacity: 0;
         transition: opacity 0.3s ease-in-out;
         z-index: 20;
+
+        .title{
+          font-size: var(--font-sm);
+          font-weight: 600;
+        }
         
         .social-interactions{
           display: flex;
@@ -274,15 +298,11 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.9) 100%);
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 10%, rgba(0, 0, 0, 1) 100%);
       opacity: 0;
       transition: opacity 0.3s ease-in-out;
       pointer-events: none;
       border-radius: 0 0 7px 7px;
-    }
-
-    .popular-brand-featured-image:hover::after {
-      opacity: 1;
     }
 
     .card-author-info{
@@ -324,6 +344,67 @@
       }
     }
   }
+}
+
+.brand-card {
+  position: relative;
+  min-height: 200px;
+  transition: all 0.3s ease;
+
+  .hover-content-wrapper{
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+.brand-card.is-unsaved > *:not(.undo-overlay) {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.undo-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--dark-tertiary-bg);
+  border: 1px dashed var( --dark-hover-dark-gray);
+  border-radius: 12px;
+  z-index: 10;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.undo-btn {
+  appearance: none;
+  background: var(--dark-main-bg);
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.undo-btn:hover {
+  background: #000;
+  transform: scale(1.05);
+}
+
+.undo-btn i {
+  font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* responsive */

@@ -2,136 +2,96 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Http\Request;
-use App\Models\Brand; 
 use App\Models\User;
+use App\Models\Brand;
+use App\Services\BrandService;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
+use App\Traits\ApiValidator;
 
 class UserProfileController extends Controller
 {
-  public function userProfile(Request $request, User $user)
+  use ApiValidator;
+  protected BrandService $brandService;
+
+  public function __construct(BrandService $brandService)
   {
-    $sender = Auth::user(); 
-    $receiver = $user; 
-    $isOwner = Auth::id() === $user->id;
+    $this->brandService = $brandService;
+  }
+
+  /**
+   * Display the public profile view.
+   */
+  public function userProfile(User $user): View
+  {
     return view('pages.profile.user-profile', [
-      'user' => $user,
-      'isOwner' => $isOwner,
-      'sender' => $sender,
-      'receiver' => $receiver,
+      'user'     => $user,
+      'isOwner'  => Auth::id() === $user->id,
+      'sender'   => Auth::user(),
+      'receiver' => $user,
     ]);
   }
 
-  public function brandProfileApi($userId, Request $request)
+  /**
+   * Display the saved brands view.
+   */
+  public function savedBrands(): View
   {
-    $user = User::findOrFail($userId);
+    return view('pages.profile.user-saved-brands');
+  }
+
+  /**
+   * API for fetching brands on a user's profile.
+   * Supports "Created by user" or "Voted by user" with smart search and sorting.
+   */
+  public function brandProfileApi(User $user, Request $request): JsonResponse
+  {
+    $validated = $this->validateJson($request, [
+      'search' => 'nullable|string|max:255',
+      'sort'   => 'nullable|in:most popular,oldest,newest',
+      'filter' => 'nullable|in:all,voted',
+    ]);
+
     $query = Brand::query();
-
-    $filter = $request->input('filter', 'all');
-
-    if ($filter === 'voted') {
+    if (($validated['filter'] ?? null) === 'voted') {
       $query->whereHas('voters', function ($q) use ($user) {
-        $q->where('user_id', $user->id)
-          ->where('vote', '>', 0);
+        $q->where('user_id', $user->id)->where('vote', '>', 0);
       });
     } else {
       $query->where('user_id', $user->id);
     }
 
-    if ($request->has('search')) {
-      $searchTerm = $request->input('search');
-      $query->where('title', 'like', "%{$searchTerm}%");
-    }
+    $query->smartSearch($validated['search'] ?? null)
+          ->sortBy($validated['sort'] ?? 'newest');
 
-    if ($request->has('sort')) {
-      $sortBy = $request->input('sort', 'most popular');
-      if ($sortBy === 'most popular') {
-        $query->withSum('voters as vote_score', 'brand_votes.vote')
-              ->orderByDesc('vote_score');
-      } elseif ($sortBy === 'oldest') {
-        $query->orderBy('created_at', 'asc');
-      } else {
-        $query->orderBy('created_at', 'desc');
-      }
-    }
-
-    $brands = $query->with(['featuredImage', 'voters', 'views', 'savers'])
-                    ->paginate(6);
-
-    $cardsHtml = $brands->map(function ($brand) {
-      $authId = auth()->id();
-      $vote = $authId ? $brand->voters->firstWhere('id', $authId)?->pivot->vote : null;
-      $viewCount = $brand->views->count();
-
-      return view('components.brand-card-types.grid-brand-card', [
-        'brand' => $brand,
-        'vote' => $vote,
-        'viewCount' => $viewCount
-      ])->render();
-    });
-
-    return response()->json([
-      'html_cards' => $cardsHtml,
-      'has_more_brands' => $brands->hasMorePages(), 
-      'current_page' => $brands->currentPage(),   
-      'last_page' => $brands->lastPage()      
-    ]);
+    // 3. Delegate pagination and rendering to the Service
+    return response()->json($this->brandService->getPaginatedBrandCards($query));
   }
 
-  public function savedBrands(Request $request)
+  /**
+   * API for fetching the current user's saved brands.
+   * Uses the same smart search and sort logic as the main search page.
+   */
+  public function savedBrandsApi(Request $request): JsonResponse
   {
-    return view('pages.profile.user-saved-brands');
-  }
+    $this->authorizeJson(Auth::check(), 'Please log in to view your saved brands.');
+    $user = Auth::user();
 
- public function savedBrandsApi(Request $request)
-  {
-    $user = auth()->user();
-
-    if (!$user) {
-      return response()->json(['error' => 'Not authenticated'], 401);
-    }
-
-    $query = Brand::query();
-
-    $query->whereHas('savers', function ($q) use ($user) {
-      $q->where('user_id', $user->id);
-    });
-
-    if ($request->has('search')) {
-      $searchTerm = $request->input('search');
-      $query->where('title', 'like', "%{$searchTerm}%");
-    }
-
-    if ($request->has('sort')) {
-      $sortBy = $request->input('sort', 'most popular');
-      if ($sortBy === 'most popular') {
-        $query->withSum('voters as vote_score', 'brand_votes.vote')
-          ->orderByDesc('vote_score');
-      } elseif ($sortBy === 'oldest') {
-        $query->orderBy('created_at', 'asc');
-      } else {
-        $query->orderBy('created_at', 'desc');
-      }
-    }
-
-    $brands = $query->with(['featuredImage', 'voters', 'views', 'savers'])->paginate(6);
-
-    $cardsHtml = $brands->map(function ($brand) {
-      $authId = auth()->id();
-      $vote = $authId ? $brand->voters->firstWhere('id', $authId)?->pivot->vote : null;
-      $viewCount = $brand->views->count();
-
-      return view('components.brand-card-types.grid-brand-card', [
-        'brand' => $brand,
-        'vote' => $vote,
-        'viewCount' => $viewCount
-      ])->render();
-    });
-
-    return response()->json([
-      'html_cards' => $cardsHtml,
-      'has_more_brands' => $brands->hasMorePages(), 
+    $validated = $this->validateJson($request, [
+      'search' => 'nullable|string|max:255',
+      'sort'   => 'nullable|in:most popular,oldest,newest',
     ]);
+
+    // 1. Query for brands the user has saved
+    $query = Brand::query()
+      ->whereHas('savers', fn($q) => $q->where('user_id', $user->id));
+
+    $query->smartSearch($validated['search'] ?? null)
+          ->sortBy($validated['sort'] ?? 'most popular');
+
+    // 3. Return via Service
+    return response()->json($this->brandService->getPaginatedBrandCards($query));
   }
 }

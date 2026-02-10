@@ -3,45 +3,41 @@
 namespace App\Http\Controllers\Brands;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use App\Traits\ApiValidator;
+use Illuminate\Http\JsonResponse;
+use App\Models\{Brand, BrandView, BrandImage, Category};
+use App\Services\{BrandService, InteractionService};
+use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\Brand;
-use App\Models\BrandImage;
-use App\Models\Category;
-use App\Models\BrandView;
+use Illuminate\Support\Facades\{Auth, Log};
 use Illuminate\Support\Facades\DB;
 
 class BrandsController extends Controller
 {
-  public function index(Brand $brand)
+  use ApiValidator;
+  protected $brandService;
+  protected $interactionService;
+
+  public function __construct(BrandService $brandService, InteractionService $interactionService)
   {
-    $view_count = $brand->views()->count();
+    $this->brandService = $brandService;
+    $this->interactionService = $interactionService;
+  }
 
-    $topBrands = Brand::with([
-      'featuredImage:id,brand_id,image_path',
-    ])->withCount([
-      'voters as total_votes' => function ($query) {
-        $query->selectRaw('SUM(vote)')->limit(1);
-      },
-      'savers'
-    ])
-    ->orderByDesc('total_votes')
-    ->take(7)
-    ->get();
-
-    $featuredBrand = $topBrands->first();
-    $otherBrands = $topBrands->slice(1);
-
+  public function index()
+  {
+    $topBrands = Brand::popular()->get();
     return view('pages.home', [
-      'featuredBrand' => $featuredBrand,
-      'otherBrands'   => $otherBrands,
-      'view_count'    => $view_count,
+      'featuredBrand' => $topBrands->first(),
+      'otherBrands'   => $topBrands->slice(1),
     ]);
   }
 
   public function storeBrand1(Request $request)
   {
-    $validated = $request->validate([
+    $validated = $this->validateJson($request, [
       'title' => 'required|string|max:255',
       'sub_title' => 'required|string|max:255',
       'location' => 'required|string|max:255',
@@ -49,182 +45,71 @@ class BrandsController extends Controller
       'launch_date' => 'nullable|date',
     ]);
 
-    if ($validated) {
-      session(['step1' => $validated]);
-      return response()->json([
-        'success' => true,
-        'multi_step' => true,
-      ]);
-    } else {
-      return response()->json(['errors' => $validated->errors()], 422);
-    }
+    session(['step1' => $validated]);
+    return response()->json(['success' => true, 'multi_step' => true]);
   }
-// missing data
+
   public function storeBrand2(Request $request)
-{
-    $validated = $request->validate([
-        'description' => 'nullable|string',
-    ]);
-
-    if ($validated) {
-        session(['step2' => $validated]);
-
-        return response()->json([
-            'success' => true,
-            'multi_step' => true,
-        ]);
-    } else {
-        return response()->json(['errors' => $validated->errors()], 422);
-    }
-}
+  {
+    $validated = $this->validateJson($request, ['description' => 'nullable|string']);
+    session(['step2' => $validated]);
+    return response()->json(['success' => true, 'multi_step' => true]);
+  }
 
   public function storeBrand3(Request $request)
   {
-    $validated = $request->validate([
+    $this->validateJson($request, [
       'photos' => 'required|array|min:1|max:4',
       'photos.*' => 'image|mimes:jpg,png|max:4000',
     ]);
 
-    $maxTotalSize = 4 * 1024 * 1024;
-    $totalSize = 0;
+    // Custom size validation
+    $totalSize = collect($request->file('photos'))->sum(fn ($p) => $p->getSize());
+    $this->authorizeJson($totalSize <= 4 * 1024 * 1024, 'Total size of all files must not exceed 4MB.');
 
-    foreach ($request->file('photos') as $photo) {
-      $totalSize += $photo->getSize();
-    }
+    $paths = collect($request->file('photos'))->map(fn($photo) => 
+      $photo->store('temp/brands', 'public')
+    )->toArray();
 
-     if ($totalSize > $maxTotalSize) {
-      return response()->json([
-        'errors' => ['photos' => ['Total size of all files must not exceed 4MB.']]
-      ], 422);
-    }
-
-    $paths = [];
-    foreach ($request->file('photos') as $photo) {
-      $filename = uniqid() . '.' . $photo->getClientOriginalExtension();
-      $paths[] = $photo->storeAs('temp/brands', $filename, 'public');
-    }
-
-
-      session(['step3' => ['photos' => $paths]]);
-
-      return response()->json([
-        'success' => true,
-        'multi_step' => true,
-      ]);
-    
+    session(['step3' => ['photos' => $paths]]);
+    return response()->json(['success' => true, 'multi_step' => true]);
   }
 
   public function storeBrand4(Request $request)
   {
-    $validated = $request->validate([
+    $validated = $this->validateJson($request, [
       'categories' => 'required|array|min:1|max:3',
       'categories.*' => 'string|in:Footwear,Accessories,Outerwear,Casual,Formal,Activewear,Streetwear,Minimalist,Vintage,Preppy,Seasonal,Luxury,Sustainable',
     ]);
 
-    if (empty($validated['categories'])) {
-      return response()->json([
-        'message' => 'Please select at least one category.',
-        'errors' => ['categories' => ['The categories field is required.']]
-      ], 422);
-    }
+    $steps = [
+      1 => session('step1'),
+      2 => session('step2'),
+      3 => session('step3')
+    ];
 
-    $step1 = session('step1');
-    $step2 = session('step2');
-    $step3 = session('step3');
+    $this->authorizeJson($steps[1] && $steps[2] && $steps[3], 'Missing data from previous steps.');
 
-    if (!$step1 || !$step2 || !$step3) {
-      return response()->json(['error' => 'Missing data from previous steps.'], 422);
-    }
-
-    $brand = $request->user()->brands()->create([
-      'user_id' => auth()->id(),
-      'title' => $step1['title'],
-      'sub_title' => $step1['sub_title'],      
-      'location' => $step1['location'],
-      'website' => $step1['website'],
-      'launch_date' => $step1['launch_date'],
-      'description' => $step2['description'],
-    ]);
-
-    $categoryIds = Category::whereIn('name', $validated['categories'])->pluck('id');
-    $brand->categories()->sync($categoryIds);
-
-    foreach ($step3['photos'] as $index => $path) {
-      BrandImage::create([
-        'brand_id' => $brand->id,
-        'image_path' => $path,
-        'is_featured' => $index === 0,
-      ]);
-    }
+    $brand = $this->brandService->finalizeBrandCreation(Auth::user(), $steps, $validated['categories']);
 
     session()->forget(['step1', 'step2', 'step3']);
-    return response()->json([
-      'success' => true,
-      'message' => 'Brand posted!',
-      'multi_step' => true,
-    ]);
-  } 
+    return response()->json(['success' => true, 'message' => 'Brand posted!']);
+  }
+
+  public function toggleSave(Brand $brand)
+  {
+    $this->authorizeJson(Auth::check(), 'Please log in to save brands.');
+    $result = $this->interactionService->toggleSave($brand);
+    return response()->json(array_merge(['success' => true], $result));
+  }
 
   public function vote(Request $request, Brand $brand)
   {
-    $request->validate([
-      'vote' => 'required|in:1,-1'
-    ]);
+    $this->authorizeJson(Auth::check(), 'Unauthorized please sign in.');
+    $validated = $this->validateJson($request, ['vote' => 'required|in:1,-1']);
 
-    $user = auth()->user();
-    $voteValue = (int) $request->input('vote');
-    $existingVote = $brand->voters()->where('user_id', $user->id)->first();
-
-    if ($existingVote) {
-      if ((int) $existingVote->pivot->vote === $voteValue) {
-        $brand->voters()->detach($user->id);
-
-        return response()->json([
-          'message' => 'Vote removed',
-          'action' => 'removed',
-          'vote' => 0,
-          'total_votes' => $brand->total_votes
-        ]);
-      }
-
-      $brand->voters()->updateExistingPivot($user->id, ['vote' => $voteValue]);
-
-      return response()->json([
-        'message' => 'Vote updated',
-        'action' => $voteValue === 1 ? 'upvoted' : 'downvoted',
-        'vote' => $voteValue,
-        'total_votes' => $brand->total_votes
-      ]);
-    }
-
-    $brand->voters()->attach($user->id, ['vote' => $voteValue]);
-
-    return response()->json([
-      'message' => 'Vote recorded',
-      'action' => $voteValue === 1 ? 'upvoted' : 'downvoted',
-      'vote' => $voteValue,
-      'total_votes' => $brand->total_votes
-    ]);
-  }
-
- public function toggleSave(Brand $brand)
-  {
-    $userId = auth()->id();
-    $exists = $brand->savers()->where('user_id', $userId)->exists();
-
-    if ($exists) {
-      $brand->savers()->detach($userId);
-      $message = 'Unsaved';
-    } else {
-      $brand->savers()->attach($userId);
-      $message = 'Saved';
-    }
-
-    return response()->json([
-      'saved' => !$exists,
-      'total_saves' => $brand->savers()->count(),
-      'message' => $message,
-    ]);
+    $result = $this->interactionService->processVote($brand, (int)$validated['vote']);
+    return response()->json(array_merge(['success' => true], $result));
   }
 
   public function showBrand(Brand $brand)
@@ -233,17 +118,13 @@ class BrandsController extends Controller
       'brand_id' => $brand->id,
       'ip' => request()->ip(),
       'user_agent' => request()->userAgent(),
-      'referrer' => request()->headers->get('referer'),
     ]);
 
-    $brand->loadCount(['views', 'voters', 'savers'])
-      ->load(['categories', 'images']);
-
+    $brand->loadCount(['views', 'voters', 'savers'])->load(['categories', 'images']);
+    
     $relatedBrands = Brand::where('user_id', $brand->user_id)
-    ->where('id', '!=', $brand->id)
-    ->inRandomOrder()
-    ->take(3)
-    ->get();
+      ->where('id', '!=', $brand->id)
+      ->inRandomOrder()->take(3)->get();
 
     return view('brands.show-brand', [
       'brand' => $brand,
@@ -256,19 +137,10 @@ class BrandsController extends Controller
 
   public function deleteBrand(Brand $brand)
   {
-  
-    if ($brand->user_id !== auth()->id()) {
-      return response()->json([
-        'message' => 'You are not authorized to delete this brand.'
-      ], 403);
-    }
-    
-    $brand->delete(); 
-
+    $this->authorizeJson($brand->user_id === Auth::id(), 'Unauthorized deletion attempt.');
+    $brand->delete();
     session()->flash('flash_message', 'Brand deleted!');
-    return response()->json([
-      'success' => true,
-      'redirect_url' => '/',
-    ]);
+    
+    return response()->json(['success' => true, 'redirect_url' => '/']);
   }
 }

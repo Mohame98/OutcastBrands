@@ -2,63 +2,65 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\ApiValidator;
+use App\Services\ReportService;
 use Illuminate\Http\Request;
-use App\Models\Report;
-
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
+  use ApiValidator;
 
-  public function storeReportStep1(Request $request)
+  protected ReportService $reportService;
+
+  public function __construct(ReportService $reportService)
   {
-    $validated = $request->validate([
-      'reportable_type' => ['required', 'string'],
-      'reportable_id' => ['required', 'integer'],
-      'reason' => ['required', 'in:Sexual content,Violent or repulsive content,Hateful or abusive content,Harassment or bullying,Misinformation,Child abuse,Promotes terrorism,Spam or misleading,Legal issue,Captions issue'],
+    $this->reportService = $reportService;
+  }
+
+  /**
+   * Step 1: Validate reason and target
+   */
+  public function storeReportStep1(Request $request): JsonResponse
+  {
+    $this->authorizeJson(Auth::check());
+
+    $validated = $this->validateJson($request, [
+      'reportable_type' => 'required|string',
+      'reportable_id'   => 'required|integer',
+      'reason'          => 'required|string|in:Sexual content,Violent or repulsive content,Hateful or abusive content,Harassment or bullying,Misinformation,Child abuse,Promotes terrorism,Spam or misleading,Legal issue,Captions issue',
     ]);
 
     session(['report_step1' => $validated]);
+
     return response()->json([
       'success' => true,
       'multi_step' => true,
     ]);
   }
 
-  public function storeReportStep2(Request $request)
+  /**
+   * Step 2: Validate description and finalize
+   */
+  public function storeReportStep2(Request $request): JsonResponse
   {
-    $validated = $request->validate([
-      'report_description' => ['nullable', 'string', 'max:1000'],
+    $this->authorizeJson(Auth::check(), 'You must be logged in to report content.');
+
+    $validated = $this->validateJson($request, [
+      'report_description' => 'nullable|string|max:1000',
     ]);
 
     $step1 = session('report_step1');
+    $this->authorizeJson(isset($step1), 'Report session expired. Please start again.');
 
-    if (!$step1) {
-      return response()->json(['error' => 'Step 1 information missing.'], 422);
-    }
-
-    $shortTypes = [
-      'brand' => \App\Models\Brand::class,
-      'user' => \App\Models\User::class,
-      'comment' => \App\Models\Comment::class,
-    ];
-
-    $shortType = strtolower($step1['reportable_type']);
-
-    if (!array_key_exists($shortType, $shortTypes)) {
-      abort(400, 'Invalid reportable type.');
-    }
-
-    $type = $shortTypes[$shortType];
-
-    Report::create([
-      'reportable_type' => $type,
-      'reportable_id' => $step1['reportable_id'],
-      'user_id' => auth()->id(),
-      'reason' => $step1['reason'],
-      'report_description' => $validated['report_description'],
-    ]);
+    // Combine data and delegate to Service
+    $reportData = array_merge($step1, $validated);
+    
+    $this->reportService->createReport($reportData);
 
     session()->forget('report_step1');
+
     return response()->json([
       'success' => true, 
       'message' => 'We’ve received your report and will review it shortly.',

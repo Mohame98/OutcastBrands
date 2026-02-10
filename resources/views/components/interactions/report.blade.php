@@ -5,7 +5,7 @@
       aria-haspopup="Report {{ $type }}" 
       title="Report {{ $type }}"
       aria-controls="report-{{ $type }}-{{ $model->id }}"  
-      aria-expanded="false">
+      aria-expanded="false" type="submit">
         <i class="fa-solid fa-flag"></i>
         <span class="btn-text">Report</span>
     </button>
@@ -26,8 +26,8 @@
           
           @php
           $reasons = [
-            'Sexual content',
             'Violent or repulsive content',
+            'Sexual content',
             'Hateful or abusive content',
             'Harassment or bullying',
             'Misinformation',
@@ -51,7 +51,7 @@
           </div>
 
           <div class="btn-container">
-            <button class="btn update" type="submit" id="nextBtn1" data-step="1">Next</button>
+            <button class="btn update" type="submit" id="nextBtn1" data-step="1" data-action="next-step">Next</button>
           </div>
 
         </fieldset>

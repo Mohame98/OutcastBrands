@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('profile_image')->nullable();
             $table->text('bio')->nullable();
-            $table->string('instagram')->nullable();
+            $table->string('instagram', 255)->nullable();
             $table->string('user_location')->nullable();
             $table->rememberToken();
             $table->timestamps();

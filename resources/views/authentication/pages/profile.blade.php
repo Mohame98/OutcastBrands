@@ -142,7 +142,7 @@
                   <div class="form-group">
                     <label for="instagram">
                       <span>Add your instagram link</span>
-                      <input autofocus type="text" name="instagram" id="instagram" aria-label="update your profiles instagram link" value="{{ old('instagram', auth()->user()->instagram) }}" required>
+                      <input autofocus type="text" name="instagram" id="instagram" aria-label="update your profiles instagram link" value="{{ old('instagram', auth()->user()->instagram) }}">
                     </label>               
                     <x-form-error name="instagram" />
                   </div>
@@ -185,7 +185,7 @@
                   <div class="form-group">
                     <label for="user_location">
                       <span>Represent your city</span>
-                      <input autofocus type="text" name="user_location" id="user_location" aria-label="change your profile's location" value="{{ old('user_location', auth()->user()->user_location) }}" required>
+                      <input autofocus type="text" name="user_location" id="user_location" aria-label="change your profile's location" value="{{ old('user_location', auth()->user()->user_location) }}" >
                     </label>
                     <x-form-error name="user_location" />
                   </div>

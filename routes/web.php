@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\EmailVerificationController;
-use App\Http\Controllers\Auth\SessionController;
+use App\Http\Controllers\Auth\{AuthController, ProfileController, AccountController};
 use App\Http\Controllers\Brands\BrandsController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ReportController;
@@ -22,10 +22,6 @@ use App\Models\User;
 Route::get('/', 
 [BrandsController::class, 'index'])
   ->name('home');
-
-Route::get('/signin', function () {
-  return redirect('/');
-});
 
 Route::get('api/brands/search', 
 [SearchController::class, 'searchApi']);
@@ -48,6 +44,30 @@ Route::get('/profile/{user}',
 [UserProfileController::class, 'userProfile'])
   ->name('profile.show');
 
+Route::post('/brands/{brand}/save', 
+[BrandsController::class, 'toggleSave'])
+  ->name('brands.save');
+
+Route::post('/brands/{brand}/vote',
+[BrandsController::class, 'vote'])
+  ->name('brands.vote');
+
+Route::post('/comments/{comment}/like', 
+[CommentController::class, 'likeComments'])
+  ->name('comments.like');
+
+Route::post('/brands/{brand}/comments', 
+[CommentController::class, 'addComment'])
+  ->name('comment.add');
+
+Route::put('/comments/{comment}/edit', 
+[CommentController::class, 'editComment'])
+->name('comments.edit');
+
+Route::delete('/comments/{comment}/delete', 
+[CommentController::class, 'deleteComment'])
+  ->name('comments.delete');
+
 Route::middleware('guest')->group(function () {
   // Password Reset Routes
   Route::get('/forgot-password', 
@@ -68,11 +88,11 @@ Route::middleware('guest')->group(function () {
 
   // login routes
   Route::post('/signup', 
-  [SessionController::class, 'storeSignup'])
+  [AuthController::class, 'storeSignup'])
     ->name('signup');
 
   Route::post('/signin', 
-  [SessionController::class, 'checkSignin'])
+  [AuthController::class, 'checkSignin'])
     ->name('login');
 });
 
@@ -92,69 +112,70 @@ Route::middleware('auth')->group(function () {
     ->middleware('signed')
     ->name('verification.verify');
 
-  Route::post('/brands/{brand}/save', 
-  [BrandsController::class, 'toggleSave'])
-    ->name('brands.save');
-
   // logout
   Route::post('/logout', 
-  [SessionController::class, 'logOut'])
+  [AuthController::class, 'logOut'])
     ->name('logout');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
   // edit account
   Route::get('/account/edit', 
-  [SessionController::class, 'edit'])
+  [AccountController::class, 'edit'])
     ->name('account.edit');
 
-  Route::get('/account/profile', 
-  [SessionController::class, 'profile'])
-    ->name('account.profile'); 
-
-  Route::patch('/account/change-profile-image', 
-  [SessionController::class, 'changeProfileImage'])
-    ->name('profileImg.change');
-    
   Route::patch('/account/change-username', 
-  [SessionController::class, 'changeUsername'])
+  [AccountController::class, 'changeUsername'])
     ->name('username.change');
 
   Route::patch('/account/change-password', 
-  [SessionController::class, 'changePassword'])
+  [AccountController::class, 'changePassword'])
     ->name('password.change');
 
+  // edit profile
+  Route::get('/account/profile', 
+  [ProfileController::class, 'profile'])
+    ->name('account.profile'); 
+
+  Route::patch('/account/change-profile-image', 
+  [ProfileController::class, 'changeProfileImage'])
+    ->name('profileImg.change');
+
   Route::patch('/account/change-bio', 
-  [SessionController::class, 'changeBio'])
+  [ProfileController::class, 'changeBio'])
     ->name('bio.change');
 
-  Route::patch('/account/change-location', 
-  [SessionController::class, 'changeLocation'])
-    ->name('location.change');
-
   Route::patch('/account/change-instagram', 
-  [SessionController::class, 'changeInstagram'])
+  [ProfileController::class, 'changeInstagram'])
     ->name('instagram.change');
+
+  Route::patch('/account/change-location', 
+  [ProfileController::class, 'changeLocation'])
+    ->name('location.change');
 
   // delete account
   Route::get('/account/delete-confirmation', 
-  [SessionController::class, 'deleteAccountConfirmation']);       
+  [AccountController::class, 'deleteAccountConfirmation']);       
 
   Route::delete('/account/delete', 
-  [SessionController::class, 'deleteAccount'])
+  [AccountController::class, 'deleteAccount'])
     ->name('account.delete');
 
   Route::post('/add-brands/step-1', 
-  [BrandsController::class, 'storeBrand1']);
+  [BrandsController::class, 'storeBrand1'])
+    ->name('brands.store.step1');
 
   Route::post('/add-brands/step-2', 
-  [BrandsController::class, 'storeBrand2']);
-
+  [BrandsController::class, 'storeBrand2'])
+    ->name('brands.store.step2');
+    
   Route::post('/add-brands/step-3', 
-  [BrandsController::class, 'storeBrand3']);
+  [BrandsController::class, 'storeBrand3'])
+    ->name('brands.store.step3');
 
   Route::post('/add-brands/step-4', 
-  [BrandsController::class, 'storeBrand4']);
+  [BrandsController::class, 'storeBrand4'])
+    ->name('brands.store.step4');
 
   Route::post('/report/step-1', 
   [ReportController::class, 'storeReportStep1']);
@@ -166,32 +187,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
   [UserProfileController::class, 'savedBrands'])
     ->name('profile.saved-brands');
 
-  Route::post('/brands/{brand}/vote',
-  [BrandsController::class, 'vote'])
-    ->name('brands.vote');
-
   Route::delete('/brands/{brand}', 
   [BrandsController::class, 'deleteBrand'])
     ->name('brand.delete');
 
-  Route::post('/comments/{comment}/like', 
-  [CommentController::class, 'likeComments'])
-    ->name('comments.like');
-
-  Route::put('/comments/{comment}/edit', 
-  [CommentController::class, 'editComment'])
-  ->name('comments.edit');
-
-  Route::delete('/comments/{comment}/delete', 
-  [CommentController::class, 'deleteComment'])
-    ->name('comments.delete');
-
   Route::post('api/brands/{brand}/comments', 
   [CommentController::class, 'addComment']);
-
-  Route::post('/brands/{brand}/comments', 
-  [CommentController::class, 'addComment'])
-    ->name('comment.add');
 
   Route::get('api/saved-brands/profile', 
   [UserProfileController::class, 'savedBrandsApi']);

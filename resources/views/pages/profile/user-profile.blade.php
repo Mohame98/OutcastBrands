@@ -54,7 +54,12 @@
             
             <div class="btn-container">
               @if ($user->instagram)
-              <a href="{{ $user->instagram }}" target="_blank" rel="noopener noreferrer">Instagram</a>
+              <a href="{{ $user->instagram }}" target="_blank" rel="noopener noreferrer">
+                <button class="btn instagram-btn white-btn">
+                  <i class="fa-brands fa-instagram"></i>
+                  Instagram
+                </button>
+              </a>
               @endif
               
               @if(Auth::check() && Auth::id() !== $user->id)
@@ -120,7 +125,7 @@
                       <div class="form-group">
                         <label for="message">
                           <span>Message *</span>
-                          <textarea name="message" id="message" rows="5" required></textarea>
+                          <textarea name="message" id="message" rows="5"></textarea>
                         </label>
                         <x-form-error name="message" />
                       </div>
@@ -178,7 +183,9 @@
 
         <section class="popular-brands-top-layer">
           <div class="grid" id="brands-container"></div>
-          <button type="button" class="load-more btn white-btn">Load more</button>
+          <button type="button" id="load-more-brands" class="load-more btn white-btn">
+            Load more
+          </button>
         </section>
       </div>
     </div>

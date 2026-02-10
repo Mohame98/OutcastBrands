@@ -30,72 +30,12 @@ $vote = $brand->voters->firstWhere('id', auth()->id())?->pivot->vote ?? null;
           </div>
           
           <div class="social-item">
-            <div class="brand-data-details item">
-              <div class="modal-wrapper">
-                <button 
-                  class="btn brand-details modal-btn item-btn"
-                  aria-haspopup="show brand details" 
-                  aria-controls="brand-details-modal" 
-                  title="Brand Details"
-                  aria-expanded="false">
-                  <i class="fa-regular fa-circle-question"></i>
-                </button>
-                <dialog id="brand-details-modal" class="brand-details-modal">
-                  <header>
-								    <h3>{{ $brand->title }}</h3>
-                    @include('components.close-modal')
-                  </header>
-                  
-                  <div class="brand-essential-dates">
-                    <p>Posted {{ $brand->created_at }}</p>
-                    <p>Launch Date {{ $brand->launch_date }}</p>
-                  </div>
-                  
-                  <div class="data-flex">
-                    <div class="data-container">
-                      <span>Views</span>
-                      <p>{{ $view_count }}</p>
-                    </div>
-
-                    <div class="data-container">
-                      <span>Saves</span>
-                      <p class="detail-save-count">{{ $save_count }}</p>
-                    </div>
-
-                    <div class="data-container">
-                      <span>Votes</span>
-                      <p class="detail-vote-count">{{ $vote_count }}</p>
-                    </div>
-
-                    <div class="data-container">
-                      <span>Comments</span>
-                      <p id="comment-count">{{ $brand->comments_count }}</p>
-                    </div>
-                  </div>
-              
-                  <p>
-                    <a class="brand-site" href="{{ $brand->website }}" target="_blank">
-                      <i class="fa-solid fa-link"></i>
-                      Brand Site
-                    </a>
-                  </p>
-                  <p>{{ $brand->location }}</p>
-                  <div class="categories">
-                    <p>Categories</p>
-                    <div class="category-list">
-                      @foreach($brand->categories as $category)
-                      <span class="category-item">
-                        <a 
-                          href="{{ route('search', ['category' => $category->name, 'page' => 1]) }}" 
-                          class="category-link white-btn">{{ $category->name }}
-                        </a>
-                      </span>
-                      @endforeach
-                    </div>
-                  </div>
-                </dialog>
-              </div>
-            </div>
+            <x-interactions.brand-details 
+              :brand="$brand"
+              :view_count="$view_count"
+              :save_count="$save_count"
+              :vote_count="$vote_count"
+              />
           </div>
 
           <div class="social-item">
@@ -126,17 +66,20 @@ $vote = $brand->voters->firstWhere('id', auth()->id())?->pivot->vote ?? null;
                     @include('components.close-modal')
                   </header>
 
-                  <p>
-                    Are you sure you want to delete this brand? It is permanent.
-                  </p>
+                  <div class="warning-card">
+                    <h3>Warning</h3>
+                    <p>Keep in mind that upon deleting your post all of the information will be deleted permanently.</p>
 
-                  @csrf
-                  @method('DELETE')
-                  <div class="btn-container">
-                    <button type="button" class="btn cancel close-modal">
-                      Cancel
-                    </button>
-                    <button class="delete-brand-btn btn update" type="submit">Delete</button>
+                    @csrf
+                    @method('DELETE')
+                    <div class="btn-container">
+                      <button type="button" class="btn cancel close-modal">
+                        Cancel
+                      </button>
+                      <button class="delete-brand-btn btn update" type="submit">
+                        Delete Post
+                      </button>
+                    </div>
                   </div>
                 </fieldset>
               </form>
@@ -161,14 +104,6 @@ $vote = $brand->voters->firstWhere('id', auth()->id())?->pivot->vote ?? null;
           </div>
         </div>
         @endif
-
-        {{-- @if($brand->description)
-        <div class="ql-container ql-snow">
-          <div class="ql-editor">
-            {!! $brand->description !!}
-          </div>
-        </div>
-        @endif --}}
           
         <div class="profile-promotion">
           <div class="brand-author">

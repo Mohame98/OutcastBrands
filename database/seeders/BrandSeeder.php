@@ -18,7 +18,7 @@ class BrandSeeder extends Seeder
    public function run(): void
     {
         // Create 100 brands using the factory
-        $brands = Brand::factory()->count(100)->create();
+        $brands = Brand::factory()->count(1000)->create();
 
         $brands->each(function ($brand) {
            

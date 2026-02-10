@@ -31,8 +31,9 @@
       </div>
 
       <section class="popular-brands-top-layer">
+        <p class="brands-count" id="brands-count" aria-live="polite"></p>
         <div class="grid" id="brands-container"></div>
-        <button type="button" class="load-more btn white-btn">Load more</button>
+        <button type="button" id="load-more-brands" class="load-more btn white-btn">Load more</button>
       </section>
     </div>
   </section>

@@ -17,7 +17,13 @@
           <label for="username">
             <span>Username</span>
             <input type="text" name="username" id="username" value="{{ old('username') }}" autocomplete="username"
-              placeholder="Enter username" aria-label="Enter username" required autofocus>
+              placeholder="Enter username" aria-label="Enter username" autofocus
+              required
+              minlength="3"
+              maxlength="30"
+              pattern="^[a-zA-Z0-9_]+$"
+              title="Only letters, numbers, and underscores"
+            >
           </label>  
           <x-form-error name='username'></x-form-error>    
         </div>
@@ -25,24 +31,34 @@
         <div class="form-group">
           <label for="signup_email">
             <span>Email address</span>
-            <input type="email" name="signup_email" id="signup_email" value="{{ old('email') }}" autocomplete="email"
-              placeholder="eg@example.com" aria-label="Enter email" required>
+            <input type="email" name="signup_email" id="signup_email" value="{{ old('email') }}" autocomplete="email" placeholder="eg@example.com" aria-label="Enter email" 
+              required
+              maxlength="255"
+              autocomplete="email"
+              pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+              title="Please enter a valid email address"
+            >
           </label>    
           <x-form-error name='signup_email'></x-form-error>      
         </div>
 
-        <div class="password-field form-group"> 
+        <div class="form-group password-field "> 
           <label for="signup_password">
             <span>Password</span>
             <div class="password-input-container">
               <input type="password" name="signup_password" id="signup_password"
-                placeholder="Enter password" aria-label="Enter password" class="password-input" required>
+                placeholder="Enter password" aria-label="Enter password" class="password-input" required
+                minlength="8"
+                maxlength="64"
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$"
+                title="Include 8 characters, uppercase, lowercase, number, and special character"
+                autocomplete="new-password">
               @include('components.toggle-password')
             </div>
           </label>
           <x-form-error name='signup_password'></x-form-error>
         </div>
-        <button class="btn main-button" type="submit">Create account</button>
+        <button class="btn white-btn log" type="submit">Create account</button>
       </fieldset>
     </form>
     <p>

@@ -175,22 +175,6 @@
             color: var(--dark-accent-blue-hover);
             text-decoration: underline;
           }
-
-          .categories{
-            margin-top: var(--space-md);
-
-            .category-list{
-              margin-top: var(--space-xxs);
-              display: flex;
-              flex-wrap: wrap;
-              flex-direction: unset;
-              gap: 0.5rem;
-            }
-
-            .category-link{
-              border-radius: var(--radius-sm);
-            }
-          }
         }
       }
     }

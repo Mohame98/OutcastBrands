@@ -47,11 +47,7 @@
       }
     }
 
-    .btn{
-      &:hover{
-        background-color: var(--dark-hover-dark-gray);
-      }
-    }
+    
 
     .context-item{
       list-style: none;
@@ -65,6 +61,12 @@
         border-radius: var(--radius-sm);
         width: 100%;
         transition: 0.4s;
+      }
+
+      .item-btn{
+        &:hover{
+          background-color: var(--dark-hover-dark-gray);
+        }
       }
     }
   }

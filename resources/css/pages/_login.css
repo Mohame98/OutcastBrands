@@ -42,6 +42,13 @@
   }
 }
 
+.singin{
+
+  .info-signin{
+    position: absolute;
+  }
+}
+
 /* .signup-modal{
   @media (max-width: 800px) {
     top: 47%;

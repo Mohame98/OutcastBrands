@@ -4,30 +4,36 @@
       @csrf
       <fieldset>
         <header class="modal-headers">
-          <legend><h1>Log In</h1></legend>
+          <legend><h1>Log In</h1>
+            <div class="info-signin">
+              {{-- <i class="fa-solid fa-circle-info"></i> --}}
+              <span class="hover-caption">Close</span>
+            </div>
+            
+          </legend>
           @include('components.close-modal')
         </header>
     
         <div class="form-group">
           <label for="signin_email">
             <span>Email</span>
-            <input type="email" name="signin_email" id="signin_email" value="{{ old('email') }}" autocomplete="on" placeholder="Enter Email" aria-label="Enter email" required autofocus>
+            <input type="email" name="signin_email" id="signin_email" value="{{ old('signin_email') }}" autocomplete="on" placeholder="Enter Email" aria-label="Enter email" autofocus>
           </label>
           <x-form-error name='signin_email'></x-form-error>
         </div>
 
-        <div class="password-field form-group">
+        <div class="form-group password-field">
           <label for="signin_password">
             <span>Password</span>
             <div class="password-input-container">
-              <input type="password" name="signin_password" id="signin_password" placeholder="Enter password" aria-label="Enter password" class="password-input" required>
+              <input type="password" name="signin_password" id="signin_password" placeholder="Enter password" aria-label="Enter password" class="password-input" >
               @include('components.toggle-password')
             </div>
           </label>
           <x-form-error name='signin_password'></x-form-error>
         </div>
   
-        <button class="btn main-button" type="submit">Log In</button>
+        <button class="btn white-btn log" type="submit">Log In</button>
       </fieldset>
     </form>
     <p>

@@ -11,7 +11,7 @@
   </header>
   <article class="brand-container"> 
     <a class="featured-image-container" href="{{ route('brand.show', $brand) }}" title="{{ $brand->title }}">
-      <div class="left-brand-featured-image" 
+      <div class="featured-image" 
         @if ($brand->featuredImage)
           style="background-image: url('{{ asset('storage/' . $brand->featuredImage->image_path) }}')"
         @else
@@ -56,13 +56,19 @@
           <div style="height: 30px"></div>
           <div class="middle-content">
             <div class="brand-text-content">
+              @if($brand->title)
               <h2 class="title">{{ Str::limit($brand->title, 30, '...') }}</h2>
+              @endif
+              @if($brand->sub_title)
               <p class="sub-title">{{ Str::limit($brand->sub_title, 50, '...') }}</p>
+              @endif
             </div>
           </div>
         
           <div class="bottom-content">
+            @if($brand->location)
             <small class="location">{{ Str::limit($brand->location, 30, '...') }}</small>
+            @endif
             <x-interactions.vote :brand="$brand"/>
           </div>
         </a>

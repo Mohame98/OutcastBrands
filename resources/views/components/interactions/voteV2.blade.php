@@ -10,6 +10,7 @@
       class="btn vote-btn upvote {{ $vote === 1 ? 'voted' : '' }}"
       aria-label="{{ $vote === 1 ? 'Remove vote from brand ' . $brand->title : 'Upvote brand ' . $brand->title }}" 
       title="{{ $vote === 1 ? 'Remove vote' : 'Upvote' }}"
+      type="submit"
       >
       <i class="fa-solid fa-arrow-trend-up"></i>
     </button>
