@@ -1,4 +1,5 @@
 <x-main-layout>
+  @section('title', 'Verify Email')
   <section class="verify-email">
     <div class="container">
       <div>

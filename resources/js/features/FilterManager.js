@@ -43,7 +43,6 @@ class FilterManager {
     if (!searchInput) return;
 
     searchInput.addEventListener("input", (e) => {
-      // 1. Remove .trim() here so spaces are allowed while typing
       const searchValue = e.target.value; 
 
       state.debounce(
@@ -106,9 +105,7 @@ class FilterManager {
           }
         } else {
           const index = currentValues.indexOf(filterValue);
-          if (index > -1) {
-            currentValues.splice(index, 1);
-          }
+          if (index > -1) currentValues.splice(index, 1);
         }
 
         if (currentValues.length > 0) {

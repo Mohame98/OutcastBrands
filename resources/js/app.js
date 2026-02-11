@@ -6,7 +6,7 @@ import { dom } from './core/DOMManager.js';
 import { state } from './core/StateManager.js';
 import { errorHandler } from './core/ErrorHandler.js';
 import MultiStepFormManager from './core/MultiStepFormManager.js';
-import ValidationManager from './core/ValidationManager.js';
+// import ValidationManager from './core/ValidationManager.js';
 import NavigationManager from './core/NavigationManager.js';
 import FormManager from './core/FormManager.js';
 import UIService from "./services/UIService";
@@ -34,7 +34,7 @@ class Application {
     this.formManager = new FormManager();
     this.modalManager = new ModalManager();
     this.navigationManager = new NavigationManager();
-    this.validationManager = new ValidationManager();
+    // this.validationManager = new ValidationManager();
     this.multiStepFormManager = new MultiStepFormManager();
     
     // Conditional features (lazy initialization)
@@ -65,7 +65,7 @@ class Application {
     this.initModule('formManager', this.formManager);
     this.initModule('modalManager', this.modalManager);
     this.initModule('navigationManager', this.navigationManager);
-    this.initModule('validationManager', this.validationManager);
+    // this.initModule('validationManager', this.validationManager);
     this.initModule('multiStepFormManager', this.multiStepFormManager);
 
     // Initialize filter system if filter elements exist
@@ -189,12 +189,10 @@ class Application {
   setupErrorHandler() {
     window.addEventListener('error', (event) => {
       console.error('Global error:', event.error);
-      // You can add error tracking here (e.g., Sentry, LogRocket)
     });
 
     window.addEventListener('unhandledrejection', (event) => {
       console.error('Unhandled promise rejection:', event.reason);
-      // You can add error tracking here
     });
   }
 

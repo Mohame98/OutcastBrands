@@ -10,7 +10,7 @@ trait ApiValidator
 {
   /**
    * Validates a request and automatically returns a 422 JSON response on failure.
-   * If successful, it returns the validated data array.
+   * If successful, it returns the validated data.
    */
   protected function validateJson(Request $request, array $rules): array
   {
@@ -27,7 +27,7 @@ trait ApiValidator
 
   /**
    * Authorizes an action and returns a 401 JSON response on failure.
-   * Note: $message is optional to prevent ArgumentCountErrors.
+   * $message is optional to prevent errors.
    */
   protected function authorizeJson(bool $condition, string $message = 'Unauthorized.'): void
   {

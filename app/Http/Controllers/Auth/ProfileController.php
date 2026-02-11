@@ -34,7 +34,7 @@ class ProfileController extends Controller
     $user = Auth::user();
     
     $this->validateJson($request, [
-      'profile_image' => 'nullable|image|mimes:png,jpg,jpeg|max:1000',
+      'profile_image' => 'nullable|image|mimes:png,jpg,jpeg|max:4000',
     ]);
 
     $oldPath = $user->profile_image;
@@ -95,7 +95,7 @@ class ProfileController extends Controller
       'bio' => [
         'nullable', 
         'string', 
-        'max:200', 
+        'max:250', 
         'regex:/^[\p{L}\p{N}\s.,!?"\'\-()]+$/u'
       ],
     ]);
@@ -159,8 +159,8 @@ class ProfileController extends Controller
       'user_location' => [
         'nullable', 
         'string', 
-        'max:90', 
-        'regex:/^[\p{L}\p{N}\s.,\-()]+$/u'
+        'max:60', 
+        "regex:/^[\p{L}\p{N} .,'’\-()]+$/u",
       ],
     ]);
 

@@ -2,7 +2,6 @@
  * DOMManager - Singleton class for caching and managing DOM elements
  * Prevents repeated querySelector calls and provides type-safe access
  */
-
 import { CONFIG } from '../config.js';
 
 class DOMManager {
@@ -87,6 +86,5 @@ class DOMManager {
   }
 }
 
-// Export singleton instance
 export const dom = new DOMManager();
 export default dom;

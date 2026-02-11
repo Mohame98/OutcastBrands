@@ -40,7 +40,7 @@ class CommentController extends Controller
     $this->authorizeJson(Auth::check());
 
     $validated = $this->validateJson($request, [
-      'add_comment_text' => 'required|string|max:1000'
+      'add_comment_text' => 'required|string|max:400'
     ]);
 
     $comment = $brand->comments()->create([
@@ -61,6 +61,8 @@ class CommentController extends Controller
    */
   public function likeComments(Comment $comment): JsonResponse
   {
+    $this->authorizeJson(Auth::check());
+
     $user = Auth::user();
     $like = $comment->likes()
       ->where('user_id', $user->id)
@@ -83,7 +85,7 @@ class CommentController extends Controller
 
   public function editComment(Request $request, Comment $comment): JsonResponse
   {
-    $this->authorizeJson($comment->user_id === Auth::id(), "Unauthorized to edit this comment.");
+    $this->authorizeJson($comment->user_id === Auth::id());
 
     $validated = $this->validateJson($request, [
       'comment_text' => 'required|string|max:1000'
@@ -97,7 +99,6 @@ class CommentController extends Controller
 
     return response()->json([
       'success'      => true,
-      // 'message'      => "Comment Updated",
       'comment_id'   => $comment->id,
       'html_comment' => $this->commentService->renderComment($comment),
     ]);
@@ -105,14 +106,13 @@ class CommentController extends Controller
 
   public function deleteComment(Comment $comment): JsonResponse
   {
-    $this->authorizeJson($comment->user_id === Auth::id(), "Unauthorized to delete this comment.");
+    $this->authorizeJson($comment->user_id === Auth::id());
     $brand = $comment->brand;
     $commentId = $comment->id;
     $comment->delete();
 
     return response()->json([
       'success'        => true, 
-      // 'message'        => "Comment Deleted",
       'comment_id'     => $commentId,
       'comments_count' => $brand->refresh()->comments_count,
     ]);

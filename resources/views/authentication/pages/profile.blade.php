@@ -1,4 +1,5 @@
 <x-main-layout>
+  @section('title', 'Edit Profile')
   <section class="edit-account">
     <div class="container">
       <div class="account-settings-flex">
@@ -38,7 +39,10 @@
                       <label for="profile_image" class="media-label" tabindex="0">
                         <span>Drag or upload</span> <i class="fa-solid fa-cloud-arrow-up"></i>
                       </label>
-                      <input type="file" name="profile_image" id="profile_image" aria-label="Drag and Drop or upload media" accept="image/*">
+                      <input type="file" name="profile_image" id="profile_image" aria-label="Drag and Drop or upload media" accept="image/*" 
+                        required
+                        accept=".png, .jpg, .jpeg"
+                      >
                       <div class="media-preview"></div>
                       <div class="upload-info">
                         <p>Formats: JPG, PNG</p>
@@ -97,8 +101,12 @@
                     <label for="bio">
                       <span>Change Bio</span>
                       <textarea 
-                        name="bio" id="bio" aria-label="Change your profile's biography" rows="4" maxlength="200" autofocus>
-                        {{ old('bio', auth()->user()->bio) }}
+                        name="bio" id="bio" aria-label="Change your profile's biography" rows="4" autofocus
+                        maxlength="250"
+                        pattern="/^[\p{L}\p{N}\s.,!?"\'\-()]+$/u"
+                        title="Enter a Bio up to 250 characters"
+                      >
+                        {!! old('bio', auth()->user()->bio) !!}
                       </textarea>
                     </label>  
                     <x-form-error name="bio" />
@@ -142,7 +150,11 @@
                   <div class="form-group">
                     <label for="instagram">
                       <span>Add your instagram link</span>
-                      <input autofocus type="text" name="instagram" id="instagram" aria-label="update your profiles instagram link" value="{{ old('instagram', auth()->user()->instagram) }}">
+                      <input autofocus type="text" name="instagram" id="instagram" aria-label="update your profiles instagram link" value="{{ old('instagram', auth()->user()->instagram) }}"
+                        maxlength="255"
+                        pattern="^(https?:\/\/)?(www\.)?instagram\.com\/[a-zA-Z0-9_]+\/?$"
+                        title="Enter a valid Instagram profile URL"
+                      >
                     </label>               
                     <x-form-error name="instagram" />
                   </div>
@@ -185,7 +197,11 @@
                   <div class="form-group">
                     <label for="user_location">
                       <span>Represent your city</span>
-                      <input autofocus type="text" name="user_location" id="user_location" aria-label="change your profile's location" value="{{ old('user_location', auth()->user()->user_location) }}" >
+                      <input autofocus type="text" name="user_location" id="user_location" aria-label="change your profile's location" value="{{ old('user_location', auth()->user()->user_location) }}" 
+                        maxlength="60"
+                        pattern="/^[\p{L}\p{N} .,'’\-()]+$/u"
+                        title="Enter you location"
+                      >
                     </label>
                     <x-form-error name="user_location" />
                   </div>
@@ -202,6 +218,7 @@
               </form> 
             </dialog>
           </div>
+        </div>
     </div>
   </section>
 </x-main-layout>

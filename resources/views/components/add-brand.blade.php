@@ -24,7 +24,12 @@
         <div class="form-group">
           <label for="title">
             <span>Brand Title *</span>
-            <input autofocus type="text" id="title" name="title">
+            <input autofocus type="text" id="title" name="title"
+              required
+              maxlength="100"
+              pattern="/^[\p{L}\p{N}\p{P}\p{Zs}]+$/u"
+              title="Enter brand title"
+            >
           </label>
           <x-form-error name="title" />
         </div>
@@ -32,7 +37,12 @@
         <div class="form-group">
           <label for="sub_title" class="sub_title">
             <span>Sub Title *</span>
-            <input type="text" id="sub_title" name="sub_title">
+            <input type="text" id="sub_title" name="sub_title"
+              required
+              maxlength="200"
+              pattern="/^[\p{L}\p{N}\p{P}\p{Zs}]+$/u"
+              title="Enter brand sub title"
+            >
           </label>
           <x-form-error name="sub_title" />
         </div>
@@ -40,7 +50,9 @@
         <div class="form-group">
           <label for="website">
             <span>Website Link (optional)</span>
-            <input type="url" id="website" name="website">
+            <input type="url" id="website" name="website"
+              maxlength="255"
+            >
           </label>
           <x-form-error name="website" />
         </div>
@@ -49,7 +61,12 @@
           <div class="form-group">
             <label for="location">
               <span>Location *</span>
-              <input type="text" id="location" name="location">
+              <input type="text" id="location" name="location"
+                required
+                maxlength="60"
+                pattern="/^[\p{L}\p{N} .,'’\-()]+$/u"
+                title="Enter brand location"
+              >
             </label>
             <x-form-error name="location" />
           </div>
@@ -77,7 +94,9 @@
 
         <div class="form-group">
           <div id="editor-container"></div>
-          <input type="hidden" name="description" id="quill-content-description">
+          <input type="hidden" name="description" id="quill-content-description"
+            maxlength="5000"  
+          >
           <x-form-error name="description" />
         </div>
 
@@ -104,7 +123,8 @@
               <label for="brand-image" class="media-label" tabindex="0">
                 <span>Drag or upload</span> <i class="fa-solid fa-cloud-arrow-up"></i>
               </label>
-              <input type="file" accept="image/*" data-selector="multiple-photos" data-multiple="true" data-maxFiles="4" name="photos[]" multiple id="brand-image" aria-label="Drag and Drop or upload media" data-maxSize="4194304">
+              <input type="file" accept="image/*" data-selector="multiple-photos" data-multiple="true" data-maxFiles="4" name="photos[]" multiple id="brand-image" aria-label="Drag and Drop or upload media" data-maxSize="4194304"
+              accept=".png, .jpg, .jpeg" required>
               <div class="media-preview brand slider"></div>
               <div class="upload-info">
                 <p>Formats: JPG, PNG</p>

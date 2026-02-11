@@ -23,9 +23,12 @@ class ContactController extends Controller
     $receiver = $user; 
 
     $validated = $this->validateJson($request, [
-      'subject' => 'nullable|string|max:255',
-      'message' => 'required|string|max:1000',
+      'subject' => 'nullable|string|max:255|regex:/^[\p{L}\p{N}\p{P}\p{Zs}]+$/u',
+      'message' => 'required|string|max:1000|regex:/^[\p{L}\p{N}\p{P}\p{Zs}\r\n]+$/u',
     ]);
+
+    $validated['subject'] = $validated['subject'] ?? null;
+    $validated['message'] = strip_tags($validated['message']);
 
     try {
       Mail::send('emails.contact', [
@@ -45,7 +48,6 @@ class ContactController extends Controller
         'success' => true,
         'message' => 'Your message was sent to ' . $receiver->username,
       ]);
-
     } catch (\Exception $e) {
       Log::error('Mail sending failed: ' . $e->getMessage());
       return response()->json([

@@ -63,7 +63,6 @@ class BrandService
           'is_featured' => $index === 0,
         ]);
       }
-
       return $brand;
     });
   }

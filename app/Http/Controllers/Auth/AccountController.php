@@ -77,8 +77,11 @@ class AccountController extends Controller
       'password' => [
         'required',
         'confirmed',
-        Password::min(8)->mixedCase()->letters()->numbers()->symbols(),
-      ],
+        Password::min(8)
+            ->letters()
+            ->numbers()
+            ->symbols(),
+      ] ,
     ]);
 
     if (Hash::check($validated['password'], $user->password)) {

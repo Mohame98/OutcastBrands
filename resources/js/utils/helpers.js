@@ -19,10 +19,7 @@ import { CONFIG } from '../config.js'
  */
 export function createNode(type, text = null, parentNode = null, className = null, id = null, href = null, attributes = {}) {
   const node = document.createElement(type);
-  
-  if (text && type !== 'img') {
-    node.appendChild(document.createTextNode(text));
-  }
+  if (text && type !== 'img') node.appendChild(document.createTextNode(text));
   
   if (className) node.className = className;
   if (id) node.id = id;
@@ -34,7 +31,6 @@ export function createNode(type, text = null, parentNode = null, className = nul
   }
   
   if (parentNode) parentNode.appendChild(node);
-  
   return node;
 }
 

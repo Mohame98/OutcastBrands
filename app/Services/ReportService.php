@@ -11,7 +11,6 @@ class ReportService
 {
   /**
    * Map of short names to full model classes.
-   * Senior Tip: You can also use Relation::morphMap in a ServiceProvider.
    */
   protected array $types = [
     'brand'   => \App\Models\Brand::class,

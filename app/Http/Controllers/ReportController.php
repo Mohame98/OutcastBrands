@@ -20,7 +20,7 @@ class ReportController extends Controller
   }
 
   /**
-   * Step 1: Validate reason and target
+   * Validate reason and target
    */
   public function storeReportStep1(Request $request): JsonResponse
   {
@@ -41,22 +41,21 @@ class ReportController extends Controller
   }
 
   /**
-   * Step 2: Validate description and finalize
+   * Validate description and finalize
    */
   public function storeReportStep2(Request $request): JsonResponse
   {
     $this->authorizeJson(Auth::check(), 'You must be logged in to report content.');
 
     $validated = $this->validateJson($request, [
-      'report_description' => 'nullable|string|max:1000',
+      'report_description' => 'nullable|string|max:500',
     ]);
 
     $step1 = session('report_step1');
-    $this->authorizeJson(isset($step1), 'Report session expired. Please start again.');
+    $this->authorizeJson(isset($step1));
 
-    // Combine data and delegate to Service
+    $validated['report_description'] = strip_tags($validated['report_description']);
     $reportData = array_merge($step1, $validated);
-    
     $this->reportService->createReport($reportData);
 
     session()->forget('report_step1');

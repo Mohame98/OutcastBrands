@@ -17,7 +17,13 @@
         <div class="form-group">
           <label for="signin_email">
             <span>Email</span>
-            <input type="email" name="signin_email" id="signin_email" value="{{ old('signin_email') }}" autocomplete="on" placeholder="Enter Email" aria-label="Enter email" autofocus>
+            <input type="email" name="signin_email" id="signin_email" value="{{ old('signin_email') }}" placeholder="Enter Email" aria-label="Enter email" autofocus
+              required
+              maxlength="255"
+              autocomplete="email"
+              pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+              title="Please enter a valid email address"
+            >
           </label>
           <x-form-error name='signin_email'></x-form-error>
         </div>
@@ -26,7 +32,7 @@
           <label for="signin_password">
             <span>Password</span>
             <div class="password-input-container">
-              <input type="password" name="signin_password" id="signin_password" placeholder="Enter password" aria-label="Enter password" class="password-input" >
+              <input type="password" name="signin_password" id="signin_password" placeholder="Enter password" aria-label="Enter password" class="password-input" required>
               @include('components.toggle-password')
             </div>
           </label>

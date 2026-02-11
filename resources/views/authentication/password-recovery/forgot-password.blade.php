@@ -1,4 +1,3 @@
-
 <section class="forgot-password">
   <div class="container">
     <form action="{{ route('password.email') }}" method="POST" class="action-form" data-action="forgot-password">
@@ -14,12 +13,11 @@
         <div class="form-group">
           <label for="forgot_password_email">
             <span>Email</span>
-            <input type="email" name="forgot_password_email" id="forgot_password_email" value="{{ old('forgot_password_email') }}" placeholder="Enter email" aria-label="Enter email" required autofocus>
+            <input type="email" name="forgot_password_email" id="forgot_password_email" value="{{ old('forgot_password_email') }}" placeholder="Enter email" aria-label="Enter email" autofocus required>
           </label>
           <x-form-error name="forgot_password_email" />
         </div>
-
-        <button class="btn main-button" type="submit">Send Password Reset Link</button>
+        <button class="btn white-btn log" type="submit">Send Password Reset Link</button>
       </fieldset>
     </form>
     <p>

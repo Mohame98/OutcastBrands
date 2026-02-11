@@ -14,7 +14,7 @@ class Comment extends Model
   protected $fillable = ['user_id', 'brand_id', 'comment_text'];
 
   /**
-   * SCOPE: Optimized check to see if auth user liked the comment
+   * SCOPE: check to see if auth user liked the comment
    * Access in Blade via: $comment->is_liked
    */
   public function scopeWithAuthLikeStatus(Builder $query): Builder
@@ -25,7 +25,7 @@ class Comment extends Model
   }
 
   /**
-   * SCOPE: Filter comments liked by a specific user
+   * SCOPE: Filter comments liked by logged in user
    */
   public function scopeLikedBy(Builder $query, ?User $user): Builder
   {
@@ -77,11 +77,4 @@ class Comment extends Model
   {
     return $this->likes()->count();
   }
-
-  // public function likedByAuthUser(): Attribute
-  // {
-  //   return Attribute::get(function () {
-  //     return auth()->check() && $this->likes->contains('user_id', auth()->id());
-  //   });
-  // }
 }

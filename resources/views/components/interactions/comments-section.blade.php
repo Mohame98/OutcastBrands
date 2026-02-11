@@ -108,7 +108,11 @@
               <input type="hidden" name="brand_id" value="{{ $brand->id }}">
               <label for="add_comment_text">
                 <div class="input-wrapper"> 
-                  <input autofocus type="text" placeholder="Add a comment..."  name="add_comment_text" id="add_comment_text" required>
+                  <input autofocus type="text" placeholder="Add a comment..."  name="add_comment_text" id="add_comment_text" 
+                  required
+                  maxlength="400"
+                  title="add a comment"
+                >
                 </div>
               </label>
               <x-form-error name="add_comment_text" />

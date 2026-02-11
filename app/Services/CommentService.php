@@ -32,15 +32,13 @@ class CommentService
 
   /**
    * Render a single comment model into HTML.
-   * Used by list, add, and edit actions to ensure UI consistency.
    * 
    * @param Comment $comment
    * @return string
    */
   public function renderComment(Comment $comment): string
   {
-    // Safety: Ensure relationships required by the Blade component are loaded
-    // Missing counts or user info would cause errors in the view
+    //Ensure relationships required by the Blade component are loaded
     $comment->loadMissing('user');
     
     if (!isset($comment->likes_count)) {

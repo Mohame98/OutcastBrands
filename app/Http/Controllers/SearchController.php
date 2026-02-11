@@ -29,11 +29,11 @@ class SearchController extends Controller
 	}
 
 	/**
-	 * Search API - Orchestrates scopes and delegates rendering to BrandService
+	 * Search API handles scopes and offloads rendering to BrandService
 	 */
 	public function searchApi(Request $request): JsonResponse
 	{
-		// 1. Validation
+		// Validation via trait
 		$validated = $this->validateJson($request, [
 			'search'   => 'nullable|string|max:255',
 			'sort'     => 'nullable|in:most popular,oldest,newest',

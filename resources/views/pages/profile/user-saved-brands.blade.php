@@ -1,4 +1,5 @@
 <x-main-layout>
+  @section('title', 'Saved Brands')
   <section class="user-saved-brands" id="user-saved-brands">
     <div class="container">
       <header class="home-page-header">

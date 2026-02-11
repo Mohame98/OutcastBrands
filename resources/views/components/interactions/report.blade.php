@@ -66,7 +66,10 @@
           <div class="form-group">
             <label for="report_description" class="report_description">
               <span>Additional Details</span>
-              <textarea name="report_description" id="report_description" rows="3" class="form-control"></textarea>
+              <textarea name="report_description" id="report_description" rows="3" class="form-control" 
+                maxlength="500"
+                title="Provide additional details about your report"
+              ></textarea>
             </label>
             <x-form-error name="report_description" />
           </div>

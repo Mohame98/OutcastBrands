@@ -121,7 +121,7 @@ class FormResponseHandler {
     // Look for the specific button within the form that was submitted
     const saveBtn = form.querySelector('.save-btn') || form.querySelector('button');
     
-    // result.saved should be a boolean from your backend
+    // result.saved is a boolean from backend
     UIService.updateSaveButton(result.saved, saveBtn);
 
     const detailSaveCount = document.querySelector('.detail-save-count');

@@ -81,28 +81,6 @@ export const CONFIG = {
     REPORT: 'report',
   },
 
-  // Form loading messages (keyed by FORM_ACTION values)
-  LOADING_MESSAGES: {
-    vote: 'Submitting vote...',
-    save: 'Saving...',
-    'like-comment': 'Liking...',
-    'add-comment': 'Posting comment...',
-    'edit-comment': 'Updating comment...',
-    'delete-comment': 'Deleting comment...',
-    'delete-brand': 'Deleting brand...',
-    'change-profile-image': 'Updating profile image...',
-    'change-username': 'Updating username...',
-    'change-bio': 'Saving bio...',
-    'change-instagram': 'Updating Instagram...',
-    'change-location': 'Updating location...',
-    'sign-up': 'Creating account...',
-    'sign-in': 'Signing in...',
-    'forgot-password': 'Sending reset link...',
-    'send-contact-message': 'Sending message...',
-    'add-brand': 'Submitting brand...',
-    report: 'Submitting report...',
-  },
-
   // CSS Classes
   CLASSES: {
     active: 'active',

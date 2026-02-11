@@ -1,4 +1,5 @@
 <x-main-layout>
+  @section('title', 'Profile - ' . $user->username)
   <section class="user-profile" data-user-id="{{ $user->id }}" id="user-profile">
     <div class="container">
       <div class="user-profile-content">
@@ -44,7 +45,7 @@
               @endauth
             </div>
             
-            <p class="user-bio">{{ $user->bio }}</p>
+            <p class="user-bio">{!! $user->bio !!}</p>
             @if ($user->user_location)
             <div class="location">
               <i class="fa-solid fa-location-dot"></i>
@@ -97,8 +98,11 @@
                         </legend>
                         @include('components.close-modal')
                       </header>
-                      <p>Send a message to <span class="color-blue">{{ $user->username }}</span> and receive a reply through email</p>
-
+                      <p>
+                        Send a message to 
+                        <span class="color-blue">{{ Str::limit($user->username, 30, '...') }}</span> 
+                        and receive a reply through email
+                      </p>
                       <ul>
                         <li>
                           <i class="fa-solid fa-check"></i>
@@ -139,7 +143,9 @@
               </div>
               @endif
               @if ($isOwner)
-                <a class="white-btn edit-profile-btn" href="{{ route('account.profile') }}">Edit Profile</a>
+              <a class="white-btn edit-profile-btn" href="{{ route('account.profile') }}">
+                Edit Profile
+              </a>
               @endif
           </div>
         </div>

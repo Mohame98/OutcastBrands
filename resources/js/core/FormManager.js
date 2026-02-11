@@ -42,11 +42,11 @@ class FormManager {
     const form = event.target.closest('form');
     if (!form) return;
 
-    // FIX: Capture the specific button that triggered the event
     const submitter = event.submitter || form.querySelector('[type="submit"]');
     const startTime = Date.now();
 
-    this.showButtonSpinner(submitter); // Pass the button reference directly
+    // Pass the button reference directly
+    this.showButtonSpinner(submitter); 
 
     const formData = new FormData(form);
     const method = form.method || 'POST';
@@ -76,7 +76,7 @@ class FormManager {
         await new Promise(resolve => setTimeout(resolve, remainingDelay));
       }
 
-      // 1. Restore button state FIRST (Removes spinner snapshot)
+      // Restore button state 
       this.hideButtonSpinner(submitter); 
 
       if (!result.success) {
@@ -84,7 +84,7 @@ class FormManager {
         return;
       }
 
-      // 2. Clear errors and handle response SECOND
+      // Clear errors and handle response SECOND
       // Because hideButtonSpinner ran, responseHandler will find the original <i> tags
       UIService.clearFormErrors(form);
       this.responseHandler.handle(result.data, form, url);
@@ -134,10 +134,7 @@ class FormManager {
     const step = button?.dataset?.step;
     const baseUrl = form.dataset.formBase;
 
-    if (step && baseUrl) {
-      return `${baseUrl}/step-${step}`;
-    }
-
+    if (step && baseUrl) return `${baseUrl}/step-${step}`;
     return form.action;
   }
 
@@ -149,34 +146,25 @@ class FormManager {
     return document.querySelector('meta[name="csrf-token"]')?.content || '';
   }
 
-    /**
-     * Updated to accept a specific button element
-     */
-    showButtonSpinner(button) {
-        if (!button) return;
+  /**
+   * Updated to accept a specific button element
+   */
+  showButtonSpinner(button) {
+    if (!button) return;
+    button.disabled = true;
+    button.dataset.originalHtml = button.innerHTML;
+    UIService.createSpinner(button, null);
+  }
 
-        button.disabled = true;
-        button.dataset.originalHtml = button.innerHTML;
-
-        // Use a standard loader structure
-        button.innerHTML = `
-            <span class="spinner-container">
-                <i class="fa-solid fa-spinner fa-spin"></i>
-            </span>
-        `;
-    }
-
-    /**
-     * Updated to restore the specific button element
-     */
-    hideButtonSpinner(button) {
-        if (!button || !button.dataset.originalHtml) return;
-
-        button.disabled = false;
-        button.innerHTML = button.dataset.originalHtml;
-        delete button.dataset.originalHtml;
-    }
-
+  /**
+   * Updated to restore the specific button element
+   */
+  hideButtonSpinner(button) {
+    if (!button || !button.dataset.originalHtml) return;
+    button.disabled = false;
+    button.innerHTML = button.dataset.originalHtml;
+    delete button.dataset.originalHtml;
+  }
 }
 
 export default FormManager;

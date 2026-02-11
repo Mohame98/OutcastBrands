@@ -1,17 +1,3 @@
-/**
- * ErrorHandler - Professional form error management
- * 
- * BEST PRACTICES IMPLEMENTED:
- * ✅ Single Responsibility: Only handles error display
- * ✅ DRY: Reusable error display logic
- * ✅ Separation of Concerns: Decoupled from business logic
- * ✅ Accessibility: ARIA attributes for screen readers
- * ✅ Flexibility: Multiple error insertion strategies
- * ✅ Consistency: Unified error handling
- * ✅ Maintainability: Clear public API
- * ✅ Testability: Pure functions, no side effects
- */
-
 import { createNode } from '../utils/helpers.js';
 
 class ErrorHandler {
@@ -26,19 +12,12 @@ class ErrorHandler {
     return true;
   }
 
-  // ==========================================
-  // PUBLIC API - Main Entry Points
-  // ==========================================
-
   /**
    * Display errors from server response
-   * MAIN METHOD: Use this for all server error responses
    * 
-   * @param {Object} response - Server response { errors: {}, error: '' }
+   * @param {Object} response 
    * @param {HTMLFormElement} form - Form element
-   * 
-   * @example
-   * errorHandler.displayErrors(result, form);
+   *
    */
   displayErrors(response, form) {
     if (!form) {
@@ -49,7 +28,6 @@ class ErrorHandler {
     // Clear existing errors first
     this.clearFormErrors(form);
 
-    // No errors? Exit early
     if (!response.errors && !response.error) {
       return;
     }
@@ -64,7 +42,6 @@ class ErrorHandler {
       this.showFieldErrors(response.errors, form);
     }
 
-    // UX enhancements
     this.scrollToFirstError(form);
     this.announceErrorsToScreenReader(response.errors || {});
   }
@@ -88,7 +65,6 @@ class ErrorHandler {
       el.remove();
     });
 
-    // Clear tracked errors
     this.errors.clear();
   }
 
@@ -148,17 +124,6 @@ class ErrorHandler {
     this.errors.delete(fieldName);
   }
 
-  // ==========================================
-  // LEGACY COMPATIBILITY
-  // ==========================================
-
-  /**
-   * Legacy method - Show specific error
-   * Maintains compatibility with your old code
-   * 
-   * @param {string} message - Error message
-   * @param {string} field - Field name
-   */
   handleSpecificError(message, field) {
     const errorEl = document.querySelector(`#error-${field}`);
     if (errorEl) {
@@ -168,7 +133,7 @@ class ErrorHandler {
       errorEl.style.fontSize = '0.75rem';
       errorEl.setAttribute('role', 'alert');
     } else {
-      // Fallback to new method
+
       this.showFieldError(field, message);
     }
   }
@@ -191,10 +156,6 @@ class ErrorHandler {
       this.clearFieldError(field);
     }
   }
-
-  // ==========================================
-  // PRIVATE HELPER METHODS
-  // ==========================================
 
   /**
    * Show general (non-field-specific) error
@@ -264,15 +225,15 @@ class ErrorHandler {
    * @private
    */
   findField(fieldName, form) {
-    // Try: name="fieldName"
+    // name="fieldName"
     let field = form.querySelector(`[name="${fieldName}"]`);
     if (field) return field;
 
-    // Try: name="fieldName[]"
+    // name="fieldName[]"
     field = form.querySelector(`[name="${fieldName}[]"]`);
     if (field) return field;
 
-    // Try: id="fieldName"
+    // id="fieldName"
     field = form.querySelector(`#${fieldName}`);
     if (field) return field;
 
@@ -297,26 +258,24 @@ class ErrorHandler {
    * @private
    */
   insertErrorMessage(field, errorElement, form) {
-    // Strategy 1: After associated label
     const label = form.querySelector(`label[for="${field.name}"], label[for="${field.id}"]`);
     if (label) {
       label.insertAdjacentElement('afterend', errorElement);
       return;
     }
 
-    // Strategy 2: After field wrapper
+    // After field wrapper
     const wrapper = field.closest('.form-group, .field-wrapper, .input-group');
     if (wrapper) {
       wrapper.appendChild(errorElement);
       return;
     }
 
-    // Strategy 3: After field itself
     field.insertAdjacentElement('afterend', errorElement);
   }
 
   /**
-   * Scroll to first error for better UX
+   * Scroll to first error
    * @private
    */
   scrollToFirstError(form) {
@@ -366,10 +325,6 @@ class ErrorHandler {
     announcer.textContent = message;
   }
 
-  // ==========================================
-  // UTILITY METHODS
-  // ==========================================
-
   /**
    * Check if form has any errors
    * @param {HTMLFormElement} form - Form element
@@ -405,6 +360,5 @@ class ErrorHandler {
   }
 }
 
-// Export singleton instance
 export const errorHandler = new ErrorHandler();
 export default errorHandler;

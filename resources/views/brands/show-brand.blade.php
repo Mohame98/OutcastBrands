@@ -3,6 +3,7 @@ $vote = $brand->voters->firstWhere('id', auth()->id())?->pivot->vote ?? null;
 @endphp
 
 <x-main-layout>
+  @section('title', 'Brand - ' . $brand->title)
   <section class="show-brand">
     <div class="container">
     

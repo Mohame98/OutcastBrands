@@ -1,4 +1,5 @@
 <x-main-layout>
+  @section('title', 'Search Page')
   <section class="search-page" id="search-page">
     <div class="container">
       @php

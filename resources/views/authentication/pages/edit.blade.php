@@ -1,4 +1,5 @@
 <x-main-layout>
+  @section('title', 'Edit Account')
   <section class="edit-account">
     <div class="container">
       <div class="account-settings-flex">
@@ -37,7 +38,13 @@
                 <div class="form-group">
                   <label for="username">
                     <span>New Username</span>
-                    <input autofocus type="text" name="username" id="username" aria-label="Enter your new username" value="{{ old('username', auth()->user()->username) }}" maxlength="90">
+                    <input autofocus type="text" name="username" id="username" aria-label="Enter your new username" value="{{ old('username', auth()->user()->username) }}" 
+                      required
+                      minlength="3"
+                      maxlength="20"
+                      pattern="^[a-zA-Z0-9_]+$"
+                      title="Only letters, numbers, and underscores"
+                    >
                   </label>
                   <x-form-error name='username' />
                   <small id="charCount"></small>
@@ -82,7 +89,7 @@
                   <label for="current_password">
                     <span>Current Password</span>
                     <div class="password-input-container">
-                      <input autofocus type="password" class="password-input" name="current_password" id="current_password" aria-label="Enter your current password">
+                      <input autofocus type="password" class="password-input" name="current_password" id="current_password" aria-label="Enter your current password" required>
                       @include('components.toggle-password')
                     </div>
                   </label>
@@ -93,7 +100,13 @@
                   <label for="password">
                     <span>New Password</span>
                     <div class="password-input-container">
-                      <input autofocus type="password" class="password-input" name="password" id="password" aria-label="Enter new password">
+                      <input autofocus type="password" class="password-input" name="password" id="password" aria-label="Enter new password"
+                        required
+                        minlength="8"
+                        maxlength="64"
+                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$"
+                        title="Include 8 characters, uppercase, lowercase, number, and special character"
+                      >
                       @include('components.toggle-password')
                     </div>
                   </label>
@@ -104,7 +117,7 @@
                   <label for="password_confirmation">
                     <span>Confirm New Password</span>
                     <div class="password-input-container">
-                      <input autofocus type="password" class="password-input" name="password_confirmation" id="password_confirmation" aria-label="Enter password confirmation" >
+                      <input autofocus type="password" class="password-input" name="password_confirmation" id="password_confirmation" aria-label="Enter password confirmation" required>
                       @include('components.toggle-password')
                     </div>
                   </label>
@@ -145,9 +158,7 @@
                   <legend><h1>Confirm Account Deletion</h1></legend>
                   @include('components.close-modal')
                 </header>
-
-                {{-- <p>Keep in mind that upon deleting your account all of your account information will be deleted permanently.</p> --}}
-                
+ 
                 <div class="password-field form-group">
                   <label for="confirm_deletion">
                     <span>Confirm password to delete account:</span>

@@ -44,7 +44,6 @@ class UserProfileController extends Controller
 
   /**
    * API for fetching brands on a user's profile.
-   * Supports "Created by user" or "Voted by user" with smart search and sorting.
    */
   public function brandProfileApi(User $user, Request $request): JsonResponse
   {
@@ -66,7 +65,7 @@ class UserProfileController extends Controller
     $query->smartSearch($validated['search'] ?? null)
           ->sortBy($validated['sort'] ?? 'newest');
 
-    // 3. Delegate pagination and rendering to the Service
+    // Call the service to get paginated brand cards
     return response()->json($this->brandService->getPaginatedBrandCards($query));
   }
 
@@ -84,14 +83,14 @@ class UserProfileController extends Controller
       'sort'   => 'nullable|in:most popular,oldest,newest',
     ]);
 
-    // 1. Query for brands the user has saved
+    // Query for brands the user has saved
     $query = Brand::query()
       ->whereHas('savers', fn($q) => $q->where('user_id', $user->id));
 
     $query->smartSearch($validated['search'] ?? null)
           ->sortBy($validated['sort'] ?? 'most popular');
 
-    // 3. Return via Service
+    // Return via Service
     return response()->json($this->brandService->getPaginatedBrandCards($query));
   }
 }

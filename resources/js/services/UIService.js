@@ -400,7 +400,7 @@ class UIService {
   }
 
   /**
-   * Creates the "Undo" overlay using your createNode utility
+   * Creates the "Undo" overlay using createNode 
    */
   static showUndoOverlay(brandCard, originalButton) {
     brandCard.classList.add('is-unsaved');
@@ -408,20 +408,20 @@ class UIService {
     // Check if overlay already exists to prevent duplicates
     if (brandCard.querySelector('.undo-overlay')) return;
 
-    // 1. Create Overlay Container
+    // Create Overlay Container
     const overlay = createNode('div', null, brandCard, 'undo-overlay');
 
-    // 2. Create the Undo Button
+    // Create the Undo Button
     const undoBtn = createNode('button', null, overlay, 'undo-btn', null, null, {
       type: 'button',
       title: 'Restore this brand'
     });
 
-    // 3. Add Icon and Text to the Undo Button
+    // Add Icon and Text to the Undo Button
     createNode('i', null, undoBtn, 'fa-solid fa-rotate-left');
     undoBtn.appendChild(document.createTextNode('Undo'));
 
-    // 4. Proxy Click: When this new button is clicked, click the hidden original one
+    // Proxy Click: When this new button is clicked, click the hidden original one
     undoBtn.addEventListener('click', () => {
       originalButton.click();
     });
@@ -499,7 +499,7 @@ class UIService {
   }
 
   /**
-   * Close modal (native <dialog> or fallback .modal container)
+   * Close modal dialog handles both <dialog> and custom modal
    * @param {HTMLElement} form - Form element inside modal
    */
   static closeModal(form) {
@@ -522,7 +522,7 @@ class UIService {
 
   /**
    * create a pastel color from a string
-   * @param {*} str - Input string to generate color from
+   * @param {string} str - Input string to generate color from
    * @returns 
    */
   static pastelFromString(str) {
@@ -532,6 +532,33 @@ class UIService {
     }
     const hue = Math.abs(hash) % 360;
     return `hsl(${hue}, 65%, 82%)`;
+  }
+
+
+  /**
+    * Create a spinner element inside a button    
+    * @param {HTMLButtonElement} button - The button to add the spinner to
+    * @returns {HTMLElement|null} - The spinner container element or null if button is invalid
+    */ 
+  static createSpinner(button, text = null) {
+    if (!button) return null;
+
+    button.textContent = '';
+
+    // <span class="spinner-container">
+    const spinnerContainer = 
+      createNode('span', null, button, 'spinner-container');
+
+    // <i class="fa-solid fa-spinner fa-spin"></i>
+    createNode('i', null, spinnerContainer, 'fa-solid fa-spinner fa-spin', null, null,
+      { 'aria-hidden': 'true' }
+    );
+
+    if (text) { 
+      createNode( 'span', text, spinnerContainer,'spinner-text');
+    }
+
+    return spinnerContainer;
   }
 }
 
