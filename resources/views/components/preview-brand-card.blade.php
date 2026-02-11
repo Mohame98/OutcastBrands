@@ -19,12 +19,12 @@
     <div class="card-content">
       <div class="card-header">
         @if($brand->title)
-        <h3 class="brand-title">{{ Str::limit($brand->title, 30, '...') }}</h3>
+        <h3 class="brand-title">{{ Str::limit($brand->title, 25, '...') }}</h3>
         @endif
         <div class="location-tag">
           <i class="fa-solid fa-location-dot"></i>
           @if($brand->location)
-          <small class="location">{{ Str::limit($brand->location, 30, '...') }}</small>
+          <small class="location">{{ Str::limit($brand->location, 20, '...') }}</small>
           @endif
         </div>
       </div>
@@ -47,14 +47,13 @@
         </div>
       </div>
       @endif
-      @if(trim(strip_tags($brand->description)) != '')
-      <p class="brand-description">
-        {!! $brand->description !!}
-      </p>
+      @if(trim(strip_tags($brand->user->bio)) != '')
+      <div class="brand-description">
+        {!! $brand->user->bio !!}
+      </div>
       @endif
       @auth
       <div class="preview-interactions">
-        <x-interactions.saveV2 :brand="$brand"/>
         <x-interactions.vote :brand="$brand"/>
       </div>
       @endauth

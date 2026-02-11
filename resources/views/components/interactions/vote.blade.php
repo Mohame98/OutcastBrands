@@ -2,8 +2,8 @@
   $vote = $brand->voters->firstWhere('id', auth()->id())?->pivot->vote ?? null;
 @endphp
 
-<div class="voting">
-  <form class="action-form vote-form" method="POST" action="{{ route('brands.vote', $brand) }}"  data-action="vote">
+<div class="voting" data-brand-id="{{ $brand->id }}">
+  <form class="action-form vote-form" method="POST" action="{{ route('brands.vote', $brand) }}"  data-action="vote" data-brand-id="{{ $brand->id }}">
     @csrf
     <input type="hidden" name="vote" value="1">
       <button class="btn vote-btn upvote {{ $vote === 1 ? 'voted' : '' }}"
@@ -17,7 +17,7 @@
     <p class="vote-count">{{ $brand->total_votes }}</p>
   </span>
 
-  <form class="action-form vote-form" method="POST" action="{{ route('brands.vote', $brand) }}" data-action="vote">
+  <form class="action-form vote-form" method="POST" action="{{ route('brands.vote', $brand) }}" data-action="vote" data-brand-id="{{ $brand->id }}">
     @csrf
     <input type="hidden" name="vote" value="-1">
     <button class="btn vote-btn downvote {{ $vote === -1 ? 'voted' : '' }}"

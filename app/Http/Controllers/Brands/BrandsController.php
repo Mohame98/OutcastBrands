@@ -38,7 +38,7 @@ class BrandsController extends Controller
   public function storeBrand1(Request $request)
   {
     $validated = $this->validateJson($request, [
-      'title' => 'required|string|max:100|regex:/^[\p{L}\p{N}\p{P}\p{Zs}]+$/u',
+      'title' => "required|string|max:100|regex:/^[\p{L}\p{N} \-().,\'’]+$/u",
       'sub_title' => 'required|string|max:200|regex:/^[\p{L}\p{N}\p{P}\p{Zs}]+$/u',
       'location' => "required|string|max:60|regex:/^[\p{L}\p{N} .,'’\-()]+$/u",
       'website' => 'nullable|url|max:255',
@@ -102,14 +102,14 @@ class BrandsController extends Controller
 
   public function toggleSave(Brand $brand)
   {
-    $this->authorizeJson(Auth::check(), 'Please log in to save brands.');
+    $this->authorizeJson(Auth::check());
     $result = $this->interactionService->toggleSave($brand);
     return response()->json(array_merge(['success' => true], $result));
   }
 
   public function vote(Request $request, Brand $brand)
   {
-    $this->authorizeJson(Auth::check(), 'Unauthorized please sign in.');
+    $this->authorizeJson(Auth::check());
     $validated = $this->validateJson($request, ['vote' => 'required|in:1,-1']);
 
     $result = $this->interactionService->processVote($brand, (int)$validated['vote']);

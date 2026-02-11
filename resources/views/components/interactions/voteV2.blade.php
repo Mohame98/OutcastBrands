@@ -2,8 +2,8 @@
   $vote = $brand->voters->firstWhere('id', auth()->id())?->pivot->vote ?? null;
 @endphp
 
-<div class="social-interactions voting">
-  <form class="action-form vote-form" method="POST" action="{{ route('brands.vote', $brand) }}" data-action="vote">
+<div class="social-interactions voting" data-brand-id="{{ $brand->id }}">
+  <form class="action-form vote-form" method="POST" action="{{ route('brands.vote', $brand) }}" data-action="vote" data-brand-id="{{ $brand->id }}">
     @csrf
     <input type="hidden" name="vote" value="1">
     <button 

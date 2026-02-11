@@ -1,6 +1,9 @@
 .newsletter{
-  /* margin-top: var(--space-lg); */
   padding: var(--space-xl) 0;
+
+  @media (max-width: 800px) {
+    padding: var(--space-md) 0;
+  }
 
   h2{
     font-size: var(--font-lg);
@@ -18,6 +21,10 @@
     padding: var(--space-md) var(--space-xl);
     background-color: var(--dark-secondary-bg);
     text-align: center;
+
+    @media (max-width: 800px) {
+      padding: var(--space-md) var(--space-sm);
+    }
   }
 
   form{
@@ -29,14 +36,11 @@
     gap: var(--space-sm);
 
     input{
-      
       border-radius: var(--radius-lg);
       padding: var(--space-sm);
       width: 100%;
       transition: 0.4s;
     }
-
-    
 
     button{
       border: none;
@@ -52,14 +56,6 @@
       &:hover{
         background-color: var(--dark-accent-blue-hover);
       }
-    }
-  }
-}
-
-@media (max-width: 800px) {
-  .newsletter{
-    .container{
-      padding: var(--space-md) var(--space-sm);
     }
   }
 }

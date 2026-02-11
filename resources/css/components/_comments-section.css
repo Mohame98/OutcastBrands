@@ -29,14 +29,12 @@
 }
 
 .comment-section-modal{
-  min-width: 500px;
-  margin-top: 15vh;
+  max-width: 525px;
+  margin-top: 12vh;
 }
 
 .comments-section {
   padding: 0 !important;
-  width: 100%;
-  /* max-width: 450px; */
   background-color: var(--dark-main-bg);
   color: var(--text-main);
   border-radius: var(--radius-md);

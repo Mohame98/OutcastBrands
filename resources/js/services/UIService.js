@@ -251,9 +251,9 @@ class UIService {
       "fa-solid fa-xmark"
     );
 
-    setTimeout(() => {
-      flashContainer.remove();
-    }, CONFIG.FLASH_MESSAGE_DURATION_MS);
+    // setTimeout(() => {
+    //   flashContainer.remove();
+    // }, CONFIG.FLASH_MESSAGE_DURATION_MS);
   }
   
   /**
@@ -371,8 +371,10 @@ class UIService {
    */
   static updateVoteCount(count, container) {
     if (!container) return;
-    const voteCountEl = container.querySelector(".vote-count");
-    if (voteCountEl) voteCountEl.textContent = count;
+    const voteCountEls = container.querySelectorAll(".vote-count");
+    voteCountEls.forEach(el => {
+      el.textContent = count;
+    });
   }
 
   /**

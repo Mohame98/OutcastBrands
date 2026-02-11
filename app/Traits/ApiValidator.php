@@ -29,7 +29,7 @@ trait ApiValidator
    * Authorizes an action and returns a 401 JSON response on failure.
    * $message is optional to prevent errors.
    */
-  protected function authorizeJson(bool $condition, string $message = 'Unauthorized.'): void
+  protected function authorizeJson(bool $condition, string $message = 'Unauthorized'): void
   {
     if (!$condition) {
       throw new HttpResponseException(response()->json([

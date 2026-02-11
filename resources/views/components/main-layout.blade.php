@@ -16,9 +16,6 @@
 
 	<link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.1/dist/jquery.fancybox.min.css" rel="stylesheet" />
 	@vite(['resources/css/app.css', 'resources/js/app.js'])
-	{{-- <title>{{ $title ?? config('app.name', 'OutcastBrands') }}</title> --}}
-
-	{{-- <title>{{ ucfirst(str_replace('.', ' ', Route::currentRouteName())) }}</title> --}}
 
 	<title>@yield('title', 'Home')</title>
 </head>

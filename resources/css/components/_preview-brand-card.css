@@ -10,18 +10,14 @@
 }
 
 .preview-brand-modal {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  width: 100%;
-  max-width: 340px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: visible;
-
+  background: var(--dark-main-bg);
+  border: 1px solid var(--dark-secondary-bg);
+  max-width: 450px;
+ 
   .brand-preview-card{
     .featured-image{
       border-radius: var(--radius-md);
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 16 / 9; 
     }
   }
 
@@ -92,7 +88,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-top: 1rem;
+      padding-top: var(--space-xxs);
 
       .main-cta {
        width: 100%;

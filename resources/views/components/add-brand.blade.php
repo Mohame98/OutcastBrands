@@ -27,8 +27,8 @@
             <input autofocus type="text" id="title" name="title"
               required
               maxlength="100"
-              pattern="/^[\p{L}\p{N}\p{P}\p{Zs}]+$/u"
-              title="Enter brand title"
+              pattern="/^[\p{L}\p{N} .,'’\-()]+$/u"
+              title="letters, numbers, spaces, and symbols: - _"
             >
           </label>
           <x-form-error name="title" />
@@ -40,8 +40,8 @@
             <input type="text" id="sub_title" name="sub_title"
               required
               maxlength="200"
-              pattern="/^[\p{L}\p{N}\p{P}\p{Zs}]+$/u"
-              title="Enter brand sub title"
+              pattern="/^[\p{L}\p{N} .,'’\-()]+$/u"
+              title="letters, numbers, spaces, and symbols: - . , ( ) ' ’"
             >
           </label>
           <x-form-error name="sub_title" />
@@ -124,7 +124,7 @@
                 <span>Drag or upload</span> <i class="fa-solid fa-cloud-arrow-up"></i>
               </label>
               <input type="file" accept="image/*" data-selector="multiple-photos" data-multiple="true" data-maxFiles="4" name="photos[]" multiple id="brand-image" aria-label="Drag and Drop or upload media" data-maxSize="4194304"
-              accept=".png, .jpg, .jpeg" required>
+              accept=".png, .jpg, .jpeg">
               <div class="media-preview brand slider"></div>
               <div class="upload-info">
                 <p>Formats: JPG, PNG</p>

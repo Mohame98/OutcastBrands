@@ -71,42 +71,7 @@ class FormResponseHandler {
 
     // Close modal if submission is complete
     if (result.success && form.dataset.submission === 'true') {
-      console.log('Form submission successful:', form, result);
-      console.log('Closing modal for form:', form, form.dataset.submission);
       UIService.closeModal(form);
-    }
-  }
-
-  /**
-   * Handle vote response
-   * @param {Object} result - Response data
-   * @param {HTMLFormElement} form - Form element
-   */
-  handleVote(result, form) {
-    if (result.total_votes === undefined || !result.action) return;
-    const container = form.closest('.voting');
-    if (!container) return;
-    
-    // Update vote count
-    UIService.updateVoteCount(result.total_votes, container);
-
-    // Update detail page vote count if present
-    const detailVoteCount = document.querySelector('.detail-vote-count');
-    if (detailVoteCount) {
-      detailVoteCount.textContent = result.total_votes;
-    }
-
-    // Update button states
-    const upvoteBtn = container.querySelector('.upvote');
-    const downvoteBtn = container.querySelector('.downvote');
-
-    upvoteBtn?.classList.remove(CONFIG.CLASSES.voted);
-    downvoteBtn?.classList.remove(CONFIG.CLASSES.voted);
-
-    if (result.action === 'upvoted') {
-      upvoteBtn?.classList.add(CONFIG.CLASSES.voted);
-    } else if (result.action === 'downvoted') {
-      downvoteBtn?.classList.add(CONFIG.CLASSES.voted);
     }
   }
 
@@ -118,16 +83,55 @@ class FormResponseHandler {
   handleSave(result, form) {
     if (typeof result.saved === 'undefined') return;
 
-    // Look for the specific button within the form that was submitted
-    const saveBtn = form.querySelector('.save-btn') || form.querySelector('button');
-    
-    // result.saved is a boolean from backend
-    UIService.updateSaveButton(result.saved, saveBtn);
+    const brandId = form.dataset.brandId;
+    if (!brandId) return;
 
-    const detailSaveCount = document.querySelector('.detail-save-count');
-    if (detailSaveCount && result.total_saves !== undefined) {
-      detailSaveCount.textContent = result.total_saves;
-    }
+    // Update all the save buttons for this brand
+    const saveBtns = form.querySelectorAll(`.save-btn[data-brand-id="${brandId}"]`);
+
+    saveBtns.forEach(btn => {
+      UIService.updateSaveButton(result.saved, btn);
+    });
+
+    // Update save count if present
+    document.querySelectorAll('.detail-save-count').forEach(el => {
+      if (result.total_saves !== undefined) {
+        el.textContent = result.total_saves;
+      }
+    });
+  }
+
+  handleVote(result, form) {
+    if (result.total_votes === undefined || !result.action) return;
+    const brandId = result.brand_id ?? form.dataset.brandId;
+    if (!brandId) return;
+
+    // Find all voting containers with this brand ID
+    const containers = document.querySelectorAll(`.voting[data-brand-id="${brandId}"]`);
+
+    // Return early if no containers are found
+    if (containers.length === 0) return;  
+
+    // Loop through all containers that have the matching brand ID
+    containers.forEach(container => {
+      UIService.updateVoteCount(result.total_votes, container);
+
+      const upvoteBtns = container.querySelectorAll('.upvote');
+      const downvoteBtns = container.querySelectorAll('.downvote');
+
+      upvoteBtns.forEach(btn => btn.classList.remove(CONFIG.CLASSES.voted));
+      downvoteBtns.forEach(btn => btn.classList.remove(CONFIG.CLASSES.voted));
+
+      if (result.action === 'upvoted') {
+        upvoteBtns.forEach(btn => btn.classList.add(CONFIG.CLASSES.voted));
+      } else if (result.action === 'downvoted') {
+        downvoteBtns.forEach(btn => btn.classList.add(CONFIG.CLASSES.voted));
+      }
+    });
+
+    document.querySelectorAll('.detail-vote-count').forEach(el => {
+      el.textContent = result.total_votes;
+    });
   }
 
   /**

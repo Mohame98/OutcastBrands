@@ -6,6 +6,7 @@
 
   @media (max-width: 800px) {
     padding-top: 0;
+    padding-bottom: var(--space-sm);
   }
 
   .featured-brand-header{

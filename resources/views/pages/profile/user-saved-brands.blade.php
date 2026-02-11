@@ -7,12 +7,11 @@
       </header>
 
       <div class="filter-container">
-
         <div class="filter-section">
           <div class="search-input">
             <div id="search" class="search-container">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input name="search" type="text" id="search-input" placeholder="Search" />
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input name="search" type="text" id="search-input" placeholder="Search" />
             </div>
             <select name="sort" id="sort-by">
               <option value="featured">Default</option>
@@ -21,7 +20,6 @@
               <option value="most popular">Most Popular</option>
             </select>
           </div>
-
         </div>
       
         <div class="active-filters">

@@ -16,5 +16,9 @@
 
   .popular-brands-top-layer{
     margin-top: var(--space-lg);
+
+    @media (max-width: 800px) {
+      margin-top: var(--space-sm);
+    }
   }
 }

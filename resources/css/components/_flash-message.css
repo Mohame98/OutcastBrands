@@ -1,5 +1,4 @@
-
-.flash-message-wrapper {
+/* .flash-message-wrapper {
   position: fixed;
   top: 100px;
   left: 50%;
@@ -9,33 +8,9 @@
   z-index: 9999;
   pointer-events: none;
   padding: 0 var(--space-sm);
-  box-sizing: border-box;
-
-  @media (max-width: 768px) {
-    .flash-message-wrapper {
-      width: calc(100% - 2rem);
-      padding: 0 1rem;
-    }
-  }
-}
-
-.flash-message-wrapper .flash-message {
-  pointer-events: auto;
 }
 
 .flash-message {
-  position: relative;
-  top: 0;
-  right: 0;
-  bottom: auto;
-  left: 0;
-  z-index: 9999;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  font-size: 0.85rem;
-  white-space: normal;
-  word-break: break-word;
   background-color: var(--dark-tertiary-bg);
   border: 1px solid var(--dark-quaternary-bg);
   box-shadow:
@@ -43,8 +18,8 @@
     0 8px 16px rgba(0, 0, 0, 0.2);
   transition: 0.4s;
 
-  padding: var(--space-xs);
-  padding-right: var(--space-md);
+  padding: var(--space-xxs);
+
   border-radius: var(--radius-sm);
 
   display: flex;
@@ -57,7 +32,6 @@
   @media (max-width: 768px) {
     .flash-message {
       font-size: 0.8rem;
-      padding: var(--space-sm);
     }
   }
 
@@ -85,11 +59,7 @@
     display: flex;
     align-items: center;
     gap: var(--space-sm);
-    min-width: 0;
-  }
-
-  .flash-text {
-    min-width: 0;
+    flex-wrap: nowrap;
   }
 }
 
@@ -97,6 +67,79 @@
   0% {
     opacity: 0;
     transform: translateY(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} */
+
+.flash-message-wrapper{
+  position: fixed;
+  z-index: 9999;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  @media (max-width: 500px) {
+    width: 97%;
+  }
+}
+
+.flash-message {
+  font-size: 0.85rem;
+  white-space: nowrap;
+  background-color: var(--dark-tertiary-bg);
+  border: 1px solid var(--dark-quaternary-bg);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: 0.4s;
+
+  padding: var(--space-xs);
+  padding-right: var(--space-sm);
+  border-radius: var(--radius-sm);
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+
+  animation: fadeInSlideDown 1s ease-out forwards;
+  will-change: transform, opacity;
+
+  @media (max-width: 500px) {
+    white-space: normal;
+  }
+
+  .fa-info{
+    padding: 6px 9px;
+    border-radius: var(--radius-circle);
+    font-size: var(--font-xs);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: var(--light);
+    cursor: pointer;
+  }
+
+  .fa-xmark{
+    cursor: pointer;
+    transition: 0.4s;
+
+    &:hover{
+      color: red;
+    }
+  }
+
+  > div{
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+}
+
+@keyframes fadeInSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px); 
   }
 
   100% {

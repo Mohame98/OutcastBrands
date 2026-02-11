@@ -12,11 +12,7 @@
   }
 
   form{
-    width: 450px;
-
-    @media (max-width: 800px) {
-      width: 100%;
-    }
+    width: 100%;
 
     fieldset {
       border: none;
@@ -48,9 +44,3 @@
     position: absolute;
   }
 }
-
-/* .signup-modal{
-  @media (max-width: 800px) {
-    top: 47%;
-  }
-} */

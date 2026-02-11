@@ -64,7 +64,7 @@
     gap: var(--space-sm);
 
     .profile-image-modal{
-      width: 450px;
+      max-width: 500px;
     }
 
     .username-modal{
@@ -80,6 +80,8 @@
     }
 
     .password-modal{
+      max-width: 500px;
+
       div{
         display: flex;
         flex-direction: column;
@@ -95,18 +97,6 @@
         flex-direction: row;
         gap: var(--space-xs);
         margin-top: var(--space-sm);
-      }
-    }
-
-    .delete-account-modal{
-      max-width: 500px;
-
-      @media (max-width: 600px) {
-        max-width: 96%;;
-      }
-
-      .btn-container{
-        justify-content: flex-start;
       }
     }
 
@@ -126,7 +116,7 @@
     }
 
     .edit-bio-modal{
-      width: 500px;
+      max-width: 500px;
     }
   }
 }

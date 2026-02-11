@@ -46,9 +46,11 @@
               All Comments
             </button>
             @auth
+            @if ($brand->comments_count)
             <button name="filter" value="liked" data-filter="filter:liked" class="filter-btn btn">
               Liked
             </button>
+            @endif
             @endauth
           </div>
           
@@ -77,23 +79,24 @@
 
       <footer class="comment-input-container">
         <div class="comment-user">
-          @if($brand->user)
+          @if(auth()->check())
             <div class="brand-author">
-              <a href="{{ route('profile.show', $brand->user) }}">
-                @if($brand->user->profile_image)
-                <div 
-                  class="brand-author-profile image" 
-                  style="background-image: url('{{ asset('storage/' . $brand->user->profile_image) }}')">
-                </div>
+              <a href="{{ route('profile.show', auth()->user()) }}">
+                @if(auth()->user()->profile_image)
+                  <div 
+                    class="brand-author-profile image" 
+                    style="background-image: url('{{ asset('storage/' . auth()->user()->profile_image) }}')">
+                  </div>
                 @else
-                <div class="brand-author-profile letter">
-                  {{ strtoupper(substr($brand->user->email, 0, 1)) }}
-                </div>
+                  <div class="brand-author-profile letter">
+                    {{ strtoupper(substr(auth()->user()->email, 0, 1)) }}
+                  </div>
                 @endif
               </a>
             </div>
           @endif
         </div>
+
         <form
           id="comment-form"
           action="{{ route('comment.add', $brand) }}"
@@ -107,17 +110,22 @@
             <div class="form-group">
               <input type="hidden" name="brand_id" value="{{ $brand->id }}">
               <label for="add_comment_text">
-                <div class="input-wrapper"> 
-                  <input autofocus type="text" placeholder="Add a comment..."  name="add_comment_text" id="add_comment_text" 
-                  required
-                  maxlength="400"
-                  title="add a comment"
-                >
+                <div class="input-wrapper">
+                  <input
+                    autofocus
+                    type="text"
+                    placeholder="Add a comment..."
+                    name="add_comment_text"
+                    id="add_comment_text"
+                    required
+                    maxlength="400"
+                    title="Add a comment"
+                  >
                 </div>
               </label>
               <x-form-error name="add_comment_text" />
             </div>
-          </fieldset>   
+          </fieldset>
         </form>
       </footer>
     </section>
