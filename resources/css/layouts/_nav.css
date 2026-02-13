@@ -4,7 +4,7 @@
 }
 
 .main-nav{
-  height: 80px;
+  height: 70px;
   display: flex;
   align-items: center;
   font-size: var(--font-sm);
@@ -99,7 +99,7 @@
   }
 
   .add-brand-modal{
-    width: 500px;
+    max-width: 525px;
 
     .number-files{
       margin-left: auto;
@@ -156,7 +156,6 @@
       position: relative;
       display: inline-block;
       cursor: pointer;
-    
 
       input[type="checkbox"] {
         position: absolute;
@@ -185,6 +184,11 @@
         font-size: var(--font-sm);
         transition: all 0.2s ease-in-out;
         user-select: none;
+
+        @media (max-width: 450px) {
+          padding: var(--space-xxxs);
+          font-size: 13px;
+        }
 
         &:hover{
           background-color: var(--dark-hover-gray);

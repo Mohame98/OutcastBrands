@@ -39,8 +39,7 @@
                       <label for="profile_image" class="media-label" tabindex="0">
                         <span>Drag or upload</span> <i class="fa-solid fa-cloud-arrow-up"></i>
                       </label>
-                      <input type="file" name="profile_image" id="profile_image" aria-label="Drag and Drop or upload media" accept="image/*" 
-                        required
+                      <input type="file" name="profile_image" id="profile_image" aria-label="Drag and Drop or upload media" accept="image/*"
                         accept=".png, .jpg, .jpeg"
                       >
                       <div class="media-preview"></div>

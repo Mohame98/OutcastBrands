@@ -1,0 +1,44 @@
+.warning-card {
+  background: linear-gradient(135deg, #1a0506, #2a0a0c);
+  border: 1px solid rgba(255, 0, 0, 0.15);
+  border-radius: 12px;
+
+  padding: 20px 24px;
+  max-width: 720px;
+
+  color: #f5f5f5;
+
+  h3 {
+    margin: 0 0 6px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0 0 16px;
+    font-size: 14px;
+    color: #d1d1d1;
+  }
+
+  .danger-btn {
+    background: #8b1a1a;
+    border: none;
+    border-radius: 8px;
+
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: #a61f1f;
+    }
+
+    &:active {
+      background: #731414;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+.location-tag {
+  font-size: var(--font-md);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xxs);
+  white-space: nowrap;
+
+  i {
+    color: var(--dark-accent-blue);
+  }
+}

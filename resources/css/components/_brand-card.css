@@ -109,7 +109,7 @@
 .voting{
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
+  gap: var(--space-xxs);
   background-color: var(--dark-tertiary-bg);
   border: 1px solid var(--dark-quaternary-bg);
   border-radius: var(--radius-lg);
@@ -202,8 +202,8 @@
         transition: opacity 0.3s ease;
         position: absolute;
         z-index: 5000;
-        bottom: 65px;
-        right: 10px;
+        bottom: 57px;
+        right: 13px;
 
         .save-btn{
           /* border: 1px solid var(--dark-quaternary-bg);
@@ -237,7 +237,7 @@
 
       .upvote,
       .downvote{
-        padding: 0.55rem;
+        padding: 0.45rem;
       }
     }
     
@@ -245,10 +245,14 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 16 / 10;
       display: flex;
       border-radius: var(--radius-sm);
       position: relative;
+
+      @media (max-width: 600px) {
+        aspect-ratio: 16 / 8;
+      }
     
       .hover-content{
         color: white;

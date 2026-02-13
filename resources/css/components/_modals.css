@@ -44,6 +44,10 @@ dialog{
   > :first-child{
     padding: var(--space-sm);
     padding-top: var(--space-xxs);
+
+    @media (max-width: 450px) {
+      padding: var(--space-xxs);
+    }
   }
 
   .modal-headers{

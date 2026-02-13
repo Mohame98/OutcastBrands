@@ -57,16 +57,21 @@ class FormResponseHandler {
 
     // Execute specific handler if exists
     const handler = this.actionHandlers[actionType];
-    if (handler) {
-      handler(result, form, actionUrl);
-    }
-
+    if (handler) handler(result, form, actionUrl);
+  
     // Handle multi-step forms
     this.handleMultiStepProgress(result, form);
 
     // Show flash message if present
     if (result.message) {
-      UIService.showFlashMessage(result.message);
+      const type =
+        result.success === true
+          ? "success"
+          : result.success === false
+          ? "error"
+          : "info";
+      console.log(result.message, type)
+      UIService.showFlashMessage(result.message, type);
     }
 
     // Close modal if submission is complete

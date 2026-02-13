@@ -36,6 +36,17 @@ class ModalManager {
     return this.openStack[this.openStack.length - 1] || null;
   }
 
+   /**
+   * Get the dialog immediately underneath the active (top) dialog.
+   * Useful for detecting if a nested modal (like a confirmation) 
+   * was opened on top of another modal (like comments).
+   * @returns {HTMLDialogElement|null}
+   */
+  getUnderlyingDialog() {
+    if (this.openStack.length < 2) return null;
+    return this.openStack[this.openStack.length - 2];
+  }
+
   /**
    * Set aria-expanded on trigger
    */

@@ -37,6 +37,16 @@
                 </button>
                 <nav class="context-menu popover" id="user-menu-{{ $user->id }}" aria-label="context menu" popover>
                   <ul>
+                    @if ($isOwner)
+                    <li class="context-item">
+                      <div class="item-btn btn context-btn">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <a class="edit-profile-btn" href="{{ route('account.profile') }}" title="Edit Profile">
+                          Edit Profile
+                        </a>
+                      </div>
+                    </li>
+                    @endif
                     {{-- <li class="context-item">Copy Url</li> --}}
                     <x-interactions.report type="user" :model="$user" />
                   </ul>
@@ -47,9 +57,11 @@
             
             <p class="user-bio">{!! $user->bio !!}</p>
             @if ($user->user_location)
-            <div class="location">
+            <div class="location-tag">
               <i class="fa-solid fa-location-dot"></i>
-              {{ Str::limit($user->user_location, 30, '...') }}
+              @if($user->user_location)
+              <small class="location">{{ Str::limit($user->user_location, 20, '...') }}</small>
+              @endif
             </div>
             @endif
             
@@ -142,13 +154,8 @@
                 </dialog>
               </div>
               @endif
-              @if ($isOwner)
-              <a class="white-btn edit-profile-btn" href="{{ route('account.profile') }}">
-                Edit Profile
-              </a>
-              @endif
+            </div>
           </div>
-        </div>
         </div>
       </div>
 

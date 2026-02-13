@@ -99,6 +99,7 @@ class CommentController extends Controller
 
     return response()->json([
       'success'      => true,
+      'message'      => "Comment updated",
       'comment_id'   => $comment->id,
       'html_comment' => $this->commentService->renderComment($comment),
     ]);
@@ -113,6 +114,7 @@ class CommentController extends Controller
 
     return response()->json([
       'success'        => true, 
+      'message'        => "Comment Deleted",
       'comment_id'     => $commentId,
       'comments_count' => $brand->refresh()->comments_count,
     ]);

@@ -177,6 +177,9 @@ input::placeholder {
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.7);
+    .hover-caption{
+      opacity: 1;
+    }
   }
 }
 

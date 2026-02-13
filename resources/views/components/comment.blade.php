@@ -94,11 +94,16 @@
               </header>
               @csrf
               @method('DELETE')
-              <p>Are you sure you want to delete this comment?:</p>                              
-              <p class="color-blue">{{ $comment->comment_text }}</p>
-              <div class="btn-container">
-                <button type="button" class="btn cancel close-modal">Cancel</button>
-                <button class="btn delete-comment-btn update" type="submit">Yes Delete</button>
+              <div class="warning-card">
+                <h3>Warning</h3>
+                <p>Are you sure you want to delete this comment?
+                  <span class="color-blue">{{ $comment->comment_text }}</span>
+                </p>
+
+                <div class="btn-container">
+                  <button type="button" class="btn cancel close-modal">Cancel</button>
+                  <button class="btn delete-comment-btn update" type="submit">Yes Delete</button>
+                </div>
               </div>
             </fieldset>
           </form>

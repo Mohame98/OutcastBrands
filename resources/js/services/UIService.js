@@ -134,8 +134,14 @@ class UIService {
         btn.dataset.loadMoreOriginal = btn.innerHTML.trim();
       }
       btn.disabled = true;
-      btn.innerHTML =
-        '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Loading...';
+      btn.textContent = "";
+
+      createNode("i", null, btn, "fa-solid fa-spinner fa-spin", null, null, 
+        { "aria-hidden": "true" }
+      );
+
+      // Append Text
+      btn.appendChild(document.createTextNode(" Loading..."));
     } else {
       btn.disabled = false;
       btn.innerHTML = btn.dataset.loadMoreOriginal || "Load more";
@@ -158,9 +164,15 @@ class UIService {
         button.dataset.originalContent = button.innerHTML.trim();
       }
       button.disabled = true;
-      
       const text = loadingText || button.textContent.trim();
-      button.innerHTML = `<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> ${text}`;
+      button.textContent = ""; 
+
+      createNode("i", null, button, "fa-solid fa-spinner fa-spin", null, null, 
+        { "aria-hidden": "true" }
+      );
+
+      // Append Text
+      button.appendChild(document.createTextNode(` ${text}`));
     } else {
       button.disabled = false;
       button.innerHTML = button.dataset.originalContent || button.innerHTML;
@@ -198,64 +210,82 @@ class UIService {
     if (UIService._flashCloseAttached) return;
 
     const flashParent =
-      document.getElementById("flash-message-wrapper") ||
+      dom.get("flash-message-wrapper") ||
       document.body;
 
     flashParent.addEventListener("click", (e) => {
-      if (!e.target.closest?.(".flash-message .fa-xmark")) return;
-      const msg = e.target.closest(".flash-message");
-      if (msg) msg.remove();
+      const closeIcon = e.target.closest?.(".flash-message .fa-xmark");
+      if (!closeIcon) return;
+
+      const message = closeIcon.closest(".flash-message");
+      if (message) message.remove();
     });
 
     UIService._flashCloseAttached = true;
   }
 
+  static _attachAutoDismiss(container) {
+    const duration = CONFIG.FLASH_MESSAGE_DURATION_MS ?? 5000;
+
+    setTimeout(() => {
+      if (!container?.isConnected) return;
+      const message = 
+        document?.querySelector(CONFIG.SELECTORS.flashMessage);
+      message.remove();
+    }, duration);
+    
+  }
+
   /**
    * Show flash message
+   * Appends to top of active Modal if one exists, otherwise uses global wrapper.
    * @param {string} message - Message to display
-   * @param {string} type - Message type (info, success, error)
+   * @param {string|boolean} type
    */
-  static showFlashMessage(message, type = "info") {
+  static showFlashMessage(message, type = 'info') {
     UIService.initFlashMessages();
+    
+    // Determine Context (Global vs Modal)
+    let flashParent = document?.querySelector(CONFIG.SELECTORS.flashMessageWrapper);
+    let isModalContext = false;
 
-    dom.getAll(CONFIG.SELECTORS.flashMessage).forEach((msg) =>
-      msg.remove()
-    );
+    const modalManager = window.app?.getModule?.("modalManager");
+    const activeDialog = modalManager?.topDialog();
+    const underlyingDialog = modalManager?.getUnderlyingDialog();
 
-    const flashParent =
-      document.getElementById("flash-message-wrapper") || document.body;
+    const isCommentModal = 
+      (activeDialog?.id === 'comment-section-modal') || 
+      (underlyingDialog?.id === 'comment-section-modal');
 
-    const flashContainer = createNode(
-      "section",
-      null,
-      flashParent,
+    if (isCommentModal) {
+      const activeWrapper = activeDialog?.querySelector(CONFIG.SELECTORS.flashMessageWrapper);
+      const underlyingWrapper = underlyingDialog?.querySelector(CONFIG.SELECTORS.flashMessageWrapper)
+      flashParent = activeWrapper || underlyingWrapper;
+      isModalContext = true;
+    }
+
+    if (isModalContext) flashParent.classList.add('flash-in-modal');
+
+    const innerSection = createNode("section", null, null,
       CONFIG.SELECTORS.flashMessage.slice(1),
-      null,
-      null,
-      {
-        "data-action": "flash-message",
-        role: "alert",
-        "aria-live": "assertive",
-      }
     );
 
-    const innerDiv = createNode("div");
-    createNode("i", null, innerDiv, "fa-solid fa-info");
+    const innerDiv = createNode("div", null, innerSection);
+
+    const icons = CONFIG.FLASH_ICONS
+    const iconClass = icons[type] || icons.info;
+    createNode("i", null, innerDiv, iconClass);
     createNode("p", message, innerDiv, "flash-text");
-    flashContainer.appendChild(innerDiv);
 
-    createNode(
-      "i",
-      null,
-      flashContainer,
-      "fa-solid fa-xmark"
+    // Close Button
+    createNode("i", null, innerSection, "fa-solid fa-xmark", null, null,
+      { role: "button", tabindex: "0", "aria-label": "Close notification" }
     );
 
-    // setTimeout(() => {
-    //   flashContainer.remove();
-    // }, CONFIG.FLASH_MESSAGE_DURATION_MS);
+    if (flashParent) flashParent.appendChild(innerSection); 
+    this._attachAutoDismiss(flashParent);
   }
-  
+
   /**
    * Show error message
    * @param {string} message - Error message
@@ -274,8 +304,7 @@ class UIService {
     form.querySelectorAll(`.${CONFIG.CLASSES.error}`).forEach((el) => {
       el.classList.remove(CONFIG.CLASSES.error);
     });
-
-    // Clear and hide existing error placeholders (Blade #error-*), don't remove them
+    
     form.querySelectorAll(`.${CONFIG.CLASSES.errorMessage}`).forEach(
       (el) => {
         el.textContent = "";
@@ -291,7 +320,6 @@ class UIService {
    */
   static showFormErrors(errors, form) {
     if (!form) return;
-
     this.clearFormErrors(form);
 
     // General error message
@@ -311,7 +339,7 @@ class UIService {
         const messageText = Array.isArray(messages)
           ? messages[0]
           : messages;
-        // Match #error-{name} (Blade placeholder); array keys like "photos.0" → #error-photos
+        // Match #error-{name}
         const baseFieldName = fieldName.split(".")[0];
         const existingError =
           form.querySelector(
@@ -324,8 +352,8 @@ class UIService {
           `[name="${fieldName}"], [name="${fieldName}[]"]`,
         );
 
-        // Use Blade placeholder when it exists (auth, add-brand, etc.)
         if (existingError) {
+          console.log(existingError)
           existingError.textContent = messageText;
           existingError.style.display = "block";
           if (field) field.classList.add(CONFIG.CLASSES.error);
@@ -336,7 +364,7 @@ class UIService {
           const selector = arrayField.dataset.selector;
           const container =
             form.querySelector(`.${selector}`) ||
-            document.querySelector(`.${selector}`);
+            dom.get(`.${selector}`);
           const errorElement = createNode(
             "span",
             messageText,
@@ -423,7 +451,7 @@ class UIService {
     createNode('i', null, undoBtn, 'fa-solid fa-rotate-left');
     undoBtn.appendChild(document.createTextNode('Undo'));
 
-    // Proxy Click: When this new button is clicked, click the hidden original one
+    // When this new button is clicked, click the hidden original one
     undoBtn.addEventListener('click', () => {
       originalButton.click();
     });
@@ -463,7 +491,6 @@ class UIService {
     // Helper to get current number from "12 brands"
     const text = counterEl.textContent.trim();
     const currentCount = text === "No brands found" ? 0 : parseInt(text, 10) || 0;
-    
     const newCount = isSaved ? currentCount + 1 : Math.max(0, currentCount - 1);
 
     if (newCount === 0) {
@@ -536,7 +563,6 @@ class UIService {
     return `hsl(${hue}, 65%, 82%)`;
   }
 
-
   /**
     * Create a spinner element inside a button    
     * @param {HTMLButtonElement} button - The button to add the spinner to
@@ -544,22 +570,16 @@ class UIService {
     */ 
   static createSpinner(button, text = null) {
     if (!button) return null;
-
     button.textContent = '';
 
-    // <span class="spinner-container">
     const spinnerContainer = 
       createNode('span', null, button, 'spinner-container');
 
-    // <i class="fa-solid fa-spinner fa-spin"></i>
     createNode('i', null, spinnerContainer, 'fa-solid fa-spinner fa-spin', null, null,
       { 'aria-hidden': 'true' }
     );
 
-    if (text) { 
-      createNode( 'span', text, spinnerContainer,'spinner-text');
-    }
-
+    if (text) createNode( 'span', text, spinnerContainer,'spinner-text');
     return spinnerContainer;
   }
 }

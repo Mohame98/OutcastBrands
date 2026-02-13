@@ -32,6 +32,11 @@
           user-select: none;
           cursor: pointer;
 
+          @media (max-width: 450px) {
+            padding: var(--space-xxxs);
+            font-size: 13px;
+          }
+
           &:hover{
             background-color: var(--dark-hover-gray);
           }

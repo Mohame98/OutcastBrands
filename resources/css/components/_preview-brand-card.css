@@ -41,19 +41,6 @@
         color: var(--text-main);
         letter-spacing: -0.02em;
       }
-
-      .location-tag {
-        font-size: 0.75rem;
-        color: var(--text-muted);
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        white-space: nowrap;
-
-        i {
-          color: var(--accent);
-        }
-      }
     }
 
     .brand-description {

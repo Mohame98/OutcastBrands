@@ -1,7 +1,7 @@
 <li class="report context-item">
   <div class="modal-wrapper">
     <button 
-      class="btn report-btn modal-btn item-btn"
+      class="btn report-btn modal-btn item-btn context-btn"
       aria-haspopup="Report {{ $type }}" 
       title="Report {{ $type }}"
       aria-controls="report-{{ $type }}-{{ $model->id }}"  
@@ -38,22 +38,20 @@
             'Captions issue',
           ];
           @endphp
+          <x-form-error name="reason" />
           <div class="report-list">
             @foreach($reasons as $value)
             <div class="form-group">
               <label for="reason_{{ $value }}_{{ $model->id }}" class="reason" title="{{ $value }}">
-                <input type="radio" name="reason" value="{{ $value }}" id="reason_{{ $value }}_{{ $model->id }}" class="radio-btn">
+                <input type="radio" name="reason" value="{{ $value }}" id="reason_{{ $value }}_{{ $model->id }}" class="radio-btn" required>
                 {{ $value }}
-                <x-form-error name="reason" />
               </label>
             </div>
             @endforeach
           </div>
-
           <div class="btn-container">
             <button class="btn update" type="submit" id="nextBtn1" data-step="1" data-action="next-step">Next</button>
           </div>
-
         </fieldset>
         {{-- step 2 --}}
         <fieldset class="multi-field">

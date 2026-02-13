@@ -27,8 +27,8 @@
             <input autofocus type="text" id="title" name="title"
               required
               maxlength="100"
-              pattern="/^[\p{L}\p{N} .,'’\-()]+$/u"
-              title="letters, numbers, spaces, and symbols: - _"
+              pattern= "^[a-zA-Z0-9\-_.'&]+$"
+              title="Letters, numbers, spaces, and symbols: - _ ' . &"
             >
           </label>
           <x-form-error name="title" />
@@ -40,8 +40,8 @@
             <input type="text" id="sub_title" name="sub_title"
               required
               maxlength="200"
-              pattern="/^[\p{L}\p{N} .,'’\-()]+$/u"
-              title="letters, numbers, spaces, and symbols: - . , ( ) ' ’"
+              pattern= "^[a-zA-Z0-9\-_.'&]+$"
+              title="Letters, numbers, spaces, and symbols: - _ ' . &"
             >
           </label>
           <x-form-error name="sub_title" />
@@ -64,8 +64,8 @@
               <input type="text" id="location" name="location"
                 required
                 maxlength="60"
-                pattern="/^[\p{L}\p{N} .,'’\-()]+$/u"
-                title="Enter brand location"
+                pattern="^[a-zA-Z0-9\s\-'.,#]+$"
+                title="Letters, numbers, spaces, and symbols: - _ ' . # ,"
               >
             </label>
             <x-form-error name="location" />
@@ -131,7 +131,10 @@
                 <P>Max Total Size: 4MB</P>
               </div>
               <button class="clear-media-btn brand" style="display: none;">
-                <i class="fa-solid fa-trash-can"></i>
+                <span>
+                  <i class="fa-solid fa-trash-can"></i>
+                  <span class="hover-caption">Remove Media</span>
+                </span>
               </button>
             </div>
           </label>

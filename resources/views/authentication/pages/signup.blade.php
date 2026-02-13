@@ -21,8 +21,8 @@
               required
               minlength="3"
               maxlength="30"
-              pattern="^[a-zA-Z0-9_]+$"
-              title="Only letters, numbers, and underscores"
+              pattern="^[a-zA-Z0-9_-]+$"
+              title="letters, numbers, underscores and dashes"
             >
           </label>  
           <x-form-error name='username'></x-form-error>    

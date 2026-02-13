@@ -12,7 +12,7 @@ export const CONFIG = {
   SEARCH_DEBOUNCE_MS: 500,
   ANIMATION_DURATION_MS: 200,
   FLASH_MESSAGE_DURATION_MS: 5000,
-  MIN_LOADER_DURATION: 300,
+  MIN_LOADER_DURATION: 400,
 
   // HTTP Status Codes
   HTTP_STATUS: {
@@ -54,6 +54,7 @@ export const CONFIG = {
     filterCheckbox: '.filter-checkbox',
     sortSelect: '#sort-by',
     searchContainer: '.search-container',
+    flashMessageWrapper: '.flash-message-wrapper',
     flashMessage: '.flash-message',
     commentCount: '#comment-count',
     modal: '.modal',
@@ -91,6 +92,14 @@ export const CONFIG = {
     liked: 'liked',
     noBrands: 'no-brands',
     loading: 'loading',
+  },
+
+  // Flash Message Icons
+  FLASH_ICONS: {
+    success: "fa-solid fa-circle-check",
+    error: "fa-solid fa-circle-exclamation",
+    warning: "fa-solid fa-triangle-exclamation",
+    info: "fa-solid fa-circle-info"
   },
 
   // Error Messages

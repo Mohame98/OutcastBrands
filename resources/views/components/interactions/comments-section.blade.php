@@ -15,6 +15,7 @@
   </div>
 
   <dialog id="comment-section-modal" class="comment-section-modal" data-brand-id="{{ $brand->id }}">
+    <div class="flash-message-wrapper" id="flash-message-wrapper" aria-live="polite"></div>
     <section class="comments-section">
       <header class="modal-headers comments-header">
         <legend>
@@ -78,25 +79,24 @@
       </div>
 
       <footer class="comment-input-container">
+        @if(auth()->check())
         <div class="comment-user">
-          @if(auth()->check())
-            <div class="brand-author">
-              <a href="{{ route('profile.show', auth()->user()) }}">
-                @if(auth()->user()->profile_image)
-                  <div 
-                    class="brand-author-profile image" 
-                    style="background-image: url('{{ asset('storage/' . auth()->user()->profile_image) }}')">
-                  </div>
-                @else
-                  <div class="brand-author-profile letter">
-                    {{ strtoupper(substr(auth()->user()->email, 0, 1)) }}
-                  </div>
-                @endif
-              </a>
-            </div>
-          @endif
-        </div>
-
+          <div class="brand-author">
+            <a href="{{ route('profile.show', auth()->user()) }}">
+              @if(auth()->user()->profile_image)
+                <div 
+                  class="brand-author-profile image" 
+                  style="background-image: url('{{ asset('storage/' . auth()->user()->profile_image) }}')">
+                </div>
+              @else
+                <div class="brand-author-profile letter">
+                  {{ strtoupper(substr(auth()->user()->email, 0, 1)) }}
+                </div>
+              @endif
+            </a>
+          </div>
+        </div> 
+        @endif
         <form
           id="comment-form"
           action="{{ route('comment.add', $brand) }}"

@@ -28,7 +28,7 @@ class AuthController extends Controller
   public function storeSignup(Request $request): JsonResponse
   {
     $validated = $this->validateJson($request, [
-    'username' => ['required', 'string', 'min:3', 'max:30', 'regex:/^[a-zA-Z0-9_]+$/', 'unique:users,username'],
+    'username' => ['required', 'string', 'min:3', 'max:30', 'regex:/^[a-zA-Z0-9_-]+$/', 'unique:users,username'],
     'signup_email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users,email'],
     'signup_password' => ['required', 'string', Password::min(8)
                       ->max(64)

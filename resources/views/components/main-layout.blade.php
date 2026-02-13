@@ -27,9 +27,6 @@
 			@include('components.flash-message')
 		</div>
 		{{ $slot }}
-		<button id="scrollToTopBtn">
-			<i class="fa-solid fa-angles-up"></i>
-		</button>
 	</main>
 	@include('layouts.footer')
 	
