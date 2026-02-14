@@ -1,4 +1,7 @@
 .user-profile{
+  .get-in-touch-modal{
+    max-width: 500px;
+  }
 
   .user-profile-container{
     margin: 0 auto;
@@ -38,6 +41,17 @@
     display: flex;
     align-items: center;
     gap: var(--space-lg);
+
+    .btn-container{
+      display: flex;
+      gap: 10px;
+
+      button{
+        display: flex;
+        align-items: center;
+        gap: 3px;
+      }
+    }
 
     .user-info{
       display: flex;

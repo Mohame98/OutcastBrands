@@ -48,7 +48,7 @@ class UserProfileController extends Controller
   public function brandProfileApi(User $user, Request $request): JsonResponse
   {
     $validated = $this->validateJson($request, [
-      'search' => 'nullable|string|max:255',
+      'search' => "nullable|string|max:255",
       'sort'   => 'nullable|in:most popular,oldest,newest',
       'filter' => 'nullable|in:all,voted',
     ]);
@@ -79,7 +79,7 @@ class UserProfileController extends Controller
     $user = Auth::user();
 
     $validated = $this->validateJson($request, [
-      'search' => 'nullable|string|max:255',
+      'search' => "nullable|string|max:255",
       'sort'   => 'nullable|in:most popular,oldest,newest',
     ]);
 

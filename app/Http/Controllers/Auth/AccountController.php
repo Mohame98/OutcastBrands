@@ -46,7 +46,7 @@ class AccountController extends Controller
     }
 
     $validated = $this->validateJson($request, [
-      'username' => 'required|string|max:90|regex:/^[a-zA-Z0-9._-]+$/|unique:users,username,' . $user->id,
+      'username' => 'required|string|max:90|unique:users,username,' . $user->id,
     ]);
 
     $oldUsername = $user->username;

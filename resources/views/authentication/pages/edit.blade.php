@@ -173,7 +173,6 @@
                 <div class="warning-card">
                   <h3>Warning</h3>
                   <p>Keep in mind that upon deleting your account all of your account information will be deleted permanently.</p>
-
                   <div class="btn-container">
                     <button type="button" class="btn cancel close-modal">
                       Cancel

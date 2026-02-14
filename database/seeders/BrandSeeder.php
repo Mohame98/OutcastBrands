@@ -12,23 +12,20 @@ use App\Models\BrandImage;
 
 class BrandSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+  /**
+   * Run the database seeds.
+   */
    public function run(): void
-    {
-        // Create 100 brands using the factory
-        $brands = Brand::factory()->count(1000)->create();
+  {
+    $brands = Brand::factory()->count(10000)->create();
+    $brands->each(function ($brand) {
+      $categories = Category::inRandomOrder()->limit(rand(1, 3))->pluck('id');
+      $brand->categories()->attach($categories);
 
-        $brands->each(function ($brand) {
-           
-            $categories = Category::inRandomOrder()->limit(rand(1, 3))->pluck('id');
-            $brand->categories()->attach($categories);
-
-            $imageCount = rand(1, 4);
-            BrandImage::factory($imageCount)->create([
-                'brand_id' => $brand->id
-            ]);
-        });
-    }
+      $imageCount = rand(1, 4);
+      BrandImage::factory($imageCount)->create([
+        'brand_id' => $brand->id
+      ]);
+    });
+  }
 }

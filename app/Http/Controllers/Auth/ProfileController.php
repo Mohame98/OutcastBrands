@@ -42,7 +42,7 @@ class ProfileController extends Controller
     if ($request->hasFile('profile_image')) {
       $newPath = $this->profileService->updateProfileImage($user, $request->file('profile_image'));
 
-      Log::info("User #{$user->id} uploaded new profile image", [
+      Log::info("User #{$user->id} {$user->username} uploaded new profile image", [
         'old_path' => $oldPath,
         'new_path' => $newPath,
         'ip'       => $request->ip()
@@ -58,7 +58,7 @@ class ProfileController extends Controller
     if ($oldPath) {
       $this->profileService->updateProfileImage($user, null);
       
-      Log::info("User #{$user->id} removed profile image", [
+      Log::info("User #{$user->id} {$user->username} removed profile image", [
         'old_path' => $oldPath,
         'ip'       => $request->ip()
       ]);
@@ -96,14 +96,16 @@ class ProfileController extends Controller
         'nullable', 
         'string', 
         'max:250', 
-        'regex:/^[\p{L}\p{N}\s.,!?"\'\-()]+$/u'
       ],
     ]);
 
     $old = $user->bio;
     $bio = $validated['bio'] ?? null;
+
     $this->profileService->updateField($user, 'bio', $bio);
-    Log::info("User #{$user->id} updated bio", ['old' => $old, 'new' => $user->bio]);
+
+    Log::info("User #{$user->id} {$user->username} updated bio", 
+    ['old' => $old, 'new' => $user->bio]);
 
     return response()->json(['success' => true, 'bio' => $user->bio, 'message' => 'Bio Updated.']);
   }
@@ -125,7 +127,7 @@ class ProfileController extends Controller
       ],
     ]);
 
-    // 2. Specialized Update via Service (Handles normalization)
+    // Specialized Update via Service
     $old = $user->instagram;
     $instagram = $validated['instagram'] ?? null;
 
@@ -134,7 +136,8 @@ class ProfileController extends Controller
       return response()->json(['success' => false, 'message' => 'No changes made.'], 200);
     }
 
-    Log::info("User #{$user->id} updated instagram", ['old' => $old, 'new' => $user->instagram]);
+    Log::info("User #{$user->id} {$user->username} updated instagram", 
+    ['old' => $old, 'new' => $user->instagram]);
 
     return response()->json([
       'success' => true,
@@ -160,7 +163,6 @@ class ProfileController extends Controller
         'nullable', 
         'string', 
         'max:60', 
-        "regex:/^[\p{L}\p{N} .,'’\-()]+$/u",
       ],
     ]);
 

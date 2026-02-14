@@ -11,15 +11,15 @@ use Database\Seeders\BrandSeeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
-    {
-        $this->call([
-            CategorySeeder::class,
-            UserSeeder::class,
-            BrandSeeder::class,
-        ]);
-    }
+  /**
+   * Seed the application's database.
+   */
+  public function run(): void
+  {
+    $this->call([
+      CategorySeeder::class,
+      UserSeeder::class,
+      // BrandSeeder::class,
+    ]);
+  }
 }

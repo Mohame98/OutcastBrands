@@ -353,7 +353,6 @@ class UIService {
         );
 
         if (existingError) {
-          console.log(existingError)
           existingError.textContent = messageText;
           existingError.style.display = "block";
           if (field) field.classList.add(CONFIG.CLASSES.error);

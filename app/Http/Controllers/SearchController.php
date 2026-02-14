@@ -35,7 +35,7 @@ class SearchController extends Controller
 	{
 		// Validation via trait
 		$validated = $this->validateJson($request, [
-			'search'   => 'nullable|string|max:255',
+			'search'   => "nullable|string|max:255",
 			'sort'     => 'nullable|in:most popular,oldest,newest',
 			'category' => 'nullable|string',
 			'filter'   => 'nullable|in:past-week,past-month,past-3-months,past-year,all',

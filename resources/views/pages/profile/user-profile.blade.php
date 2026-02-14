@@ -55,7 +55,7 @@
               @endauth
             </div>
             
-            <p class="user-bio">{!! $user->bio !!}</p>
+            <p class="user-bio">{{ $user->bio }}</p>
             @if ($user->user_location)
             <div class="location-tag">
               <i class="fa-solid fa-location-dot"></i>
@@ -90,6 +90,7 @@
                     method="POST"
                     class="action-form"
                     data-action="send-contact-message"
+                    data-submission="true"
                   >
                     <fieldset class="get-in-touch-field" id="get-in-touch-field">
                       <header class="modal-headers">
@@ -133,7 +134,9 @@
                       <div class="form-group">
                         <label for="subject" class="subject">
                           <span>Subject (Optional)</span>
-                          <input type="text" id="subject" name="subject">
+                          <input type="text" id="subject" name="subject"
+                            maxlength="60"
+                          >
                         </label>
                         <x-form-error name="subject" />
                       </div>
@@ -141,7 +144,9 @@
                       <div class="form-group">
                         <label for="message">
                           <span>Message *</span>
-                          <textarea name="message" id="message" rows="5"></textarea>
+                          <textarea name="message" id="message" rows="5" 
+                            maxlength="200" required
+                          ></textarea>
                         </label>
                         <x-form-error name="message" />
                       </div>

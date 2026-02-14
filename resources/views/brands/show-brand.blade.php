@@ -101,7 +101,7 @@ $vote = $brand->voters->firstWhere('id', auth()->id())?->pivot->vote ?? null;
         @if(trim(strip_tags($brand->description)) != '')
         <div class="ql-container ql-snow">
           <div class="ql-editor">
-            {!! $brand->description !!}
+            {{ $brand->description }}
           </div>
         </div>
         @endif

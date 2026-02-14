@@ -38,16 +38,12 @@ class BrandsController extends Controller
   public function storeBrand1(Request $request)
   {
     $validated = $this->validateJson($request, [
-      'title' => "required|string|max:100|regex:/^[\p{L}\p{N} \-().,\'’]+$/u",
-      'sub_title' => 'required|string|max:200|regex:/^[\p{L}\p{N}\p{P}\p{Zs}]+$/u',
-      'location' => "required|string|max:60|regex:/^[\p{L}\p{N} .,'’\-()]+$/u",
+      'title' => "required|string|max:100",
+      'sub_title' => "required|string|max:200",
+      'location' => "required|string|max:60",
       'website' => 'nullable|url|max:255',
       'launch_date' => 'nullable|date',
     ]);
-
-    $validated['title']      = strip_tags($validated['title']);
-    $validated['sub_title']  = strip_tags($validated['sub_title']);
-    $validated['location']   = strip_tags($validated['location']);
 
     session(['step1' => $validated]);
     return response()->json(['success' => true, 'multi_step' => true]);

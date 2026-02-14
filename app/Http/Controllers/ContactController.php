@@ -23,13 +23,11 @@ class ContactController extends Controller
     $receiver = $user; 
 
     $validated = $this->validateJson($request, [
-      'subject' => 'nullable|string|max:255|regex:/^[\p{L}\p{N}\p{P}\p{Zs}]+$/u',
-      'message' => 'required|string|max:1000|regex:/^[\p{L}\p{N}\p{P}\p{Zs}\r\n]+$/u',
+      'subject' => "nullable|string|max:255"
+      'message' => "required|string|max:1000"
     ]);
 
     $validated['subject'] = $validated['subject'] ?? null;
-    $validated['message'] = strip_tags($validated['message']);
-
     try {
       Mail::send('emails.contact', [
         'data' => [

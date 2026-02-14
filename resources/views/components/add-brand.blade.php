@@ -27,8 +27,6 @@
             <input autofocus type="text" id="title" name="title"
               required
               maxlength="100"
-              pattern= "^[a-zA-Z0-9\-_.'&]+$"
-              title="Letters, numbers, spaces, and symbols: - _ ' . &"
             >
           </label>
           <x-form-error name="title" />
@@ -40,8 +38,6 @@
             <input type="text" id="sub_title" name="sub_title"
               required
               maxlength="200"
-              pattern= "^[a-zA-Z0-9\-_.'&]+$"
-              title="Letters, numbers, spaces, and symbols: - _ ' . &"
             >
           </label>
           <x-form-error name="sub_title" />
@@ -64,8 +60,6 @@
               <input type="text" id="location" name="location"
                 required
                 maxlength="60"
-                pattern="^[a-zA-Z0-9\s\-'.,#]+$"
-                title="Letters, numbers, spaces, and symbols: - _ ' . # ,"
               >
             </label>
             <x-form-error name="location" />
@@ -115,7 +109,6 @@
         </header>
         <p>Submit at most 4 images of your brand/product.</p>
         <p class="featured-noti">The first image will be the featured image.</p>
-        <p class="upload-warning">Keep total size under 4MB. Large files will be rejected.</p>
 
         <div class="multiple-photos">
           <label for="brand-image">
@@ -160,9 +153,9 @@
         <p>Choose up to 3 categories for your brand.</p>
         @php
         $categories = [
-          'Footwear', 'Accessories', 'Outerwear', 'Casual', 'Formal',
-          'Activewear', 'Streetwear', 'Minimalist', 'Vintage', 'Preppy',
-          'Seasonal', 'Luxury', 'Sustainable'
+          'Fashion', 'Beauty', 'Home', 'Technology', 'Sports',
+          'Automotive', 'Food', 'Entertainment', 'Business', 'Software', 
+          'Media', 'Services', 'Luxury'
         ];
         @endphp
         <div class="category-list multiple-categories" data-limit="3">

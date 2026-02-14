@@ -70,7 +70,6 @@ class FormResponseHandler {
           : result.success === false
           ? "error"
           : "info";
-      console.log(result.message, type)
       UIService.showFlashMessage(result.message, type);
     }
 

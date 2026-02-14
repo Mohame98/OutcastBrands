@@ -3,10 +3,10 @@
   <section class="search-page" id="search-page">
     <div class="container">
       @php
-      $categories = [
-        'Footwear', 'Accessories', 'Outerwear', 'Casual', 'Formal',
-        'Activewear', 'Streetwear', 'Minimalist', 'Vintage', 'Preppy',
-        'Seasonal', 'Luxury', 'Sustainable'
+       $categories = [
+        'Fashion', 'Beauty', 'Home', 'Technology', 'Sports',
+        'Automotive', 'Food', 'Entertainment', 'Business', 'Software', 
+        'Media', 'Services', 'Luxury'
       ];
       @endphp
 

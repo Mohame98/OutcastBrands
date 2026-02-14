@@ -10,7 +10,7 @@
         </header>
         
         <div>
-          <p>Join a network of fashion trend setters</p>
+          <p>Join a network of innovators</p>
         </div>
 
         <div class="form-group">
@@ -20,9 +20,7 @@
               placeholder="Enter username" aria-label="Enter username" autofocus
               required
               minlength="3"
-              maxlength="30"
-              pattern="^[a-zA-Z0-9_-]+$"
-              title="letters, numbers, underscores and dashes"
+              maxlength="50"
             >
           </label>  
           <x-form-error name='username'></x-form-error>    
@@ -50,8 +48,6 @@
                 placeholder="Enter password" aria-label="Enter password" class="password-input" required
                 minlength="8"
                 maxlength="64"
-                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$"
-                title="Include 8 characters, uppercase, lowercase, number, and special character"
                 autocomplete="new-password">
               @include('components.toggle-password')
             </div>
